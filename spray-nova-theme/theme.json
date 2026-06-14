@@ -1,0 +1,63 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "color": {
+      "palette": [
+        {
+          "slug": "nova-purple",
+          "color": "#c6a0eb",
+          "name": "Morado Nova"
+        },
+        {
+          "slug": "nova-purple-dark",
+          "color": "#9d6dca",
+          "name": "Morado oscuro"
+        },
+        {
+          "slug": "nova-black",
+          "color": "#111111",
+          "name": "Negro"
+        },
+        {
+          "slug": "nova-paper",
+          "color": "#faf8f3",
+          "name": "Papel"
+        },
+        {
+          "slug": "nova-sand",
+          "color": "#dec08b",
+          "name": "Arena"
+        }
+      ]
+    },
+    "layout": {
+      "contentSize": "900px",
+      "wideSize": "1380px"
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "fontFamily": "\"DM Sans\", Arial, sans-serif",
+          "name": "DM Sans",
+          "slug": "dm-sans"
+        },
+        {
+          "fontFamily": "\"Archivo Black\", Impact, sans-serif",
+          "name": "Archivo Black",
+          "slug": "archivo-black"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#faf8f3",
+      "text": "#111111"
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--dm-sans)"
+    }
+  }
+}
