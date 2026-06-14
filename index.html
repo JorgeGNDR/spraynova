@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Spray Nova, tienda especializada en sprays, rotuladores y ceras para graffiti."
+    />
+    <title>Spray Nova | Graffiti Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="announcement">
+      <p>Envío gratis desde 60 € <span></span> Entrega 24/48 h en península</p>
+    </div>
+
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Spray Nova, inicio">
+        <img src="assets/isotipo.jpg" alt="" />
+        <span>SPRAY NOVA</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Navegación principal">
+        <a href="#catalogo">Tienda</a>
+        <a href="#categorias">Categorías</a>
+        <a href="#novedades">Novedades</a>
+        <a href="#nosotros">Nosotros</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-button search-toggle" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-4-4"></path>
+          </svg>
+        </button>
+        <button class="icon-button cart-toggle" aria-label="Abrir carrito">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 4h2l2.3 10.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H7"></path>
+            <circle cx="10" cy="20" r="1"></circle>
+            <circle cx="18" cy="20" r="1"></circle>
+          </svg>
+          <span class="cart-count">0</span>
+        </button>
+        <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+          <span></span><span></span>
+        </button>
+      </div>
+
+      <div class="search-panel">
+        <label for="site-search">¿Qué estás buscando?</label>
+        <div>
+          <input id="site-search" type="search" placeholder="Sprays, rotuladores, ceras..." />
+          <button class="search-close" aria-label="Cerrar búsqueda">×</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Material para dejar huella</p>
+          <h1>COLOR.<br /><span>CONTROL.</span><br />ACTITUD.</h1>
+          <p class="hero-description">
+            Sprays, rotuladores y ceras seleccionados para que tu idea llegue del boceto al muro.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-dark" href="#catalogo">Ver productos</a>
+            <a class="text-link" href="#categorias">Explorar categorías <span>↗</span></a>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <div class="paint-blob"></div>
+          <p class="outline-word">NOVA</p>
+          <div class="spray-can spray-purple">
+            <span class="can-cap"></span>
+            <span class="can-label">SN</span>
+            <small>400 ML</small>
+          </div>
+          <div class="spray-can spray-black">
+            <span class="can-cap"></span>
+            <span class="can-label">SN</span>
+            <small>400 ML</small>
+          </div>
+          <img src="assets/isotipo.jpg" alt="" />
+          <span class="spark spark-one">✦</span>
+          <span class="spark spark-two">✦</span>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="Ventajas">
+        <div>
+          <span>+250 COLORES</span><i>✦</i>
+          <span>MARCAS SELECCIONADAS</span><i>✦</i>
+          <span>PARA TODAS LAS SUPERFICIES</span><i>✦</i>
+          <span>+250 COLORES</span><i>✦</i>
+        </div>
+      </section>
+
+      <section class="categories section" id="categorias">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Encuentra tu herramienta</p>
+            <h2>COMPRA POR CATEGORÍA</h2>
+          </div>
+          <a class="text-link" href="#catalogo">Ver todo <span>↗</span></a>
+        </div>
+
+        <div class="category-grid">
+          <button class="category-card category-sprays" data-filter="sprays">
+            <span class="category-number">01</span>
+            <span class="category-visual">
+              <i class="mini-can one"></i><i class="mini-can two"></i><i class="mini-can three"></i>
+            </span>
+            <span class="category-name">SPRAYS</span>
+            <span class="category-arrow">↗</span>
+          </button>
+          <button class="category-card category-markers" data-filter="rotuladores">
+            <span class="category-number">02</span>
+            <span class="category-visual">
+              <i class="marker one"></i><i class="marker two"></i><i class="marker three"></i>
+            </span>
+            <span class="category-name">ROTULADORES</span>
+            <span class="category-arrow">↗</span>
+          </button>
+          <button class="category-card category-wax" data-filter="ceras">
+            <span class="category-number">03</span>
+            <span class="category-visual">
+              <i class="wax one"></i><i class="wax two"></i><i class="wax three"></i>
+            </span>
+            <span class="category-name">CERAS</span>
+            <span class="category-arrow">↗</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="products section" id="catalogo">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" id="novedades">Lo último en llegar</p>
+            <h2>PRODUCTOS DESTACADOS</h2>
+          </div>
+          <div class="product-filters" aria-label="Filtrar productos">
+            <button class="active" data-filter="todos">Todos</button>
+            <button data-filter="sprays">Sprays</button>
+            <button data-filter="rotuladores">Rotuladores</button>
+            <button data-filter="ceras">Ceras</button>
+          </div>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card" data-category="sprays" data-name="Spray Nova 400 Violeta">
+            <div class="product-image purple-product">
+              <span class="product-badge">Nuevo</span>
+              <div class="product-can"><i></i><b>NOVA</b><small>400</small></div>
+              <button class="quick-add" data-product="Spray Nova 400 Violeta" data-price="4.50">
+                Añadir <span>+</span>
+              </button>
+            </div>
+            <p class="product-type">Sprays · 400 ml</p>
+            <h3>Spray Nova 400 Violeta</h3>
+            <p class="price">4,50 €</p>
+          </article>
+
+          <article class="product-card" data-category="sprays" data-name="Spray Nova 400 Negro Mate">
+            <div class="product-image black-product">
+              <div class="product-can"><i></i><b>NOVA</b><small>400</small></div>
+              <button class="quick-add" data-product="Spray Nova 400 Negro Mate" data-price="4.50">
+                Añadir <span>+</span>
+              </button>
+            </div>
+            <p class="product-type">Sprays · 400 ml</p>
+            <h3>Spray Nova 400 Negro Mate</h3>
+            <p class="price">4,50 €</p>
+          </article>
+
+          <article class="product-card" data-category="rotuladores" data-name="Marker Nova 15 mm">
+            <div class="product-image marker-product">
+              <span class="product-badge beige">Top ventas</span>
+              <div class="product-marker"><i></i><b>NOVA MARKER</b></div>
+              <button class="quick-add" data-product="Marker Nova 15 mm" data-price="5.95">
+                Añadir <span>+</span>
+              </button>
+            </div>
+            <p class="product-type">Rotuladores · Punta 15 mm</p>
+            <h3>Marker Nova 15 mm</h3>
+            <p class="price">5,95 €</p>
+          </article>
+
+          <article class="product-card" data-category="ceras" data-name="Cera sólida Nova">
+            <div class="product-image wax-product">
+              <div class="product-wax"><i></i><b>NOVA</b></div>
+              <button class="quick-add" data-product="Cera sólida Nova" data-price="3.25">
+                Añadir <span>+</span>
+              </button>
+            </div>
+            <p class="product-type">Ceras · Permanente</p>
+            <h3>Cera sólida Nova</h3>
+            <p class="price">3,25 €</p>
+          </article>
+        </div>
+        <p class="empty-results">No hemos encontrado productos con esa búsqueda.</p>
+      </section>
+
+      <section class="brand-story section" id="nosotros">
+        <div class="story-logo">
+          <img src="assets/logo-redondo.jpg" alt="Spray Nova Graffiti Shop" />
+        </div>
+        <div class="story-copy">
+          <p class="eyebrow">Spray Nova Graffiti Shop</p>
+          <h2>HECHO PARA QUIENES NO DEJAN EL MURO EN BLANCO.</h2>
+          <p>
+            Material fiable, colores que responden y atención cercana. Seleccionamos cada producto
+            pensando en escritores, ilustradores y gente que crea a su manera.
+          </p>
+          <a class="button button-outline" href="#">Conócenos</a>
+        </div>
+      </section>
+
+      <section class="newsletter">
+        <div>
+          <p class="eyebrow">Sin spam. Solo color.</p>
+          <h2>NOVEDADES EN TU BANDEJA</h2>
+        </div>
+        <form class="newsletter-form">
+          <label class="sr-only" for="email">Tu email</label>
+          <input id="email" type="email" placeholder="Tu email" required />
+          <button type="submit">Suscribirme ↗</button>
+        </form>
+        <p class="newsletter-message" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <footer>
+      <a class="footer-brand" href="#">
+        <img src="assets/isotipo.jpg" alt="" />
+        <span>SPRAY NOVA</span>
+      </a>
+      <div class="footer-links">
+        <a href="#catalogo">Tienda</a>
+        <a href="#categorias">Categorías</a>
+        <a href="#">Envíos y devoluciones</a>
+        <a href="#">Contacto</a>
+      </div>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="TikTok">TK</a>
+      </div>
+      <p class="footer-bottom">© 2026 Spray Nova · Aviso legal · Privacidad · Cookies</p>
+    </footer>
+
+    <div class="drawer-backdrop"></div>
+    <aside class="cart-drawer" aria-label="Carrito">
+      <div class="cart-header">
+        <h2>Tu carrito <span class="drawer-count">(0)</span></h2>
+        <button class="cart-close" aria-label="Cerrar carrito">×</button>
+      </div>
+      <div class="cart-items">
+        <div class="empty-cart">
+          <span>0</span>
+          <h3>Tu carrito está vacío</h3>
+          <p>Añade un poco de color.</p>
+        </div>
+      </div>
+      <div class="cart-footer">
+        <div><span>Subtotal</span><strong class="cart-total">0,00 €</strong></div>
+        <button class="button button-dark">Finalizar compra</button>
+        <small>Impuestos incluidos. Envío calculado al finalizar.</small>
+      </div>
+    </aside>
+
+    <script src="script.js"></script>
+  </body>
+</html>
