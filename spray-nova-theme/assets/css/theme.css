@@ -1871,8 +1871,9 @@ footer {
 
 .spray-color-selector {
   clear: both;
-  margin-top: 34px;
-  padding: 28px;
+  width: 100%;
+  margin: 24px 0 64px;
+  padding: clamp(24px, 3vw, 42px);
   background: var(--paper);
   border: 1px solid var(--ink);
 }
@@ -1979,11 +1980,9 @@ footer {
 
 .spray-color-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   gap: 12px;
-  max-height: 620px;
-  overflow: auto;
-  padding-right: 4px;
+  overflow: visible;
 }
 
 .spray-color-card {
@@ -2108,8 +2107,8 @@ footer {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  margin: 24px -28px -28px;
-  padding: 18px 28px;
+  margin: 24px calc(clamp(24px, 3vw, 42px) * -1) calc(clamp(24px, 3vw, 42px) * -1);
+  padding: 18px clamp(24px, 3vw, 42px);
   color: var(--white);
   background: var(--ink);
 }

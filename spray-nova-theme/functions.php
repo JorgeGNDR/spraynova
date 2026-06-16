@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.1.1' );
+define( 'SPRAY_NOVA_VERSION', '1.1.2' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -198,7 +198,7 @@ function spray_nova_prepare_spray_product_summary() {
 	}
 
 	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
-	add_action( 'woocommerce_single_product_summary', 'spray_nova_spray_color_selector', 30 );
+	add_action( 'woocommerce_after_single_product_summary', 'spray_nova_spray_color_selector', 5 );
 }
 add_action( 'woocommerce_single_product_summary', 'spray_nova_prepare_spray_product_summary', 1 );
 
