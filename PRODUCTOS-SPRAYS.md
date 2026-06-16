@@ -1,34 +1,69 @@
-# Spray Nova: estructura recomendada para NBQ y DOPE
+# Spray Nova: catálogo de sprays
 
-## Productos
+## Idea base
 
-Crea solo estos productos principales:
+La tienda debe mostrar pocas líneas claras y dejar que el cliente elija colores dentro de cada línea.
 
-- `NBQ 800ml`
-- `DOPE Classic 400ml`
+No conviene crear un producto por color. Lo correcto es:
 
-Ambos deben ser **Producto variable** y estar en la categoría WooCommerce `Sprays` con slug `sprays`.
+- Un producto por gama.
+- Una variación por color.
+- Una carta visual de colores en la ficha del producto.
 
-## Atributos
+El tema Spray Nova ya hace esto automáticamente con cualquier **producto variable** que esté en la categoría WooCommerce `Sprays` con slug `sprays`.
 
-Crea un atributo global:
+## Productos principales
 
-- Nombre: `Color`
-- Slug recomendado: `color`
+Estos son los productos que deberías crear en WooCommerce:
 
-Cada color real debe ser un término del atributo `Color`.
+| Producto | Marca | Formato | Colores | Presión | Acabado | Tipo |
+| --- | --- | --- | ---: | --- | --- | --- |
+| DOPE Classic 400ml | DOPE | 400ml | 62 | Media | Mate | Variable |
+| NBQ Eternal 400ml | NBQ | 400ml | 4 | Alta | Nitro | Variable |
+| NBQ Fast | NBQ | 400ml | 46 | Alta | Mate | Variable |
+| Plata o Plomo 500ml | NBQ | 500ml | 1 o varios | Alta | Superbrillante | Simple o variable |
+| NBQ Eternal 800 | NBQ | 600ml reales / lata 800 | 15 | Alta | Nitro | Variable |
+| DOPE Action 2.0 | DOPE | 600ml | 10 | Alta | Mate | Variable |
 
-Ejemplos:
+## Cómo lo verá el cliente
 
-- `Negro Mate`
-- `Blanco`
-- `Rojo Vivo`
-- `Azul Cielo`
-- `Plata`
+En la página de `Sprays`, el cliente verá tarjetas por gama:
 
-## Variaciones
+- DOPE Classic 400ml
+- NBQ Eternal 400ml
+- NBQ Fast
+- Plata o Plomo 500ml
+- NBQ Eternal 800
+- DOPE Action 2.0
 
-Cada color es una variación del producto.
+Al entrar en una gama, verá:
+
+- Foto principal de la lata.
+- Presión, acabado y formato.
+- Buscador por nombre o código.
+- Filtros por familia de color.
+- Swatches de color.
+- Cantidad por color.
+- Botón único: `Añadir selección al carrito`.
+
+Esto escala bien: DOPE Classic con 62 colores y NBQ Eternal 400 con 4 colores usan la misma interfaz.
+
+## Atributos recomendados
+
+Crea estos atributos globales en WooCommerce:
+
+- `Color`
+- `Marca`
+- `Formato`
+- `Presión`
+- `Acabado`
+- `Tipo de pintura`
+
+El atributo imprescindible para el selector es `Color`.
+
+## Campos de cada variación
+
+Cada color debe ser una variación del producto.
 
 Para cada variación rellena:
 
@@ -41,16 +76,16 @@ Para cada variación rellena:
 - Opcional: `Código de color`
 - Opcional: `Familia de color`
 
-El tema usa esos campos opcionales para pintar la carta de colores. Si no los rellenas, intenta ordenarlo automáticamente por nombre y SKU.
+El tema usa esos campos opcionales para pintar la carta de colores.
 
 ## Cómo se muestran los colores en la web
 
 El selector visual toma los colores de cada variación:
 
-- `Color visual HEX` pinta el círculo de color.
-- `Código de color` aparece debajo del nombre.
-- `Familia de color` decide en qué filtro aparece: negros, blancos, rojos, azules, etc.
-- El atributo `Color` da el nombre visible de la variación.
+- `Color visual HEX`: pinta el círculo de color.
+- `Código de color`: aparece debajo del nombre.
+- `Familia de color`: decide el filtro: negros, blancos, rojos, azules, etc.
+- El atributo `Color`: da el nombre visible de la variación.
 
 Ejemplo:
 
@@ -59,26 +94,49 @@ Ejemplo:
 - `Código de color`: `D031`
 - `Familia de color`: `rojos`
 
-En la ficha de producto el cliente verá el swatch rojo, el nombre `D031 Bomba Red`, su precio y los botones de cantidad.
+En la ficha del producto el cliente verá el swatch rojo, el nombre `D031 Bomba Red`, su precio y los botones de cantidad.
 
 ## DOPE Classic 400ml
 
-He preparado dos CSV:
+Ya hay dos CSV preparados:
 
 - `data/dope-classic-colors.csv`: carta limpia de colores, útil como referencia.
 - `data/woocommerce-dope-classic-400ml-import.csv`: importación WooCommerce con el producto `DOPE Classic 400ml` y sus 62 variaciones.
 
 El CSV de WooCommerce usa precio provisional `4.50` en todas las variaciones. Cámbialo antes o después de importar si tu precio real es otro.
 
-Para importarlo:
+## NBQ Eternal 400ml
 
-1. Ve a `Productos > Todos los productos`.
-2. Pulsa `Importar`.
-3. Sube `data/woocommerce-dope-classic-400ml-import.csv`.
-4. En el mapeo, comprueba que las columnas `Meta: _spray_nova_color_hex`, `Meta: _spray_nova_color_code` y `Meta: _spray_nova_color_family` se importan como metadatos.
-5. Ejecuta la importación.
-6. Abre `DOPE Classic 400ml` y confirma que está en la categoría `Sprays`.
-7. Publica o revisa precios antes de vender.
+Este producto tiene pocos colores, así que también debe ser variable, pero será muy rápido de gestionar.
+
+Variaciones iniciales:
+
+- Negro
+- Blanco
+- Plata
+- Oro
+
+He dejado preparado:
+
+- `data/nbq-eternal-400-colors.csv`
+- `data/woocommerce-nbq-eternal-400-import.csv`
+
+Los HEX son aproximados para visualizar la web. Si NBQ tiene códigos oficiales, los sustituimos después.
+
+## Resto de gamas
+
+Para estas gamas falta la carta exacta de colores:
+
+- NBQ Fast: 46 colores.
+- NBQ Eternal 800: 15 colores.
+- DOPE Action 2.0: 10 colores.
+- Plata o Plomo: confirmar si es solo plata/plomo o más variantes.
+
+He dejado un archivo maestro con la estructura:
+
+- `data/spray-product-lines.csv`
+
+Cuando tengas las cartas de color, se añaden igual que DOPE Classic.
 
 ## Stock
 
@@ -113,14 +171,14 @@ Para una tienda real con tarjeta, mi recomendación es:
 
 Más adelante, cuando tengas stock fino, WooCommerce evitará vender colores agotados.
 
-## Experiencia del cliente
+## Importación
 
-En la ficha de `DOPE Classic 400ml` o `NBQ 800ml`, el cliente verá:
+Para importar un CSV:
 
-- Buscador por nombre o código.
-- Filtros por familia: negros, blancos, rojos, azules, etc.
-- Parrilla de colores.
-- Cantidades por color.
-- Botón único: `Añadir selección al carrito`.
-
-Así puede comprar 1, 6, 12 o 30 latas combinando colores sin entrar y salir de 60 páginas.
+1. Ve a `Productos > Todos los productos`.
+2. Pulsa `Importar`.
+3. Sube el CSV correspondiente.
+4. En el mapeo, comprueba que las columnas `Meta: _spray_nova_color_hex`, `Meta: _spray_nova_color_code` y `Meta: _spray_nova_color_family` se importan como metadatos.
+5. Ejecuta la importación.
+6. Abre el producto y confirma que está en la categoría `Sprays`.
+7. Revisa precios, imagen principal, descripción y peso antes de vender.
