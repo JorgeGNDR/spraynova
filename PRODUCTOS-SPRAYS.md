@@ -182,3 +182,29 @@ Para importar un CSV:
 5. Ejecuta la importación.
 6. Abre el producto y confirma que está en la categoría `Sprays`.
 7. Revisa precios, imagen principal, descripción y peso antes de vender.
+
+## Excel maestro
+
+He creado un Excel maestro:
+
+- `spray-nova-catalogo-productos.xlsx`
+
+Incluye:
+
+- Hoja `Gamas` con toda la estructura comercial.
+- Hoja `DOPE Classic 400` con 62 colores reales.
+- Hoja `NBQ Eternal 400` con 4 colores base.
+- Plantillas para `NBQ Fast 400`, `NBQ Eternal 800`, `DOPE Action 2` y `Plata o Plomo 500`.
+- Hoja `WooCommerce Import` con el formato de importación.
+
+También hay un CSV maestro generado desde ese Excel:
+
+- `data/woocommerce-spray-master-import.csv`
+
+Ese CSV ya contiene los productos/variaciones que tienen colores rellenados.
+
+Para regenerar el Excel desde los CSV:
+
+```bash
+NODE_PATH=C:\tmp\spray-nova-excel\node_modules node tools\generate-product-workbook.js
+```
