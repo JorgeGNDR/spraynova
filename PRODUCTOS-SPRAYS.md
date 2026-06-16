@@ -195,6 +195,7 @@ Incluye:
 - Hoja `DOPE Classic 400` con 62 colores reales.
 - Hoja `NBQ Eternal 400` con 4 colores base.
 - Plantillas para `NBQ Fast 400`, `NBQ Eternal 800`, `DOPE Action 2` y `Plata o Plomo 500`.
+- Hoja `Ceras` con 47 productos extraídos del proveedor con permiso.
 - Hoja `WooCommerce Import` con el formato de importación.
 
 También hay un CSV maestro generado desde ese Excel:
@@ -202,6 +203,32 @@ También hay un CSV maestro generado desde ese Excel:
 - `data/woocommerce-spray-master-import.csv`
 
 Ese CSV ya contiene los productos/variaciones que tienen colores rellenados.
+
+Ahora incluye:
+
+- 6 productos principales de sprays.
+- 68 variaciones de sprays ya rellenas.
+- 47 productos simples de ceras.
+
+## Ceras
+
+Las ceras están organizadas como productos simples en la categoría `Ceras`.
+
+Archivos creados:
+
+- `data/ceras-productos.csv`: catálogo limpio con nombre, SKU, precio, imagen y referencia.
+- `data/woocommerce-ceras-import.csv`: importador WooCommerce solo para ceras.
+- `data/images/ceras/`: copias locales de las 47 imágenes autorizadas.
+
+La importación WooCommerce usa la columna `Images` con la URL autorizada de proveedor. Las copias locales quedan guardadas como respaldo por si prefieres subirlas manualmente a la biblioteca de medios.
+
+Los precios de ceras son los detectados en la página del proveedor. Revísalos antes de vender si quieres aplicar otro margen.
+
+## Precios actuales
+
+- Sprays de 400ml importados: `3.95`.
+- Ceras: precio detectado del proveedor.
+- Gamas pendientes sin colores completos: precio vacío hasta confirmar.
 
 Para regenerar el Excel desde los CSV:
 

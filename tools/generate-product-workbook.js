@@ -111,6 +111,7 @@ const families = [
 const productLines = readCsv("spray-product-lines.csv");
 const dopeClassic = readCsv("dope-classic-colors.csv");
 const nbqEternal400 = readCsv("nbq-eternal-400-colors.csv");
+const waxProducts = readCsv("ceras-productos.csv");
 
 const colorSheets = [
   {
@@ -118,14 +119,14 @@ const colorSheets = [
     sku: "DOPE-CLASSIC-400",
     product: "DOPE Classic 400ml",
     colors: dopeClassic,
-    price: "4.50",
+    price: "3.95",
   },
   {
     sheet: "NBQ Eternal 400",
     sku: "NBQ-ETERNAL-400",
     product: "NBQ Eternal 400ml",
     colors: nbqEternal400,
-    price: "4.50",
+    price: "3.95",
   },
   {
     sheet: "NBQ Fast 400",
@@ -137,7 +138,7 @@ const colorSheets = [
       hex: "",
       family: "",
     })),
-    price: "",
+    price: "3.95",
   },
   {
     sheet: "NBQ Eternal 800",
@@ -197,6 +198,7 @@ function woocommerceRows() {
     "Categories",
     "In stock?",
     "Manage stock?",
+    "Images",
     "Attribute 1 name",
     "Attribute 1 value(s)",
     "Attribute 1 visible",
@@ -300,6 +302,45 @@ function woocommerceRows() {
         "Meta: _spray_nova_color_code": color.code,
         "Meta: _spray_nova_color_family": color.family || familyFromHex(color.hex),
       });
+    });
+  });
+
+  waxProducts.forEach((product) => {
+    rows.push({
+      Type: "simple",
+      SKU: product.sku,
+      Name: product.name,
+      Published: "1",
+      "Visibility in catalog": "visible",
+      "Regular price": product.price || "",
+      Categories: "Ceras",
+      "In stock?": "1",
+      "Manage stock?": "0",
+      Images: product.authorized_image_url || "",
+      "Attribute 1 name": "Marca",
+      "Attribute 1 value(s)": product.brand || "",
+      "Attribute 1 visible": product.brand ? "1" : "0",
+      "Attribute 1 global": "0",
+      "Attribute 2 name": "",
+      "Attribute 2 value(s)": "",
+      "Attribute 2 visible": "",
+      "Attribute 2 global": "",
+      "Attribute 3 name": "",
+      "Attribute 3 value(s)": "",
+      "Attribute 3 visible": "",
+      "Attribute 3 global": "",
+      "Attribute 4 name": "",
+      "Attribute 4 value(s)": "",
+      "Attribute 4 visible": "",
+      "Attribute 4 global": "",
+      "Attribute 5 name": "",
+      "Attribute 5 value(s)": "",
+      "Attribute 5 visible": "",
+      "Attribute 5 global": "",
+      Parent: "",
+      "Meta: _spray_nova_color_hex": "",
+      "Meta: _spray_nova_color_code": "",
+      "Meta: _spray_nova_color_family": "",
     });
   });
 
@@ -440,6 +481,26 @@ async function main() {
       };
     }
   });
+
+  const waxSheet = workbook.addWorksheet("Ceras");
+  waxSheet.columns = [
+    { header: "sku", key: "sku", width: 34 },
+    { header: "name", key: "name", width: 34 },
+    { header: "brand", key: "brand", width: 16 },
+    { header: "price", key: "price", width: 10 },
+    { header: "stock_status", key: "stock_status", width: 14 },
+    { header: "manage_stock", key: "manage_stock", width: 14 },
+    { header: "image_file", key: "image_file", width: 42 },
+    { header: "authorized_image_url", key: "authorized_image_url", width: 62 },
+    { header: "source_url", key: "source_url", width: 56 },
+    { header: "source_stock", key: "source_stock", width: 14 },
+    { header: "notes", key: "notes", width: 34 },
+  ];
+  waxSheet.addRows(waxProducts);
+  styleHeader(waxSheet.getRow(1));
+  setAutoFilterAndFreeze(waxSheet);
+  addValidation(waxSheet, "E", 2, Math.max(waxSheet.rowCount, 80), ["instock", "outofstock"]);
+  addValidation(waxSheet, "F", 2, Math.max(waxSheet.rowCount, 80), ["0", "1"]);
 
   const { headers, rows } = woocommerceRows();
   const importSheet = workbook.addWorksheet("WooCommerce Import");
