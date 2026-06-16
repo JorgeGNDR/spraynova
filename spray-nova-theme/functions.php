@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.0.0' );
+define( 'SPRAY_NOVA_VERSION', '1.1.0' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -85,6 +85,8 @@ function spray_nova_assets() {
 	wp_localize_script( 'spray-nova-theme', 'sprayNova', array(
 		'cartUrl'     => function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/' ),
 		'checkoutUrl' => function_exists( 'wc_get_checkout_url' ) ? wc_get_checkout_url() : home_url( '/' ),
+		'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
+		'nonce'       => wp_create_nonce( 'spray_nova_cart' ),
 	) );
 }
 add_action( 'wp_enqueue_scripts', 'spray_nova_assets' );
@@ -152,6 +154,373 @@ function spray_nova_woocommerce_integration() {
 }
 add_action( 'wp', 'spray_nova_woocommerce_integration' );
 add_filter( 'loop_shop_columns', function() { return 4; } );
+
+/**
+ * Determine whether a product should use the spray color wall.
+ *
+ * @param WC_Product|null $product Product object.
+ * @return bool
+ */
+function spray_nova_is_spray_product( $product ) {
+	if ( ! $product instanceof WC_Product || ! $product->is_type( 'variable' ) ) {
+		return false;
+	}
+
+	return has_term( 'sprays', 'product_cat', $product->get_id() );
+}
+
+/**
+ * Replace the default variation selector with the custom spray color wall.
+ */
+function spray_nova_prepare_spray_product_summary() {
+	global $product;
+
+	if ( ! spray_nova_is_spray_product( $product ) ) {
+		return;
+	}
+
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+	add_action( 'woocommerce_single_product_summary', 'spray_nova_spray_color_selector', 30 );
+}
+add_action( 'woocommerce_single_product_summary', 'spray_nova_prepare_spray_product_summary', 1 );
+
+/**
+ * Get a readable color label from a variation.
+ *
+ * @param WC_Product_Variation $variation Variation object.
+ * @return string
+ */
+function spray_nova_get_variation_color_label( $variation ) {
+	foreach ( $variation->get_attributes() as $name => $value ) {
+		if ( false !== strpos( $name, 'color' ) || false !== strpos( $name, 'colour' ) ) {
+			$taxonomy = 0 === strpos( $name, 'pa_' ) ? $name : '';
+			if ( $taxonomy && taxonomy_exists( $taxonomy ) ) {
+				$term = get_term_by( 'slug', $value, $taxonomy );
+				if ( $term ) {
+					return $term->name;
+				}
+			}
+			return ucwords( str_replace( array( '-', '_' ), ' ', $value ) );
+		}
+	}
+
+	return $variation->get_name();
+}
+
+/**
+ * Infer a simple color family for filtering.
+ *
+ * @param string $label Color label.
+ * @param string $hex Hex color.
+ * @return string
+ */
+function spray_nova_infer_color_family( $label, $hex = '' ) {
+	$text = strtolower( remove_accents( $label . ' ' . $hex ) );
+
+	$families = array(
+		'negros'    => array( 'black', 'negro', 'asfalto', 'carbon' ),
+		'blancos'   => array( 'white', 'blanco', 'cream', 'crema' ),
+		'grises'    => array( 'grey', 'gray', 'gris', 'plata', 'silver', 'chrome', 'cromo' ),
+		'rojos'     => array( 'red', 'rojo', 'burdeos', 'granate', 'magenta' ),
+		'naranjas'  => array( 'orange', 'naranja', 'mandarina' ),
+		'amarillos' => array( 'yellow', 'amarillo', 'ocre' ),
+		'verdes'    => array( 'green', 'verde', 'oliva', 'lime' ),
+		'azules'    => array( 'blue', 'azul', 'cyan', 'cian' ),
+		'morados'   => array( 'purple', 'violet', 'violeta', 'morado', 'lila' ),
+		'marrones'  => array( 'brown', 'marron', 'marrón', 'siena', 'tierra' ),
+		'rosas'     => array( 'pink', 'rosa', 'fucsia' ),
+	);
+
+	foreach ( $families as $family => $needles ) {
+		foreach ( $needles as $needle ) {
+			if ( false !== strpos( $text, $needle ) ) {
+				return $family;
+			}
+		}
+	}
+
+	return 'otros';
+}
+
+/**
+ * Return a fallback swatch color based on the family.
+ *
+ * @param string $family Family slug.
+ * @return string
+ */
+function spray_nova_family_hex( $family ) {
+	$colors = array(
+		'negros'    => '#161616',
+		'blancos'   => '#f7f2e8',
+		'grises'    => '#9b9b9b',
+		'rojos'     => '#c73737',
+		'naranjas'  => '#ef7d22',
+		'amarillos' => '#f1c83b',
+		'verdes'    => '#4b9b59',
+		'azules'    => '#3977c9',
+		'morados'   => '#9d6dca',
+		'marrones'  => '#8a5a35',
+		'rosas'     => '#e77ab8',
+		'otros'     => '#c6a0eb',
+	);
+
+	return isset( $colors[ $family ] ) ? $colors[ $family ] : $colors['otros'];
+}
+
+/**
+ * Render the spray color wall on variable spray products.
+ */
+function spray_nova_spray_color_selector() {
+	global $product;
+
+	if ( ! spray_nova_is_spray_product( $product ) ) {
+		return;
+	}
+
+	$variation_ids = $product->get_children();
+	$colors        = array();
+	$families      = array();
+
+	foreach ( $variation_ids as $variation_id ) {
+		$variation = wc_get_product( $variation_id );
+		if ( ! $variation instanceof WC_Product_Variation || ! $variation->exists() ) {
+			continue;
+		}
+
+		$label  = spray_nova_get_variation_color_label( $variation );
+		$hex    = get_post_meta( $variation_id, '_spray_nova_color_hex', true );
+		$code   = get_post_meta( $variation_id, '_spray_nova_color_code', true );
+		$family = get_post_meta( $variation_id, '_spray_nova_color_family', true );
+
+		if ( ! $code ) {
+			$code = $variation->get_sku() ? $variation->get_sku() : $label;
+		}
+		if ( ! $family ) {
+			$family = spray_nova_infer_color_family( $label, $hex );
+		}
+		if ( ! $hex ) {
+			$hex = spray_nova_family_hex( $family );
+		}
+
+		$families[ $family ] = $family;
+		$colors[] = array(
+			'id'          => $variation_id,
+			'label'       => $label,
+			'code'        => $code,
+			'hex'         => $hex,
+			'family'      => $family,
+			'price'       => (float) $variation->get_price(),
+			'price_html'  => $variation->get_price_html(),
+			'is_enabled'  => $variation->is_purchasable() && $variation->is_in_stock(),
+			'stock_label' => $variation->is_in_stock() ? __( 'Disponible', 'spray-nova' ) : __( 'Agotado', 'spray-nova' ),
+		);
+	}
+
+	if ( ! $colors ) {
+		echo '<div class="spray-color-selector spray-color-selector-empty"><p>' . esc_html__( 'Crea variaciones de color para mostrar la carta de sprays.', 'spray-nova' ) . '</p></div>';
+		return;
+	}
+
+	$family_labels = array(
+		'negros'    => __( 'Negros', 'spray-nova' ),
+		'blancos'   => __( 'Blancos', 'spray-nova' ),
+		'grises'    => __( 'Grises', 'spray-nova' ),
+		'rojos'     => __( 'Rojos', 'spray-nova' ),
+		'naranjas'  => __( 'Naranjas', 'spray-nova' ),
+		'amarillos' => __( 'Amarillos', 'spray-nova' ),
+		'verdes'    => __( 'Verdes', 'spray-nova' ),
+		'azules'    => __( 'Azules', 'spray-nova' ),
+		'morados'   => __( 'Morados', 'spray-nova' ),
+		'marrones'  => __( 'Marrones', 'spray-nova' ),
+		'rosas'     => __( 'Rosas', 'spray-nova' ),
+		'otros'     => __( 'Otros', 'spray-nova' ),
+	);
+	?>
+	<section class="spray-color-selector" data-product-id="<?php echo esc_attr( $product->get_id() ); ?>">
+		<div class="spray-selector-head">
+			<div>
+				<p class="eyebrow"><?php esc_html_e( 'Carta de colores', 'spray-nova' ); ?></p>
+				<h2><?php esc_html_e( 'ELIGE COLORES Y CANTIDADES', 'spray-nova' ); ?></h2>
+			</div>
+			<p><?php esc_html_e( 'Puedes combinar varios colores en un solo pedido. Si no llevas stock todavía, deja el stock sin gestionar y revisa el pedido antes de preparar el envío.', 'spray-nova' ); ?></p>
+		</div>
+
+		<div class="spray-selector-tools">
+			<label class="spray-color-search">
+				<span><?php esc_html_e( 'Buscar color o código', 'spray-nova' ); ?></span>
+				<input type="search" placeholder="<?php esc_attr_e( 'Ej. negro, 101, violeta...', 'spray-nova' ); ?>">
+			</label>
+			<div class="spray-family-filters" aria-label="<?php esc_attr_e( 'Filtrar familias de color', 'spray-nova' ); ?>">
+				<button type="button" class="active" data-family="todos"><?php esc_html_e( 'Todos', 'spray-nova' ); ?></button>
+				<?php foreach ( array_keys( $families ) as $family ) : ?>
+					<button type="button" data-family="<?php echo esc_attr( $family ); ?>"><?php echo esc_html( isset( $family_labels[ $family ] ) ? $family_labels[ $family ] : ucfirst( $family ) ); ?></button>
+				<?php endforeach; ?>
+			</div>
+		</div>
+
+		<div class="spray-color-grid">
+			<?php foreach ( $colors as $color ) : ?>
+				<article
+					class="spray-color-card<?php echo $color['is_enabled'] ? '' : ' is-disabled'; ?>"
+					data-variation-id="<?php echo esc_attr( $color['id'] ); ?>"
+					data-family="<?php echo esc_attr( $color['family'] ); ?>"
+					data-label="<?php echo esc_attr( strtolower( remove_accents( $color['label'] . ' ' . $color['code'] ) ) ); ?>"
+					data-price="<?php echo esc_attr( $color['price'] ); ?>"
+				>
+					<button class="spray-swatch" type="button" style="--swatch: <?php echo esc_attr( $color['hex'] ); ?>" <?php disabled( ! $color['is_enabled'] ); ?>>
+						<span></span>
+					</button>
+					<div class="spray-color-info">
+						<strong><?php echo esc_html( $color['label'] ); ?></strong>
+						<small><?php echo esc_html( $color['code'] ); ?> · <?php echo wp_kses_post( $color['price_html'] ); ?></small>
+						<em><?php echo esc_html( $color['stock_label'] ); ?></em>
+					</div>
+					<div class="spray-qty" aria-label="<?php esc_attr_e( 'Cantidad', 'spray-nova' ); ?>">
+						<button type="button" class="spray-qty-minus" <?php disabled( ! $color['is_enabled'] ); ?>>−</button>
+						<input type="number" min="0" step="1" value="0" inputmode="numeric" <?php disabled( ! $color['is_enabled'] ); ?>>
+						<button type="button" class="spray-qty-plus" <?php disabled( ! $color['is_enabled'] ); ?>>+</button>
+					</div>
+				</article>
+			<?php endforeach; ?>
+		</div>
+
+		<p class="spray-color-empty"><?php esc_html_e( 'No hay colores con ese filtro.', 'spray-nova' ); ?></p>
+
+		<div class="spray-selector-bar">
+			<div>
+				<strong class="spray-selected-count">0 <?php esc_html_e( 'latas seleccionadas', 'spray-nova' ); ?></strong>
+				<span class="spray-selected-total"><?php echo wp_kses_post( wc_price( 0 ) ); ?></span>
+			</div>
+			<button type="button" class="button button-dark spray-add-pack" disabled><?php esc_html_e( 'Añadir selección al carrito', 'spray-nova' ); ?></button>
+		</div>
+		<p class="spray-selector-message" aria-live="polite"></p>
+	</section>
+	<?php
+}
+
+/**
+ * Add optional variation fields for a better color wall.
+ */
+function spray_nova_variation_color_fields( $loop, $variation_data, $variation ) {
+	echo '<div class="options_group spray-nova-variation-fields">';
+	woocommerce_wp_text_input( array(
+		'id'          => "_spray_nova_color_hex[{$loop}]",
+		'name'        => "_spray_nova_color_hex[{$loop}]",
+		'value'       => get_post_meta( $variation->ID, '_spray_nova_color_hex', true ),
+		'label'       => __( 'Color visual HEX', 'spray-nova' ),
+		'placeholder' => '#c6a0eb',
+		'desc_tip'    => true,
+		'description' => __( 'Opcional. Se usa para pintar el swatch en la carta de colores.', 'spray-nova' ),
+	) );
+	woocommerce_wp_text_input( array(
+		'id'          => "_spray_nova_color_code[{$loop}]",
+		'name'        => "_spray_nova_color_code[{$loop}]",
+		'value'       => get_post_meta( $variation->ID, '_spray_nova_color_code', true ),
+		'label'       => __( 'Código de color', 'spray-nova' ),
+		'placeholder' => 'NBQ-101',
+	) );
+	woocommerce_wp_select( array(
+		'id'      => "_spray_nova_color_family[{$loop}]",
+		'name'    => "_spray_nova_color_family[{$loop}]",
+		'value'   => get_post_meta( $variation->ID, '_spray_nova_color_family', true ),
+		'label'   => __( 'Familia de color', 'spray-nova' ),
+		'options' => array(
+			''          => __( 'Detectar automáticamente', 'spray-nova' ),
+			'negros'    => __( 'Negros', 'spray-nova' ),
+			'blancos'   => __( 'Blancos', 'spray-nova' ),
+			'grises'    => __( 'Grises / plata', 'spray-nova' ),
+			'rojos'     => __( 'Rojos', 'spray-nova' ),
+			'naranjas'  => __( 'Naranjas', 'spray-nova' ),
+			'amarillos' => __( 'Amarillos', 'spray-nova' ),
+			'verdes'    => __( 'Verdes', 'spray-nova' ),
+			'azules'    => __( 'Azules', 'spray-nova' ),
+			'morados'   => __( 'Morados', 'spray-nova' ),
+			'marrones'  => __( 'Marrones', 'spray-nova' ),
+			'rosas'     => __( 'Rosas', 'spray-nova' ),
+			'otros'     => __( 'Otros', 'spray-nova' ),
+		),
+	) );
+	echo '</div>';
+}
+add_action( 'woocommerce_product_after_variable_attributes', 'spray_nova_variation_color_fields', 10, 3 );
+
+/**
+ * Save optional variation color fields.
+ *
+ * @param int $variation_id Variation ID.
+ * @param int $loop Variation loop index.
+ */
+function spray_nova_save_variation_color_fields( $variation_id, $loop ) {
+	$fields = array(
+		'_spray_nova_color_hex'    => 'sanitize_hex_color',
+		'_spray_nova_color_code'   => 'sanitize_text_field',
+		'_spray_nova_color_family' => 'sanitize_key',
+	);
+
+	foreach ( $fields as $field => $sanitize_callback ) {
+		if ( ! isset( $_POST[ $field ][ $loop ] ) ) {
+			continue;
+		}
+		$value = call_user_func( $sanitize_callback, wp_unslash( $_POST[ $field ][ $loop ] ) );
+		if ( $value ) {
+			update_post_meta( $variation_id, $field, $value );
+		} else {
+			delete_post_meta( $variation_id, $field );
+		}
+	}
+}
+add_action( 'woocommerce_save_product_variation', 'spray_nova_save_variation_color_fields', 10, 2 );
+
+/**
+ * Add several spray color variations to the cart in one request.
+ */
+function spray_nova_add_spray_pack_to_cart() {
+	check_ajax_referer( 'spray_nova_cart', 'nonce' );
+
+	if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
+		wp_send_json_error( array( 'message' => __( 'WooCommerce no está disponible.', 'spray-nova' ) ), 400 );
+	}
+
+	$product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
+	$items_json = isset( $_POST['items'] ) ? wp_unslash( $_POST['items'] ) : '[]';
+	$items      = json_decode( $items_json, true );
+	$product    = wc_get_product( $product_id );
+
+	if ( ! spray_nova_is_spray_product( $product ) || ! is_array( $items ) ) {
+		wp_send_json_error( array( 'message' => __( 'Selección no válida.', 'spray-nova' ) ), 400 );
+	}
+
+	$added = 0;
+	foreach ( $items as $item ) {
+		$variation_id = isset( $item['variation_id'] ) ? absint( $item['variation_id'] ) : 0;
+		$quantity     = isset( $item['quantity'] ) ? absint( $item['quantity'] ) : 0;
+		$variation    = wc_get_product( $variation_id );
+
+		if ( ! $quantity || ! $variation instanceof WC_Product_Variation || (int) $variation->get_parent_id() !== (int) $product_id ) {
+			continue;
+		}
+		if ( ! $variation->is_purchasable() || ! $variation->is_in_stock() ) {
+			continue;
+		}
+
+		$cart_key = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variation->get_variation_attributes() );
+		if ( $cart_key ) {
+			$added += $quantity;
+		}
+	}
+
+	if ( ! $added ) {
+		wp_send_json_error( array( 'message' => __( 'No se pudo añadir ningún color al carrito.', 'spray-nova' ) ), 400 );
+	}
+
+	wp_send_json_success( array(
+		'message'   => sprintf( _n( '%s lata añadida al carrito.', '%s latas añadidas al carrito.', $added, 'spray-nova' ), number_format_i18n( $added ) ),
+		'fragments' => apply_filters( 'woocommerce_add_to_cart_fragments', array() ),
+		'cart_hash' => WC()->cart->get_cart_hash(),
+	) );
+}
+add_action( 'wp_ajax_spray_nova_add_spray_pack', 'spray_nova_add_spray_pack_to_cart' );
+add_action( 'wp_ajax_nopriv_spray_nova_add_spray_pack', 'spray_nova_add_spray_pack_to_cart' );
 
 /**
  * Product card used on the home page.

@@ -11,6 +11,7 @@
   const filterButtons = [...document.querySelectorAll(".product-filters button")];
   const productCards = [...document.querySelectorAll("#catalogo .product-card")];
   const emptyResults = document.querySelector("#catalogo .empty-results");
+  const spraySelector = document.querySelector(".spray-color-selector");
 
   function openCart() {
     if (!cartDrawer || !backdrop) return;
@@ -50,6 +51,154 @@
     if (emptyResults) {
       emptyResults.style.display = visibleProducts ? "none" : "block";
     }
+  }
+
+  function formatMoney(value) {
+    return new Intl.NumberFormat("es-ES", {
+      style: "currency",
+      currency: "EUR",
+    }).format(value);
+  }
+
+  function initSpraySelector() {
+    if (!spraySelector) return;
+
+    const cards = [...spraySelector.querySelectorAll(".spray-color-card")];
+    const search = spraySelector.querySelector(".spray-color-search input");
+    const familyButtons = [...spraySelector.querySelectorAll(".spray-family-filters button")];
+    const addButton = spraySelector.querySelector(".spray-add-pack");
+    const countLabel = spraySelector.querySelector(".spray-selected-count");
+    const totalLabel = spraySelector.querySelector(".spray-selected-total");
+    const message = spraySelector.querySelector(".spray-selector-message");
+    const empty = spraySelector.querySelector(".spray-color-empty");
+    let activeFamily = "todos";
+
+    function selectedItems() {
+      return cards
+        .map((card) => {
+          const input = card.querySelector("input");
+          return {
+            variation_id: Number(card.dataset.variationId),
+            quantity: Math.max(0, Number(input.value || 0)),
+            price: Number(card.dataset.price || 0),
+          };
+        })
+        .filter((item) => item.quantity > 0);
+    }
+
+    function updateSummary() {
+      const items = selectedItems();
+      const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0);
+      const totalPrice = items.reduce((sum, item) => sum + item.quantity * item.price, 0);
+
+      if (countLabel) {
+        countLabel.textContent = `${totalQuantity} ${
+          totalQuantity === 1 ? "lata seleccionada" : "latas seleccionadas"
+        }`;
+      }
+      if (totalLabel) totalLabel.textContent = formatMoney(totalPrice);
+      if (addButton) addButton.disabled = totalQuantity === 0;
+    }
+
+    function applySprayFilters() {
+      const query = (search?.value || "").trim().toLocaleLowerCase("es");
+      let visible = 0;
+
+      cards.forEach((card) => {
+        const familyMatches = activeFamily === "todos" || card.dataset.family === activeFamily;
+        const textMatches = !query || (card.dataset.label || "").includes(query);
+        const show = familyMatches && textMatches;
+        card.classList.toggle("hidden", !show);
+        if (show) visible += 1;
+      });
+
+      if (empty) empty.style.display = visible ? "none" : "block";
+    }
+
+    cards.forEach((card) => {
+      const input = card.querySelector("input");
+      const minus = card.querySelector(".spray-qty-minus");
+      const plus = card.querySelector(".spray-qty-plus");
+      const swatch = card.querySelector(".spray-swatch");
+
+      function setQuantity(value) {
+        input.value = Math.max(0, Number(value || 0));
+        card.classList.toggle("is-selected", Number(input.value) > 0);
+        updateSummary();
+      }
+
+      minus?.addEventListener("click", () => setQuantity(Number(input.value || 0) - 1));
+      plus?.addEventListener("click", () => setQuantity(Number(input.value || 0) + 1));
+      swatch?.addEventListener("click", () => setQuantity(Number(input.value || 0) + 1));
+      input?.addEventListener("input", () => setQuantity(input.value));
+    });
+
+    search?.addEventListener("input", applySprayFilters);
+    familyButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        activeFamily = button.dataset.family;
+        familyButtons.forEach((item) => item.classList.toggle("active", item === button));
+        applySprayFilters();
+      });
+    });
+
+    addButton?.addEventListener("click", () => {
+      const items = selectedItems().map((item) => ({
+        variation_id: item.variation_id,
+        quantity: item.quantity,
+      }));
+
+      if (!items.length || !window.sprayNova?.ajaxUrl) return;
+
+      addButton.disabled = true;
+      addButton.classList.add("is-loading");
+      if (message) message.textContent = "Añadiendo selección...";
+
+      $.post(window.sprayNova.ajaxUrl, {
+        action: "spray_nova_add_spray_pack",
+        nonce: window.sprayNova.nonce,
+        product_id: spraySelector.dataset.productId,
+        items: JSON.stringify(items),
+      })
+        .done((response) => {
+          if (!response?.success) {
+            throw new Error(response?.data?.message || "No se pudo añadir la selección.");
+          }
+
+          if (response.data.fragments) {
+            Object.entries(response.data.fragments).forEach(([selector, html]) => {
+              document.querySelectorAll(selector).forEach((element) => {
+                element.outerHTML = html;
+              });
+            });
+          }
+
+          cards.forEach((card) => {
+            const input = card.querySelector("input");
+            input.value = 0;
+            card.classList.remove("is-selected");
+          });
+          updateSummary();
+          if (message) message.textContent = response.data.message;
+          $(document.body).trigger("added_to_cart", [
+            response.data.fragments || {},
+            response.data.cart_hash || "",
+            addButton,
+          ]);
+          openCart();
+        })
+        .fail((xhr) => {
+          const error = xhr.responseJSON?.data?.message || "No se pudo añadir la selección.";
+          if (message) message.textContent = error;
+        })
+        .always(() => {
+          addButton.classList.remove("is-loading");
+          updateSummary();
+        });
+    });
+
+    applySprayFilters();
+    updateSummary();
   }
 
   document.addEventListener("click", (event) => {
@@ -99,4 +248,5 @@
   });
 
   if (productCards.length) setFilter("todos");
+  initSpraySelector();
 })(jQuery);

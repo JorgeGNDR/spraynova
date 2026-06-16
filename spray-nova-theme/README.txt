@@ -56,4 +56,25 @@ El tema utiliza las funciones nativas de WooCommerce para:
 * Zonas y tarifas de envío.
 * Cuenta del cliente y pedidos.
 
-Version: 1.0.0
+== Sprays con carta de colores ==
+
+Para latas de spray, usa productos variables:
+
+* NBQ 800ml
+* DOPE Classic 400ml
+
+Ambos deben estar dentro de la categoría de producto "Sprays" con slug "sprays". En esos productos el tema sustituye el selector estándar de variaciones por una carta visual de colores con búsqueda, filtros por familia y selector de cantidades.
+
+Configuración recomendada:
+
+1. Crea un atributo global llamado "Color".
+2. Añade un término por color real.
+3. Crea una variación por color.
+4. En cada variación rellena precio y SKU.
+5. Opcionalmente rellena "Color visual HEX", "Código de color" y "Familia de color".
+
+Si todavía no controlas stock, no actives "Gestionar inventario" en las variaciones. WooCommerce aceptará pedidos y podrás revisar cada pedido antes de prepararlo y enviarlo.
+
+Si más adelante quieres controlar stock, activa "Gestionar inventario" por variación. Cada color descontará sus unidades de forma independiente.
+
+Version: 1.1.0
