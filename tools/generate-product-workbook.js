@@ -5,6 +5,7 @@ const ExcelJS = require("exceljs");
 const root = path.resolve(__dirname, "..");
 const dataDir = path.join(root, "data");
 const outFile = path.join(root, "spray-nova-catalogo-productos.xlsx");
+const publicAssetBase = "https://spray-nova.vercel.app/";
 
 function parseCsv(content) {
   const rows = [];
@@ -60,6 +61,11 @@ function writeCsv(file, rows, headers) {
     rows.map((row) => headers.map((header) => csvEscape(row[header])).join(",")),
   );
   fs.writeFileSync(path.join(dataDir, file), `${lines.join("\n")}\n`);
+}
+
+function publicImageUrl(imageFile) {
+  if (!imageFile) return "";
+  return `${publicAssetBase}${String(imageFile).replace(/\\/g, "/").replace(/^\/+/, "")}`;
 }
 
 function familyFromHex(hex, fallback = "otros") {
@@ -203,23 +209,11 @@ function woocommerceRows() {
     "Attribute 1 value(s)",
     "Attribute 1 visible",
     "Attribute 1 global",
-    "Attribute 2 name",
-    "Attribute 2 value(s)",
-    "Attribute 2 visible",
-    "Attribute 2 global",
-    "Attribute 3 name",
-    "Attribute 3 value(s)",
-    "Attribute 3 visible",
-    "Attribute 3 global",
-    "Attribute 4 name",
-    "Attribute 4 value(s)",
-    "Attribute 4 visible",
-    "Attribute 4 global",
-    "Attribute 5 name",
-    "Attribute 5 value(s)",
-    "Attribute 5 visible",
-    "Attribute 5 global",
     "Parent",
+    "Meta: _spray_nova_brand",
+    "Meta: _spray_nova_format",
+    "Meta: _spray_nova_pressure",
+    "Meta: _spray_nova_finish",
     "Meta: _spray_nova_color_hex",
     "Meta: _spray_nova_color_code",
     "Meta: _spray_nova_color_family",
@@ -244,23 +238,11 @@ function woocommerceRows() {
       "Attribute 1 value(s)": productAttributeValues(usableColors),
       "Attribute 1 visible": "1",
       "Attribute 1 global": "0",
-      "Attribute 2 name": "Marca",
-      "Attribute 2 value(s)": line.brand || "",
-      "Attribute 2 visible": "1",
-      "Attribute 2 global": "0",
-      "Attribute 3 name": "Formato",
-      "Attribute 3 value(s)": line.format || "",
-      "Attribute 3 visible": "1",
-      "Attribute 3 global": "0",
-      "Attribute 4 name": "Presión",
-      "Attribute 4 value(s)": line.pressure || "",
-      "Attribute 4 visible": "1",
-      "Attribute 4 global": "0",
-      "Attribute 5 name": "Acabado",
-      "Attribute 5 value(s)": line.finish || "",
-      "Attribute 5 visible": "1",
-      "Attribute 5 global": "0",
       Parent: "",
+      "Meta: _spray_nova_brand": line.brand || "",
+      "Meta: _spray_nova_format": line.format || "",
+      "Meta: _spray_nova_pressure": line.pressure || "",
+      "Meta: _spray_nova_finish": line.finish || "",
       "Meta: _spray_nova_color_hex": "",
       "Meta: _spray_nova_color_code": "",
       "Meta: _spray_nova_color_family": "",
@@ -281,23 +263,11 @@ function woocommerceRows() {
         "Attribute 1 value(s)": `${color.code} ${color.name}`.trim(),
         "Attribute 1 visible": "1",
         "Attribute 1 global": "0",
-        "Attribute 2 name": "Marca",
-        "Attribute 2 value(s)": line.brand || "",
-        "Attribute 2 visible": "1",
-        "Attribute 2 global": "0",
-        "Attribute 3 name": "Formato",
-        "Attribute 3 value(s)": line.format || "",
-        "Attribute 3 visible": "1",
-        "Attribute 3 global": "0",
-        "Attribute 4 name": "Presión",
-        "Attribute 4 value(s)": line.pressure || "",
-        "Attribute 4 visible": "1",
-        "Attribute 4 global": "0",
-        "Attribute 5 name": "Acabado",
-        "Attribute 5 value(s)": line.finish || "",
-        "Attribute 5 visible": "1",
-        "Attribute 5 global": "0",
         Parent: sheet.sku,
+        "Meta: _spray_nova_brand": line.brand || "",
+        "Meta: _spray_nova_format": line.format || "",
+        "Meta: _spray_nova_pressure": line.pressure || "",
+        "Meta: _spray_nova_finish": line.finish || "",
         "Meta: _spray_nova_color_hex": color.hex,
         "Meta: _spray_nova_color_code": color.code,
         "Meta: _spray_nova_color_family": color.family || familyFromHex(color.hex),
@@ -316,28 +286,16 @@ function woocommerceRows() {
       Categories: "Ceras",
       "In stock?": "1",
       "Manage stock?": "0",
-      Images: product.authorized_image_url || "",
+      Images: publicImageUrl(product.image_file) || product.authorized_image_url || "",
       "Attribute 1 name": "Marca",
       "Attribute 1 value(s)": product.brand || "",
       "Attribute 1 visible": product.brand ? "1" : "0",
       "Attribute 1 global": "0",
-      "Attribute 2 name": "",
-      "Attribute 2 value(s)": "",
-      "Attribute 2 visible": "",
-      "Attribute 2 global": "",
-      "Attribute 3 name": "",
-      "Attribute 3 value(s)": "",
-      "Attribute 3 visible": "",
-      "Attribute 3 global": "",
-      "Attribute 4 name": "",
-      "Attribute 4 value(s)": "",
-      "Attribute 4 visible": "",
-      "Attribute 4 global": "",
-      "Attribute 5 name": "",
-      "Attribute 5 value(s)": "",
-      "Attribute 5 visible": "",
-      "Attribute 5 global": "",
       Parent: "",
+      "Meta: _spray_nova_brand": product.brand || "",
+      "Meta: _spray_nova_format": "",
+      "Meta: _spray_nova_pressure": "",
+      "Meta: _spray_nova_finish": "",
       "Meta: _spray_nova_color_hex": "",
       "Meta: _spray_nova_color_code": "",
       "Meta: _spray_nova_color_family": "",
@@ -398,7 +356,7 @@ async function main() {
     "El tema usa hex, code y family para pintar la carta visual de colores.",
     "Si no llevas stock, deja manage_stock en 0 y stock vacío.",
     "Para importar en WooCommerce exporta/usa la hoja WooCommerce Import como CSV.",
-    "Precio provisional: DOPE Classic y NBQ Eternal 400 están a 4.50. Cámbialo al precio real.",
+    "Precio actual: las latas de 400ml importadas están a 3.95. WooCommerce decide la moneda desde Ajustes > General.",
     "",
     "Productos incluidos:",
     ...productLines.map((line) => `- ${line.name}: ${line.color_count || "por confirmar"} colores, ${line.pressure}, ${line.finish}`),
@@ -492,11 +450,15 @@ async function main() {
     { header: "manage_stock", key: "manage_stock", width: 14 },
     { header: "image_file", key: "image_file", width: 42 },
     { header: "authorized_image_url", key: "authorized_image_url", width: 62 },
+    { header: "woo_import_image_url", key: "woo_import_image_url", width: 62 },
     { header: "source_url", key: "source_url", width: 56 },
     { header: "source_stock", key: "source_stock", width: 14 },
     { header: "notes", key: "notes", width: 34 },
   ];
-  waxSheet.addRows(waxProducts);
+  waxSheet.addRows(waxProducts.map((product) => ({
+    ...product,
+    woo_import_image_url: publicImageUrl(product.image_file) || product.authorized_image_url,
+  })));
   styleHeader(waxSheet.getRow(1));
   setAutoFilterAndFreeze(waxSheet);
   addValidation(waxSheet, "E", 2, Math.max(waxSheet.rowCount, 80), ["instock", "outofstock"]);
@@ -520,6 +482,12 @@ async function main() {
   await workbook.xlsx.writeFile(outFile);
 
   writeCsv("woocommerce-spray-master-import.csv", rows, headers);
+  [
+    ["DOPE-CLASSIC-400", "woocommerce-dope-classic-400ml-import.csv"],
+    ["NBQ-ETERNAL-400", "woocommerce-nbq-eternal-400-import.csv"],
+  ].forEach(([sku, file]) => {
+    writeCsv(file, rows.filter((row) => row.SKU === sku || row.Parent === sku), headers);
+  });
   console.log(`Created ${outFile}`);
   console.log(`WooCommerce rows: ${rows.length}`);
 }

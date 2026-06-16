@@ -1865,6 +1865,10 @@ footer {
   margin-top: 28px;
 }
 
+.spray-nova-spray-product .woocommerce div.product form.variations_form.cart {
+  display: none !important;
+}
+
 .spray-color-selector {
   clear: both;
   margin-top: 34px;
@@ -1894,6 +1898,31 @@ footer {
   color: #514e49;
   font-size: 14px;
   line-height: 1.55;
+}
+
+.spray-product-specs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  gap: 10px;
+  margin: -8px 0 24px;
+}
+
+.spray-product-specs span {
+  display: grid;
+  gap: 3px;
+  padding: 13px 14px;
+  background: var(--white);
+  border: 1px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--purple);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.spray-product-specs strong {
+  color: #6d6860;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .spray-selector-tools {
@@ -2261,6 +2290,10 @@ footer {
   .spray-selector-head,
   .spray-selector-tools {
     grid-template-columns: 1fr;
+  }
+
+  .spray-product-specs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .spray-color-grid {

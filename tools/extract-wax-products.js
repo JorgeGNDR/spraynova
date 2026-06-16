@@ -155,7 +155,7 @@ async function main() {
       Categories: "Ceras",
       "In stock?": "1",
       "Manage stock?": "0",
-      Images: product.authorized_image_url,
+      Images: `https://spray-nova.vercel.app/${product.image_file.replace(/\\/g, "/")}`,
       "Attribute 1 name": "Marca",
       "Attribute 1 value(s)": product.brand,
       "Attribute 1 visible": product.brand ? "1" : "0",

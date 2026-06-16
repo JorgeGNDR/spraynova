@@ -50,16 +50,11 @@ Esto escala bien: DOPE Classic con 62 colores y NBQ Eternal 400 con 4 colores us
 
 ## Atributos recomendados
 
-Crea estos atributos globales en WooCommerce:
+El único atributo que debe usarse como variación en los sprays es:
 
 - `Color`
-- `Marca`
-- `Formato`
-- `Presión`
-- `Acabado`
-- `Tipo de pintura`
 
-El atributo imprescindible para el selector es `Color`.
+`Marca`, `Formato`, `Presión` y `Acabado` no deben ser opciones elegibles en la ficha del spray. En los CSV actuales van como metadatos internos para que el tema los muestre como información fija.
 
 ## Campos de cada variación
 
@@ -103,7 +98,7 @@ Ya hay dos CSV preparados:
 - `data/dope-classic-colors.csv`: carta limpia de colores, útil como referencia.
 - `data/woocommerce-dope-classic-400ml-import.csv`: importación WooCommerce con el producto `DOPE Classic 400ml` y sus 62 variaciones.
 
-El CSV de WooCommerce usa precio provisional `4.50` en todas las variaciones. Cámbialo antes o después de importar si tu precio real es otro.
+El CSV de WooCommerce usa precio `3.95` en todas las variaciones de 400ml.
 
 ## NBQ Eternal 400ml
 
@@ -183,6 +178,10 @@ Para importar un CSV:
 6. Abre el producto y confirma que está en la categoría `Sprays`.
 7. Revisa precios, imagen principal, descripción y peso antes de vender.
 
+Importante: si ya habías importado una versión antigua donde `Marca`, `Formato`, `Presión` o `Acabado` salían como desplegables, lo más limpio es borrar esos productos y sus variaciones y volver a importar el CSV corregido. Reimportar encima no siempre elimina atributos antiguos en WooCommerce.
+
+Para que el selector visual aparezca, el producto variable debe estar en la categoría `Sprays` y el slug de esa categoría debe ser exactamente `sprays`.
+
 ## Excel maestro
 
 He creado un Excel maestro:
@@ -220,7 +219,7 @@ Archivos creados:
 - `data/woocommerce-ceras-import.csv`: importador WooCommerce solo para ceras.
 - `data/images/ceras/`: copias locales de las 47 imágenes autorizadas.
 
-La importación WooCommerce usa la columna `Images` con la URL autorizada de proveedor. Las copias locales quedan guardadas como respaldo por si prefieres subirlas manualmente a la biblioteca de medios.
+La importación WooCommerce usa la columna `Images` con copias públicas servidas desde `https://spray-nova.vercel.app/data/images/ceras/`. Es más estable que importar directamente desde la web del proveedor, porque algunos servidores bloquean descargas automáticas desde WooCommerce.
 
 Los precios de ceras son los detectados en la página del proveedor. Revísalos antes de vender si quieres aplicar otro margen.
 
@@ -229,6 +228,8 @@ Los precios de ceras son los detectados en la página del proveedor. Revísalos 
 - Sprays de 400ml importados: `3.95`.
 - Ceras: precio detectado del proveedor.
 - Gamas pendientes sin colores completos: precio vacío hasta confirmar.
+
+La moneda no la decide el CSV. Si ves dólares, cambia WooCommerce a euros en `WooCommerce > Ajustes > General > Opciones de moneda`.
 
 Para regenerar el Excel desde los CSV:
 

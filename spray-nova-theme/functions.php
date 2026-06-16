@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.1.0' );
+define( 'SPRAY_NOVA_VERSION', '1.1.1' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -170,6 +170,24 @@ function spray_nova_is_spray_product( $product ) {
 }
 
 /**
+ * Add product-specific body classes.
+ *
+ * @param array $classes Body classes.
+ * @return array
+ */
+function spray_nova_body_classes( $classes ) {
+	if ( function_exists( 'is_product' ) && function_exists( 'wc_get_product' ) && is_product() ) {
+		$product = wc_get_product( get_the_ID() );
+		if ( spray_nova_is_spray_product( $product ) ) {
+			$classes[] = 'spray-nova-spray-product';
+		}
+	}
+
+	return $classes;
+}
+add_filter( 'body_class', 'spray_nova_body_classes' );
+
+/**
  * Replace the default variation selector with the custom spray color wall.
  */
 function spray_nova_prepare_spray_product_summary() {
@@ -321,6 +339,13 @@ function spray_nova_spray_color_selector() {
 		return;
 	}
 
+	$specs = array_filter( array(
+		__( 'Marca', 'spray-nova' )   => get_post_meta( $product->get_id(), '_spray_nova_brand', true ),
+		__( 'Formato', 'spray-nova' ) => get_post_meta( $product->get_id(), '_spray_nova_format', true ),
+		__( 'Presión', 'spray-nova' ) => get_post_meta( $product->get_id(), '_spray_nova_pressure', true ),
+		__( 'Acabado', 'spray-nova' ) => get_post_meta( $product->get_id(), '_spray_nova_finish', true ),
+	) );
+
 	$family_labels = array(
 		'negros'    => __( 'Negros', 'spray-nova' ),
 		'blancos'   => __( 'Blancos', 'spray-nova' ),
@@ -344,6 +369,14 @@ function spray_nova_spray_color_selector() {
 			</div>
 			<p><?php esc_html_e( 'Puedes combinar varios colores en un solo pedido. Si no llevas stock todavía, deja el stock sin gestionar y revisa el pedido antes de preparar el envío.', 'spray-nova' ); ?></p>
 		</div>
+
+		<?php if ( $specs ) : ?>
+			<div class="spray-product-specs" aria-label="<?php esc_attr_e( 'Características del spray', 'spray-nova' ); ?>">
+				<?php foreach ( $specs as $label => $value ) : ?>
+					<span><strong><?php echo esc_html( $label ); ?></strong><?php echo esc_html( $value ); ?></span>
+				<?php endforeach; ?>
+			</div>
+		<?php endif; ?>
 
 		<div class="spray-selector-tools">
 			<label class="spray-color-search">
