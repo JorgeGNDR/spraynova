@@ -60,6 +60,16 @@
     }).format(value);
   }
 
+  function refreshFragments(fragments) {
+    if (!fragments) return;
+
+    Object.entries(fragments).forEach(([selector, html]) => {
+      document.querySelectorAll(selector).forEach((element) => {
+        element.outerHTML = html;
+      });
+    });
+  }
+
   function initSpraySelector() {
     if (!spraySelector) return;
 
@@ -165,13 +175,7 @@
             throw new Error(response?.data?.message || "No se pudo añadir la selección.");
           }
 
-          if (response.data.fragments) {
-            Object.entries(response.data.fragments).forEach(([selector, html]) => {
-              document.querySelectorAll(selector).forEach((element) => {
-                element.outerHTML = html;
-              });
-            });
-          }
+          refreshFragments(response.data.fragments);
 
           cards.forEach((card) => {
             const input = card.querySelector("input");
@@ -199,6 +203,57 @@
 
     applySprayFilters();
     updateSummary();
+  }
+
+  function initSimpleProductCart() {
+    const forms = [...document.querySelectorAll("form.cart")].filter(
+      (form) => !form.classList.contains("variations_form") && !form.closest(".spray-color-selector"),
+    );
+
+    forms.forEach((form) => {
+      form.addEventListener("submit", (event) => {
+        const submitButton = form.querySelector('[type="submit"][name="add-to-cart"]');
+        const productId = Number(submitButton?.value || form.querySelector('[name="add-to-cart"]')?.value || 0);
+        const quantity = Number(form.querySelector('input[name="quantity"]')?.value || 1);
+
+        if (!productId || !window.sprayNova?.ajaxUrl) return;
+
+        event.preventDefault();
+        submitButton?.classList.add("is-loading");
+        if (submitButton) submitButton.disabled = true;
+
+        $.post(window.sprayNova.ajaxUrl, {
+          action: "spray_nova_add_simple_product",
+          nonce: window.sprayNova.nonce,
+          product_id: productId,
+          quantity,
+        })
+          .done((response) => {
+            if (!response?.success) {
+              throw new Error(response?.data?.message || "No se pudo añadir al carrito.");
+            }
+            refreshFragments(response.data.fragments);
+            $(document.body).trigger("added_to_cart", [
+              response.data.fragments || {},
+              response.data.cart_hash || "",
+              submitButton,
+            ]);
+            openCart();
+          })
+          .fail((xhr) => {
+            const error = xhr.responseJSON?.data?.message || "No se pudo añadir al carrito.";
+            form.querySelector(".spray-simple-cart-message")?.remove();
+            const message = document.createElement("p");
+            message.className = "spray-simple-cart-message";
+            message.textContent = error;
+            form.append(message);
+          })
+          .always(() => {
+            submitButton?.classList.remove("is-loading");
+            if (submitButton) submitButton.disabled = false;
+          });
+      });
+    });
   }
 
   document.addEventListener("click", (event) => {
@@ -249,4 +304,5 @@
 
   if (productCards.length) setFilter("todos");
   initSpraySelector();
+  initSimpleProductCart();
 })(jQuery);

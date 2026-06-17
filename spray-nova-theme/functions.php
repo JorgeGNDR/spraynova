@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.2.0' );
+define( 'SPRAY_NOVA_VERSION', '1.3.0' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -149,11 +149,40 @@ function spray_nova_woocommerce_integration() {
 	remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
 	remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
 	remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
+	remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
 	add_action( 'woocommerce_before_main_content', 'spray_nova_woocommerce_wrapper_start', 10 );
 	add_action( 'woocommerce_after_main_content', 'spray_nova_woocommerce_wrapper_end', 10 );
+	add_action( 'woocommerce_after_shop_loop_item', 'spray_nova_loop_product_link', 10 );
 }
 add_action( 'wp', 'spray_nova_woocommerce_integration' );
 add_filter( 'loop_shop_columns', function() { return 4; } );
+
+/**
+ * Replace loop add-to-cart buttons with a clean product link.
+ */
+function spray_nova_loop_product_link() {
+	global $product;
+
+	if ( ! $product instanceof WC_Product ) {
+		return;
+	}
+
+	printf(
+		'<a class="button spray-loop-product-link" href="%1$s">%2$s</a>',
+		esc_url( $product->get_permalink() ),
+		esc_html__( 'Ver producto', 'spray-nova' )
+	);
+}
+
+/**
+ * Hide default WooCommerce add-to-cart success notices. The theme opens the cart drawer instead.
+ *
+ * @return string
+ */
+function spray_nova_hide_add_to_cart_notice() {
+	return '';
+}
+add_filter( 'wc_add_to_cart_message_html', 'spray_nova_hide_add_to_cart_notice' );
 
 /**
  * Determine whether a product should use the spray color wall.
@@ -556,6 +585,78 @@ add_action( 'wp_ajax_spray_nova_add_spray_pack', 'spray_nova_add_spray_pack_to_c
 add_action( 'wp_ajax_nopriv_spray_nova_add_spray_pack', 'spray_nova_add_spray_pack_to_cart' );
 
 /**
+ * Add a simple product to cart via AJAX.
+ */
+function spray_nova_add_simple_product_to_cart() {
+	check_ajax_referer( 'spray_nova_cart', 'nonce' );
+
+	if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
+		wp_send_json_error( array( 'message' => __( 'WooCommerce no está disponible.', 'spray-nova' ) ), 400 );
+	}
+
+	$product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
+	$quantity   = isset( $_POST['quantity'] ) ? max( 1, absint( $_POST['quantity'] ) ) : 1;
+	$product    = wc_get_product( $product_id );
+
+	if ( ! $product instanceof WC_Product || ! $product->is_type( 'simple' ) || ! $product->is_purchasable() || ! $product->is_in_stock() ) {
+		wp_send_json_error( array( 'message' => __( 'Este producto no se puede añadir ahora mismo.', 'spray-nova' ) ), 400 );
+	}
+
+	$cart_key = WC()->cart->add_to_cart( $product_id, $quantity );
+
+	if ( ! $cart_key ) {
+		wp_send_json_error( array( 'message' => __( 'No se pudo añadir al carrito.', 'spray-nova' ) ), 400 );
+	}
+
+	wp_send_json_success( array(
+		'message'   => sprintf( _n( '%s unidad añadida al carrito.', '%s unidades añadidas al carrito.', $quantity, 'spray-nova' ), number_format_i18n( $quantity ) ),
+		'fragments' => apply_filters( 'woocommerce_add_to_cart_fragments', array() ),
+		'cart_hash' => WC()->cart->get_cart_hash(),
+	) );
+}
+add_action( 'wp_ajax_spray_nova_add_simple_product', 'spray_nova_add_simple_product_to_cart' );
+add_action( 'wp_ajax_nopriv_spray_nova_add_simple_product', 'spray_nova_add_simple_product_to_cart' );
+
+/**
+ * Render compact navigation between products.
+ */
+function spray_nova_product_navigation() {
+	if ( ! is_product() ) {
+		return;
+	}
+
+	$previous = get_previous_post( true, '', 'product_cat' );
+	$next     = get_next_post( true, '', 'product_cat' );
+	$terms    = get_the_terms( get_the_ID(), 'product_cat' );
+	$back_url = spray_nova_shop_url();
+
+	if ( $terms && ! is_wp_error( $terms ) ) {
+		$term_link = get_term_link( $terms[0] );
+		if ( ! is_wp_error( $term_link ) ) {
+			$back_url = $term_link;
+		}
+	}
+
+	if ( ! $previous && ! $next ) {
+		return;
+	}
+	?>
+	<nav class="spray-product-nav" aria-label="<?php esc_attr_e( 'Navegación entre productos', 'spray-nova' ); ?>">
+		<a class="spray-product-nav-back" href="<?php echo esc_url( $back_url ); ?>"><?php esc_html_e( 'Volver a la categoría', 'spray-nova' ); ?></a>
+		<div>
+			<?php if ( $previous ) : ?>
+				<a href="<?php echo esc_url( get_permalink( $previous ) ); ?>"><span><?php esc_html_e( 'Anterior', 'spray-nova' ); ?></span><?php echo esc_html( get_the_title( $previous ) ); ?></a>
+			<?php endif; ?>
+			<?php if ( $next ) : ?>
+				<a href="<?php echo esc_url( get_permalink( $next ) ); ?>"><span><?php esc_html_e( 'Siguiente', 'spray-nova' ); ?></span><?php echo esc_html( get_the_title( $next ) ); ?></a>
+			<?php endif; ?>
+		</div>
+	</nav>
+	<?php
+}
+add_action( 'woocommerce_after_single_product_summary', 'spray_nova_product_navigation', 8 );
+
+/**
  * Product card used on the home page.
  *
  * @param WC_Product $product Product object.
@@ -568,7 +669,6 @@ function spray_nova_product_card( $product ) {
 	$category_names = wp_get_post_terms( $product->get_id(), 'product_cat', array( 'fields' => 'names' ) );
 	$category_slugs = wp_get_post_terms( $product->get_id(), 'product_cat', array( 'fields' => 'slugs' ) );
 	$type_label     = $category_names ? implode( ' · ', array_slice( $category_names, 0, 2 ) ) : __( 'Spray Nova', 'spray-nova' );
-	$button_class   = $product->supports( 'ajax_add_to_cart' ) ? ' ajax_add_to_cart' : '';
 	?>
 	<article <?php wc_product_class( 'product-card', $product ); ?> data-categories="<?php echo esc_attr( implode( ' ', $category_slugs ) ); ?>" data-name="<?php echo esc_attr( $product->get_name() ); ?>">
 		<div class="product-card-visual">
@@ -581,15 +681,10 @@ function spray_nova_product_card( $product ) {
 			<?php echo wp_kses_post( $product->get_image( 'woocommerce_thumbnail' ) ); ?>
 		</a>
 		<a
-			class="quick-add button add_to_cart_button product_type_<?php echo esc_attr( $product->get_type() . $button_class ); ?>"
-			href="<?php echo esc_url( $product->add_to_cart_url() ); ?>"
-			data-quantity="1"
-			data-product_id="<?php echo esc_attr( $product->get_id() ); ?>"
-			data-product_sku="<?php echo esc_attr( $product->get_sku() ); ?>"
-			aria-label="<?php echo esc_attr( $product->add_to_cart_description() ); ?>"
-			rel="nofollow"
+			class="quick-add button spray-view-product"
+			href="<?php echo esc_url( $product->get_permalink() ); ?>"
 		>
-			<?php echo esc_html( $product->add_to_cart_text() ); ?><span>+</span>
+			<?php esc_html_e( 'Ver producto', 'spray-nova' ); ?><span>↗</span>
 		</a>
 		</div>
 		<p class="product-type"><?php echo esc_html( $type_label ); ?></p>
