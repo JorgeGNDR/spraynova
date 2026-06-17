@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.3.1' );
+define( 'SPRAY_NOVA_VERSION', '1.3.0' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -163,7 +163,7 @@ add_filter( 'loop_shop_columns', function() { return 4; } );
 function spray_nova_loop_product_link() {
 	global $product;
 
-	if ( ! class_exists( 'WC_Product' ) || ! $product instanceof WC_Product ) {
+	if ( ! $product instanceof WC_Product ) {
 		return;
 	}
 
@@ -191,7 +191,7 @@ add_filter( 'wc_add_to_cart_message_html', 'spray_nova_hide_add_to_cart_notice' 
  * @return bool
  */
 function spray_nova_is_spray_product( $product ) {
-	if ( ! class_exists( 'WC_Product' ) || ! $product instanceof WC_Product || ! $product->is_type( 'variable' ) ) {
+	if ( ! $product instanceof WC_Product || ! $product->is_type( 'variable' ) ) {
 		return false;
 	}
 
@@ -238,10 +238,6 @@ add_action( 'woocommerce_single_product_summary', 'spray_nova_prepare_spray_prod
  * @return string
  */
 function spray_nova_get_variation_color_label( $variation ) {
-	if ( ! is_object( $variation ) || ! method_exists( $variation, 'get_attributes' ) ) {
-		return '';
-	}
-
 	foreach ( $variation->get_attributes() as $name => $value ) {
 		if ( false !== strpos( $name, 'color' ) || false !== strpos( $name, 'colour' ) ) {
 			$taxonomy = 0 === strpos( $name, 'pa_' ) ? $name : '';
@@ -324,7 +320,7 @@ function spray_nova_family_hex( $family ) {
 function spray_nova_spray_color_selector() {
 	global $product;
 
-	if ( ! function_exists( 'wc_get_product' ) || ! class_exists( 'WC_Product_Variation' ) || ! spray_nova_is_spray_product( $product ) ) {
+	if ( ! spray_nova_is_spray_product( $product ) ) {
 		return;
 	}
 
@@ -468,10 +464,6 @@ function spray_nova_spray_color_selector() {
  * Add optional variation fields for a better color wall.
  */
 function spray_nova_variation_color_fields( $loop, $variation_data, $variation ) {
-	if ( ! function_exists( 'woocommerce_wp_text_input' ) || ! function_exists( 'woocommerce_wp_select' ) ) {
-		return;
-	}
-
 	echo '<div class="options_group spray-nova-variation-fields">';
 	woocommerce_wp_text_input( array(
 		'id'          => "_spray_nova_color_hex[{$loop}]",
@@ -547,7 +539,7 @@ add_action( 'woocommerce_save_product_variation', 'spray_nova_save_variation_col
 function spray_nova_add_spray_pack_to_cart() {
 	check_ajax_referer( 'spray_nova_cart', 'nonce' );
 
-	if ( ! function_exists( 'WC' ) || ! function_exists( 'wc_get_product' ) || ! WC()->cart ) {
+	if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
 		wp_send_json_error( array( 'message' => __( 'WooCommerce no está disponible.', 'spray-nova' ) ), 400 );
 	}
 
@@ -598,7 +590,7 @@ add_action( 'wp_ajax_nopriv_spray_nova_add_spray_pack', 'spray_nova_add_spray_pa
 function spray_nova_add_simple_product_to_cart() {
 	check_ajax_referer( 'spray_nova_cart', 'nonce' );
 
-	if ( ! function_exists( 'WC' ) || ! function_exists( 'wc_get_product' ) || ! class_exists( 'WC_Product' ) || ! WC()->cart ) {
+	if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
 		wp_send_json_error( array( 'message' => __( 'WooCommerce no está disponible.', 'spray-nova' ) ), 400 );
 	}
 
@@ -629,7 +621,7 @@ add_action( 'wp_ajax_nopriv_spray_nova_add_simple_product', 'spray_nova_add_simp
  * Render compact navigation between products.
  */
 function spray_nova_product_navigation() {
-	if ( ! function_exists( 'is_product' ) || ! is_product() ) {
+	if ( ! is_product() ) {
 		return;
 	}
 
@@ -670,7 +662,7 @@ add_action( 'woocommerce_after_single_product_summary', 'spray_nova_product_navi
  * @param WC_Product $product Product object.
  */
 function spray_nova_product_card( $product ) {
-	if ( ! class_exists( 'WC_Product' ) || ! $product instanceof WC_Product ) {
+	if ( ! $product instanceof WC_Product ) {
 		return;
 	}
 
