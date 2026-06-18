@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.3.3' );
+define( 'SPRAY_NOVA_VERSION', '1.3.4' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -682,7 +682,7 @@ function spray_nova_product_card( $product ) {
 			class="quick-add button spray-view-product"
 			href="<?php echo esc_url( $product->get_permalink() ); ?>"
 		>
-			<?php esc_html_e( 'Ver producto', 'spray-nova' ); ?><span>↗</span>
+			<?php esc_html_e( 'Ver producto', 'spray-nova' ); ?><span></span>
 		</a>
 		</div>
 		<p class="product-type"><?php echo esc_html( $type_label ); ?></p>

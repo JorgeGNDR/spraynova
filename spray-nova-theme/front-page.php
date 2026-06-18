@@ -37,7 +37,7 @@ if ( ! $ticker_items ) {
 			<p class="hero-description"><?php echo esc_html( get_theme_mod( 'spray_nova_hero_text', 'Sprays, rotuladores y ceras seleccionados para que tu idea llegue del boceto al muro.' ) ); ?></p>
 			<div class="hero-actions">
 				<a class="button button-dark" href="<?php echo esc_url( $shop_url ); ?>"><?php echo esc_html( get_theme_mod( 'spray_nova_hero_primary_button', 'Ver productos' ) ); ?></a>
-				<a class="text-link" href="<?php echo esc_url( $hero_secondary_target ); ?>"><?php echo esc_html( get_theme_mod( 'spray_nova_hero_secondary_button', 'Explorar categorías' ) ); ?> <span>↗</span></a>
+				<a class="text-link" href="<?php echo esc_url( $hero_secondary_target ); ?>"><?php echo esc_html( get_theme_mod( 'spray_nova_hero_secondary_button', 'Explorar categorías' ) ); ?></a>
 			</div>
 		</div>
 		<div class="hero-art" aria-hidden="true">
@@ -46,7 +46,6 @@ if ( ! $ticker_items ) {
 			<div class="spray-can spray-purple"><span class="can-cap"></span><span class="can-label">SN</span><small>400 ML</small></div>
 			<div class="spray-can spray-black"><span class="can-cap"></span><span class="can-label">SN</span><small>400 ML</small></div>
 			<img src="<?php echo esc_url( spray_nova_image( 'isotipo.jpg' ) ); ?>" alt="">
-			<span class="spark spark-one">✦</span><span class="spark spark-two">✦</span>
 		</div>
 	</section>
 
@@ -54,7 +53,7 @@ if ( ! $ticker_items ) {
 		<div>
 			<?php for ( $loop = 0; $loop < 2; $loop++ ) : ?>
 				<?php foreach ( $ticker_items as $item ) : ?>
-					<span><?php echo esc_html( $item ); ?></span><i>✦</i>
+					<span><?php echo esc_html( $item ); ?></span><i></i>
 				<?php endforeach; ?>
 			<?php endfor; ?>
 		</div>
@@ -67,7 +66,7 @@ if ( ! $ticker_items ) {
 					<p class="eyebrow"><?php echo esc_html( get_theme_mod( 'spray_nova_categories_kicker', 'Encuentra tu herramienta' ) ); ?></p>
 					<h2><?php echo esc_html( get_theme_mod( 'spray_nova_categories_title', 'COMPRA POR CATEGORÍA' ) ); ?></h2>
 				</div>
-				<a class="text-link" href="<?php echo esc_url( $shop_url ); ?>"><?php esc_html_e( 'Ver todo', 'spray-nova' ); ?> <span>↗</span></a>
+				<a class="text-link" href="<?php echo esc_url( $shop_url ); ?>"><?php esc_html_e( 'Ver todo', 'spray-nova' ); ?></a>
 			</div>
 			<div class="category-grid">
 				<?php
@@ -87,7 +86,7 @@ if ( ! $ticker_items ) {
 						<span class="category-number"><?php echo esc_html( $category['number'] ); ?></span>
 						<span class="category-visual"><?php echo wp_kses_post( $category['visual'] ); ?></span>
 						<span class="category-name"><?php echo esc_html( $category['name'] ); ?></span>
-						<span class="category-arrow">↗</span>
+						<span class="category-arrow"></span>
 					</a>
 				<?php endforeach; ?>
 			</div>
@@ -180,7 +179,7 @@ if ( ! $ticker_items ) {
 			<form class="newsletter-form">
 				<label class="sr-only" for="newsletter-email"><?php echo esc_html( get_theme_mod( 'spray_nova_newsletter_placeholder', 'Tu email' ) ); ?></label>
 				<input id="newsletter-email" type="email" placeholder="<?php echo esc_attr( get_theme_mod( 'spray_nova_newsletter_placeholder', 'Tu email' ) ); ?>" required>
-				<button type="submit"><?php echo esc_html( get_theme_mod( 'spray_nova_newsletter_button', 'Suscribirme' ) ); ?> ↗</button>
+				<button type="submit"><?php echo esc_html( get_theme_mod( 'spray_nova_newsletter_button', 'Suscribirme' ) ); ?></button>
 			</form>
 			<p class="newsletter-message" aria-live="polite"></p>
 		</section>
