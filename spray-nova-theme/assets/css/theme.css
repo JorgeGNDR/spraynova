@@ -2971,29 +2971,35 @@ footer {
   }
 
   .woocommerce ul.products {
-    grid-template-columns: 1fr;
-    gap: 34px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 12px;
   }
 
   .woocommerce ul.products li.product,
   .woocommerce-page ul.products li.product {
     width: 100%;
+    margin-bottom: 0;
   }
 
   .woocommerce ul.products li.product a img {
     width: 100%;
-    margin-bottom: 16px;
-    padding: 10%;
+    margin-bottom: 12px;
+    padding: 9%;
   }
 
   .woocommerce ul.products li.product .woocommerce-loop-product__title {
     max-width: 100%;
-    font-size: 18px;
+    min-height: 32px;
+    font-size: 14px;
+    line-height: 1.05;
   }
 
   .woocommerce ul.products li.product .spray-loop-product-link {
     width: 100%;
     max-width: none;
+    min-height: 38px;
+    padding: 0 8px;
+    font-size: 9px;
   }
 
   .woocommerce div.product .product_title {

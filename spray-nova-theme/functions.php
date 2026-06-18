@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.3.15' );
+define( 'SPRAY_NOVA_VERSION', '1.3.16' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
