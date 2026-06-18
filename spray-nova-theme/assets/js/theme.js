@@ -256,6 +256,88 @@
     });
   }
 
+  function initInfiniteShop() {
+    const products = document.querySelector(".woocommerce ul.products");
+    const pagination = document.querySelector(".woocommerce-pagination");
+    let nextLink = document.querySelector(".woocommerce-pagination a.next");
+
+    if (!products || !pagination || !nextLink) return;
+
+    body.classList.add("spray-infinite-shop");
+
+    const loader = document.createElement("div");
+    loader.className = "spray-infinite-loader";
+    loader.setAttribute("role", "status");
+    loader.setAttribute("aria-live", "polite");
+    loader.textContent = "Cargando mas productos...";
+    pagination.after(loader);
+
+    let loading = false;
+
+    function setDone() {
+      loader.classList.add("is-done");
+      loader.textContent = "Has visto todos los productos.";
+      observer.disconnect();
+    }
+
+    function setError() {
+      body.classList.add("spray-infinite-failed");
+      loader.classList.add("is-error");
+      loader.textContent = "No se pudieron cargar mas productos. Usa la paginacion de abajo.";
+      observer.disconnect();
+    }
+
+    async function loadNextPage() {
+      if (loading || !nextLink) return;
+
+      loading = true;
+      loader.classList.add("is-loading");
+      observer.unobserve(loader);
+
+      try {
+        const response = await fetch(nextLink.href, { credentials: "same-origin" });
+        if (!response.ok) throw new Error("Invalid shop response");
+
+        const html = await response.text();
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        const nextProducts = [...doc.querySelectorAll(".woocommerce ul.products li.product")];
+        const newNextLink = doc.querySelector(".woocommerce-pagination a.next");
+
+        if (!nextProducts.length) {
+          setDone();
+          return;
+        }
+
+        const fragment = document.createDocumentFragment();
+        nextProducts.forEach((product) => fragment.append(product));
+        products.append(fragment);
+
+        nextLink = newNextLink;
+        if (!nextLink) {
+          setDone();
+          return;
+        }
+      } catch (error) {
+        setError();
+        return;
+      } finally {
+        loading = false;
+        loader.classList.remove("is-loading");
+      }
+
+      observer.observe(loader);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) loadNextPage();
+      },
+      { rootMargin: "520px 0px" },
+    );
+
+    observer.observe(loader);
+  }
+
   document.addEventListener("click", (event) => {
     if (event.target.closest(".cart-toggle")) openCart();
     if (event.target.closest(".cart-close") || event.target === backdrop) closeCart();
@@ -305,4 +387,5 @@
   if (productCards.length) setFilter("todos");
   initSpraySelector();
   initSimpleProductCart();
+  initInfiniteShop();
 })(jQuery);
