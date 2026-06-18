@@ -2029,21 +2029,15 @@ footer {
   background: var(--ink);
 }
 
-.single-product .related.products,
-.single-product .upsells.products,
 .woocommerce div.product .related.products,
 .woocommerce div.product .upsells.products {
-  clear: both;
   grid-column: 1 / -1;
   width: 100%;
-  max-width: none;
   margin-top: 34px;
   padding-top: 38px;
   border-top: 1px solid var(--line);
 }
 
-.single-product .related.products > h2,
-.single-product .upsells.products > h2,
 .woocommerce div.product .related.products > h2,
 .woocommerce div.product .upsells.products > h2 {
   margin: 0 0 24px;
@@ -2053,36 +2047,23 @@ footer {
   line-height: 0.95;
 }
 
-.single-product .related.products ul.products,
-.single-product .upsells.products ul.products,
 .woocommerce div.product .related.products ul.products,
 .woocommerce div.product .upsells.products ul.products {
-  display: grid !important;
   grid-template-columns: repeat(4, minmax(150px, 1fr));
   gap: 24px 18px;
-  width: 100%;
 }
 
-.single-product .related.products ul.products li.product,
-.single-product .upsells.products ul.products li.product,
 .woocommerce div.product .related.products ul.products li.product,
 .woocommerce div.product .upsells.products ul.products li.product {
-  display: flex;
-  min-height: 100%;
   min-width: 0;
-  flex-direction: column;
 }
 
-.single-product .related.products ul.products li.product a img,
-.single-product .upsells.products ul.products li.product a img,
 .woocommerce div.product .related.products ul.products li.product a img,
 .woocommerce div.product .upsells.products ul.products li.product a img {
   margin-bottom: 14px;
   padding: 9%;
 }
 
-.single-product .related.products ul.products li.product .woocommerce-loop-product__title,
-.single-product .upsells.products ul.products li.product .woocommerce-loop-product__title,
 .woocommerce div.product .related.products ul.products li.product .woocommerce-loop-product__title,
 .woocommerce div.product .upsells.products ul.products li.product .woocommerce-loop-product__title {
   min-height: 2.2em;
@@ -2090,11 +2071,8 @@ footer {
   line-height: 1.08;
 }
 
-.single-product .related.products ul.products li.product .spray-loop-product-link,
-.single-product .upsells.products ul.products li.product .spray-loop-product-link,
 .woocommerce div.product .related.products ul.products li.product .spray-loop-product-link,
 .woocommerce div.product .upsells.products ul.products li.product .spray-loop-product-link {
-  width: fit-content;
   min-height: 40px;
   margin-top: 10px;
   padding: 0 14px;
@@ -2166,20 +2144,6 @@ footer {
   line-height: 1.7;
 }
 
-.spray-product-description {
-  max-width: 560px;
-  margin: 18px 0 0;
-  padding: 18px 0 0;
-  color: #514e49;
-  border-top: 1px solid var(--line);
-  font-size: 15px;
-  line-height: 1.65;
-}
-
-.spray-product-description p {
-  margin: 0;
-}
-
 .woocommerce div.product form.cart {
   display: flex;
   gap: 10px;
@@ -2188,16 +2152,17 @@ footer {
 }
 
 .woocommerce div.product form.cart:not(.variations_form) {
-  display: flex !important;
+  display: grid;
+  grid-template-columns: 164px minmax(190px, 250px);
   gap: 10px;
   align-items: stretch;
   justify-content: start;
-  max-width: 560px;
+  max-width: 430px;
 }
 
 .woocommerce div.product form.cart:not(.variations_form) .quantity {
-  order: 1;
-  flex: 0 0 164px;
+  grid-column: 1;
+  grid-row: 1;
   margin: 0;
 }
 
@@ -2244,8 +2209,8 @@ footer {
 }
 
 .woocommerce div.product form.cart:not(.variations_form) .single_add_to_cart_button {
-  order: 2;
-  flex: 0 0 min(250px, 100%);
+  grid-column: 2;
+  grid-row: 1;
   min-height: 50px;
   padding: 0 18px;
   color: var(--white);
@@ -2272,7 +2237,6 @@ footer {
 
 .spray-simple-cart-message {
   grid-column: 1 / -1;
-  flex-basis: 100%;
   margin: 2px 0 0;
   color: #8a1f1f;
   font-size: 13px;
@@ -2295,6 +2259,44 @@ footer {
 .woocommerce div.product .woocommerce-tabs ul.tabs,
 .woocommerce div.product .woocommerce-Tabs-panel,
 .woocommerce #reviews {
+  display: none !important;
+}
+
+.single-product .wc-stripe-payment-request-wrapper,
+.single-product #wc-stripe-payment-request-button-separator,
+.single-product #wc-stripe-payment-request-wrapper,
+.single-product #wc-stripe-payment-request-button,
+.single-product [id*="payment-request"],
+.single-product [class*="payment-request"],
+.single-product [class*="express-checkout"],
+.single-product [class*="express_checkout"],
+.single-product [class*="express-payment"],
+.single-product [class*="ExpressPayment"],
+.single-product .wc-stripe-payment-request-button,
+.single-product .wc-stripe-express-checkout-wrapper,
+.single-product .wc-stripe-product-checkout-container,
+.single-product .wc_stripe_product_payment_methods,
+.single-product .stripe-payment-request-wrapper,
+.single-product .stripe-button-el,
+.single-product .wcpay-express-checkout-wrapper,
+.single-product .wcpay-payment-request-wrapper,
+.single-product .wcpay-express-checkout,
+.single-product .wc-block-components-express-payment,
+.single-product .wc-block-components-express-payment__content,
+.single-product .wc-block-components-express-payment__event-buttons,
+.single-product .express-payment-methods,
+.single-product .amazon-pay-button,
+.single-product .wc-amazon-payments-advanced-populated,
+.single-product .wc-square-digital-wallet,
+.single-product .ppc-button-wrapper,
+.single-product .paypal-buttons,
+.single-product .express_checkout_button,
+.single-product .gpay-card-info-container,
+.single-product .GooglePayButton,
+.single-product .amazon-pay-button,
+.single-product [aria-label*="Google Pay"],
+.single-product [aria-label*="amazon pay"],
+.single-product [aria-label*="Link"] {
   display: none !important;
 }
 
