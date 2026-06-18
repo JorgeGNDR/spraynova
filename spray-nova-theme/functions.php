@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.3.12' );
+define( 'SPRAY_NOVA_VERSION', '1.3.13' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -412,10 +412,14 @@ function spray_nova_clean_color_label( $label, $code ) {
 	$label = trim( $label );
 	$code  = trim( $code );
 
-	if ( $code && 0 === stripos( $label, $code ) ) {
-		$label = trim( substr( $label, strlen( $code ) ) );
-		$label = ltrim( $label, " -–—·\t\n\r\0\x0B" );
+	if ( $code ) {
+		$code_pattern = preg_quote( $code, '/' );
+		$code_pattern = str_replace( array( '\-', '\_' ), '[\s\-_]*', $code_pattern );
+		$label        = preg_replace( '/^' . $code_pattern . '[\s\-_–—·.]*/i', '', $label );
 	}
+
+	$label = preg_replace( '/^(NBQ|DOPE|D)[\s\-_]*(F400|E400|E800|FAST|ACTION|CLASSIC|ETERNAL|400|600|800)?[\s\-_]*[A-Z]?\d{2,6}[\s\-_–—·.]*/i', '', $label );
+	$label = ltrim( trim( $label ), " -–—·.\t\n\r\0\x0B" );
 
 	return $label ? $label : $code;
 }
