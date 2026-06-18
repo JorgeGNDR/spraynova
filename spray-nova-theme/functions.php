@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.3.12' );
+define( 'SPRAY_NOVA_VERSION', '1.3.15' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -154,9 +154,36 @@ function spray_nova_woocommerce_integration() {
 	add_action( 'woocommerce_after_main_content', 'spray_nova_woocommerce_wrapper_end', 10 );
 	add_action( 'woocommerce_before_shop_loop', 'spray_nova_shop_category_filters', 6 );
 	add_action( 'woocommerce_after_shop_loop_item', 'spray_nova_loop_product_link', 10 );
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
+	add_action( 'woocommerce_single_product_summary', 'spray_nova_single_product_description', 25 );
 }
 add_action( 'wp', 'spray_nova_woocommerce_integration' );
 add_filter( 'loop_shop_columns', function() { return 4; } );
+
+/**
+ * Render a compact product description in the purchase summary.
+ */
+function spray_nova_single_product_description() {
+	global $product;
+
+	if ( ! $product instanceof WC_Product ) {
+		return;
+	}
+
+	$description = $product->get_short_description();
+	if ( ! $description ) {
+		$description = wp_trim_words( wp_strip_all_tags( strip_shortcodes( get_post_field( 'post_content', $product->get_id() ) ) ), 34, '...' );
+	}
+
+	if ( ! $description ) {
+		return;
+	}
+	?>
+	<div class="spray-product-description">
+		<?php echo wp_kses_post( wpautop( $description ) ); ?>
+	</div>
+	<?php
+}
 
 /**
  * Render quick category filters on product archives.
@@ -416,6 +443,15 @@ function spray_nova_clean_color_label( $label, $code ) {
 		$label = trim( substr( $label, strlen( $code ) ) );
 		$label = ltrim( $label, " -–—·\t\n\r\0\x0B" );
 	}
+
+	if ( $code ) {
+		$code_pattern = preg_quote( $code, '/' );
+		$code_pattern = str_replace( array( '\-', '\_' ), '[\s\-_]*', $code_pattern );
+		$label        = preg_replace( '/^' . $code_pattern . '[\s\-_–—·]*/i', '', $label );
+	}
+
+	$label = preg_replace( '/^(NBQ|DOPE|D)[\s\-_]*(F400|E400|E800|600)?[\s\-_]*[A-Z]?\d{2,6}[\s\-_–—·]*/i', '', $label );
+	$label = trim( $label );
 
 	return $label ? $label : $code;
 }

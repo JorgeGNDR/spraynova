@@ -2029,15 +2029,21 @@ footer {
   background: var(--ink);
 }
 
+.single-product .related.products,
+.single-product .upsells.products,
 .woocommerce div.product .related.products,
 .woocommerce div.product .upsells.products {
+  clear: both;
   grid-column: 1 / -1;
   width: 100%;
+  max-width: none;
   margin-top: 34px;
   padding-top: 38px;
   border-top: 1px solid var(--line);
 }
 
+.single-product .related.products > h2,
+.single-product .upsells.products > h2,
 .woocommerce div.product .related.products > h2,
 .woocommerce div.product .upsells.products > h2 {
   margin: 0 0 24px;
@@ -2047,23 +2053,36 @@ footer {
   line-height: 0.95;
 }
 
+.single-product .related.products ul.products,
+.single-product .upsells.products ul.products,
 .woocommerce div.product .related.products ul.products,
 .woocommerce div.product .upsells.products ul.products {
+  display: grid !important;
   grid-template-columns: repeat(4, minmax(150px, 1fr));
   gap: 24px 18px;
+  width: 100%;
 }
 
+.single-product .related.products ul.products li.product,
+.single-product .upsells.products ul.products li.product,
 .woocommerce div.product .related.products ul.products li.product,
 .woocommerce div.product .upsells.products ul.products li.product {
+  display: flex;
+  min-height: 100%;
   min-width: 0;
+  flex-direction: column;
 }
 
+.single-product .related.products ul.products li.product a img,
+.single-product .upsells.products ul.products li.product a img,
 .woocommerce div.product .related.products ul.products li.product a img,
 .woocommerce div.product .upsells.products ul.products li.product a img {
   margin-bottom: 14px;
   padding: 9%;
 }
 
+.single-product .related.products ul.products li.product .woocommerce-loop-product__title,
+.single-product .upsells.products ul.products li.product .woocommerce-loop-product__title,
 .woocommerce div.product .related.products ul.products li.product .woocommerce-loop-product__title,
 .woocommerce div.product .upsells.products ul.products li.product .woocommerce-loop-product__title {
   min-height: 2.2em;
@@ -2071,8 +2090,11 @@ footer {
   line-height: 1.08;
 }
 
+.single-product .related.products ul.products li.product .spray-loop-product-link,
+.single-product .upsells.products ul.products li.product .spray-loop-product-link,
 .woocommerce div.product .related.products ul.products li.product .spray-loop-product-link,
 .woocommerce div.product .upsells.products ul.products li.product .spray-loop-product-link {
+  width: fit-content;
   min-height: 40px;
   margin-top: 10px;
   padding: 0 14px;
@@ -2144,6 +2166,20 @@ footer {
   line-height: 1.7;
 }
 
+.spray-product-description {
+  max-width: 560px;
+  margin: 18px 0 0;
+  padding: 18px 0 0;
+  color: #514e49;
+  border-top: 1px solid var(--line);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.spray-product-description p {
+  margin: 0;
+}
+
 .woocommerce div.product form.cart {
   display: flex;
   gap: 10px;
@@ -2152,17 +2188,16 @@ footer {
 }
 
 .woocommerce div.product form.cart:not(.variations_form) {
-  display: grid;
-  grid-template-columns: 164px minmax(190px, 250px);
+  display: flex !important;
   gap: 10px;
   align-items: stretch;
   justify-content: start;
-  max-width: 430px;
+  max-width: 560px;
 }
 
 .woocommerce div.product form.cart:not(.variations_form) .quantity {
-  grid-column: 1;
-  grid-row: 1;
+  order: 1;
+  flex: 0 0 164px;
   margin: 0;
 }
 
@@ -2209,8 +2244,8 @@ footer {
 }
 
 .woocommerce div.product form.cart:not(.variations_form) .single_add_to_cart_button {
-  grid-column: 2;
-  grid-row: 1;
+  order: 2;
+  flex: 0 0 min(250px, 100%);
   min-height: 50px;
   padding: 0 18px;
   color: var(--white);
@@ -2237,6 +2272,7 @@ footer {
 
 .spray-simple-cart-message {
   grid-column: 1 / -1;
+  flex-basis: 100%;
   margin: 2px 0 0;
   color: #8a1f1f;
   font-size: 13px;
@@ -2263,6 +2299,8 @@ footer {
 }
 
 .single-product .wc-stripe-payment-request-wrapper,
+.single-product .summary form.cart ~ div:not(.spray-product-description):not(.spray-simple-cart-message),
+.single-product .summary form.cart ~ section:not(.spray-product-description),
 .single-product #wc-stripe-payment-request-button-separator,
 .single-product #wc-stripe-payment-request-wrapper,
 .single-product #wc-stripe-payment-request-button,
