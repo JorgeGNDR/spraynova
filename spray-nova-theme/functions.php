@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.3.0' );
+define( 'SPRAY_NOVA_VERSION', '1.3.2' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -150,12 +150,38 @@ function spray_nova_woocommerce_integration() {
 	remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
 	remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 	remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
+	remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 	add_action( 'woocommerce_before_main_content', 'spray_nova_woocommerce_wrapper_start', 10 );
 	add_action( 'woocommerce_after_main_content', 'spray_nova_woocommerce_wrapper_end', 10 );
 	add_action( 'woocommerce_after_shop_loop_item', 'spray_nova_loop_product_link', 10 );
 }
 add_action( 'wp', 'spray_nova_woocommerce_integration' );
 add_filter( 'loop_shop_columns', function() { return 4; } );
+add_filter( 'woocommerce_product_tabs', 'spray_nova_clean_product_tabs', 30 );
+add_filter( 'woocommerce_product_single_add_to_cart_text', 'spray_nova_add_to_cart_text' );
+add_filter( 'woocommerce_product_add_to_cart_text', 'spray_nova_add_to_cart_text' );
+
+/**
+ * Remove WooCommerce tabs that are noisy for this catalog.
+ *
+ * @param array $tabs Product tabs.
+ * @return array
+ */
+function spray_nova_clean_product_tabs( $tabs ) {
+	unset( $tabs['reviews'], $tabs['additional_information'] );
+	return $tabs;
+}
+
+/**
+ * Keep cart calls short and on-brand.
+ *
+ * @return string
+ */
+function spray_nova_add_to_cart_text() {
+	return __( 'Añadir al carrito', 'spray-nova' );
+}
 
 /**
  * Replace loop add-to-cart buttons with a clean product link.
@@ -364,7 +390,7 @@ function spray_nova_spray_color_selector() {
 	}
 
 	if ( ! $colors ) {
-		echo '<div class="spray-color-selector spray-color-selector-empty"><p>' . esc_html__( 'Crea variaciones de color para mostrar la carta de sprays.', 'spray-nova' ) . '</p></div>';
+		echo '<div class="spray-color-selector spray-color-selector-empty"><p>' . esc_html__( 'Carta de colores no disponible.', 'spray-nova' ) . '</p></div>';
 		return;
 	}
 
@@ -396,7 +422,6 @@ function spray_nova_spray_color_selector() {
 				<p class="eyebrow"><?php esc_html_e( 'Carta de colores', 'spray-nova' ); ?></p>
 				<h2><?php esc_html_e( 'ELIGE COLORES Y CANTIDADES', 'spray-nova' ); ?></h2>
 			</div>
-			<p><?php esc_html_e( 'Puedes combinar varios colores en un solo pedido. Si no llevas stock todavía, deja el stock sin gestionar y revisa el pedido antes de preparar el envío.', 'spray-nova' ); ?></p>
 		</div>
 
 		<?php if ( $specs ) : ?>
@@ -435,7 +460,6 @@ function spray_nova_spray_color_selector() {
 					<div class="spray-color-info">
 						<strong><?php echo esc_html( $color['label'] ); ?></strong>
 						<small><?php echo esc_html( $color['code'] ); ?> · <?php echo wp_kses_post( $color['price_html'] ); ?></small>
-						<em><?php echo esc_html( $color['stock_label'] ); ?></em>
 					</div>
 					<div class="spray-qty" aria-label="<?php esc_attr_e( 'Cantidad', 'spray-nova' ); ?>">
 						<button type="button" class="spray-qty-minus" <?php disabled( ! $color['is_enabled'] ); ?>>−</button>

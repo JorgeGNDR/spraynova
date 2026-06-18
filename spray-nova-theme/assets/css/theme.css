@@ -1962,8 +1962,19 @@ footer {
   margin-bottom: 70px;
 }
 
+.woocommerce div.product div.images {
+  max-width: 430px;
+}
+
+.woocommerce div.product div.summary {
+  max-width: 660px;
+}
+
 .woocommerce div.product div.images img {
+  width: 100%;
+  max-height: 560px;
   background: #f0ede7;
+  object-fit: contain;
 }
 
 .woocommerce div.product p.price,
@@ -2006,13 +2017,21 @@ footer {
 .woocommerce div.product form.cart:not(.variations_form) .single_add_to_cart_button {
   min-height: 52px;
   color: var(--white);
-  background: var(--purple-dark);
+  background: var(--ink);
   border-color: var(--ink);
+  box-shadow: 5px 5px 0 var(--purple);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .woocommerce div.product form.cart:not(.variations_form) .single_add_to_cart_button:hover {
   color: var(--ink);
   background: var(--purple);
+  box-shadow: 0 0 0 var(--purple);
+  transform: translate(3px, 3px);
 }
 
 .woocommerce div.product form.cart .single_add_to_cart_button.is-loading {
@@ -2030,6 +2049,15 @@ footer {
 
 .single-product .woocommerce-message {
   display: none;
+}
+
+.woocommerce div.product .product_meta,
+.woocommerce .star-rating,
+.woocommerce-review-link,
+.woocommerce div.product .woocommerce-product-rating,
+.woocommerce div.product .woocommerce-tabs ul.tabs li.reviews_tab,
+.woocommerce div.product .woocommerce-tabs ul.tabs li.additional_information_tab {
+  display: none !important;
 }
 
 .single-product .wc-stripe-payment-request-wrapper,
@@ -2330,6 +2358,7 @@ footer {
 .spray-selector-bar .button {
   flex: 0 0 auto;
   border-color: var(--white);
+  box-shadow: 5px 5px 0 var(--purple-dark);
 }
 
 .spray-selector-bar .button:disabled {
@@ -2568,12 +2597,13 @@ footer {
   .woocommerce-page div.product div.summary {
     float: none;
     width: 100%;
+    max-width: 100%;
     margin-bottom: 34px;
   }
 
   .woocommerce div.product div.images img {
     width: 100%;
-    max-height: 62vh;
+    max-height: 430px;
     object-fit: contain;
   }
 
