@@ -2298,46 +2298,6 @@ footer {
   display: none !important;
 }
 
-.single-product .wc-stripe-payment-request-wrapper,
-.single-product .summary form.cart ~ div:not(.spray-product-description):not(.spray-simple-cart-message),
-.single-product .summary form.cart ~ section:not(.spray-product-description),
-.single-product #wc-stripe-payment-request-button-separator,
-.single-product #wc-stripe-payment-request-wrapper,
-.single-product #wc-stripe-payment-request-button,
-.single-product [id*="payment-request"],
-.single-product [class*="payment-request"],
-.single-product [class*="express-checkout"],
-.single-product [class*="express_checkout"],
-.single-product [class*="express-payment"],
-.single-product [class*="ExpressPayment"],
-.single-product .wc-stripe-payment-request-button,
-.single-product .wc-stripe-express-checkout-wrapper,
-.single-product .wc-stripe-product-checkout-container,
-.single-product .wc_stripe_product_payment_methods,
-.single-product .stripe-payment-request-wrapper,
-.single-product .stripe-button-el,
-.single-product .wcpay-express-checkout-wrapper,
-.single-product .wcpay-payment-request-wrapper,
-.single-product .wcpay-express-checkout,
-.single-product .wc-block-components-express-payment,
-.single-product .wc-block-components-express-payment__content,
-.single-product .wc-block-components-express-payment__event-buttons,
-.single-product .express-payment-methods,
-.single-product .amazon-pay-button,
-.single-product .wc-amazon-payments-advanced-populated,
-.single-product .wc-square-digital-wallet,
-.single-product .ppc-button-wrapper,
-.single-product .paypal-buttons,
-.single-product .express_checkout_button,
-.single-product .gpay-card-info-container,
-.single-product .GooglePayButton,
-.single-product .amazon-pay-button,
-.single-product [aria-label*="Google Pay"],
-.single-product [aria-label*="amazon pay"],
-.single-product [aria-label*="Link"] {
-  display: none !important;
-}
-
 .spray-nova-spray-product .woocommerce div.product form.variations_form.cart {
   display: none !important;
 }
