@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.3.4' );
+define( 'SPRAY_NOVA_VERSION', '1.3.5' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -152,10 +152,54 @@ function spray_nova_woocommerce_integration() {
 	remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
 	add_action( 'woocommerce_before_main_content', 'spray_nova_woocommerce_wrapper_start', 10 );
 	add_action( 'woocommerce_after_main_content', 'spray_nova_woocommerce_wrapper_end', 10 );
+	add_action( 'woocommerce_before_shop_loop', 'spray_nova_shop_category_filters', 6 );
 	add_action( 'woocommerce_after_shop_loop_item', 'spray_nova_loop_product_link', 10 );
 }
 add_action( 'wp', 'spray_nova_woocommerce_integration' );
 add_filter( 'loop_shop_columns', function() { return 4; } );
+
+/**
+ * Render quick category filters on product archives.
+ */
+function spray_nova_shop_category_filters() {
+	if ( ! function_exists( 'wc_get_page_permalink' ) || ! taxonomy_exists( 'product_cat' ) ) {
+		return;
+	}
+
+	$terms = get_terms( array(
+		'taxonomy'   => 'product_cat',
+		'hide_empty' => true,
+		'parent'     => 0,
+		'orderby'    => 'name',
+		'order'      => 'ASC',
+	) );
+
+	if ( is_wp_error( $terms ) || ! $terms ) {
+		return;
+	}
+
+	$current_term = is_product_category() ? get_queried_object() : null;
+	$shop_url     = spray_nova_shop_url();
+	?>
+	<nav class="spray-shop-filters" aria-label="<?php esc_attr_e( 'Filtrar tienda por categoría', 'spray-nova' ); ?>">
+		<a class="<?php echo $current_term ? '' : 'active'; ?>" href="<?php echo esc_url( $shop_url ); ?>">
+			<?php esc_html_e( 'Todo', 'spray-nova' ); ?>
+		</a>
+		<?php foreach ( $terms as $term ) :
+			$link = get_term_link( $term );
+			if ( is_wp_error( $link ) ) {
+				continue;
+			}
+			$is_active = $current_term && (int) $current_term->term_id === (int) $term->term_id;
+			?>
+			<a class="<?php echo $is_active ? 'active' : ''; ?>" href="<?php echo esc_url( $link ); ?>">
+				<?php echo esc_html( $term->name ); ?>
+				<span><?php echo esc_html( $term->count ); ?></span>
+			</a>
+		<?php endforeach; ?>
+	</nav>
+	<?php
+}
 
 /**
  * Replace loop add-to-cart buttons with a clean product link.

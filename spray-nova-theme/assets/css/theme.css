@@ -1836,6 +1836,50 @@ footer {
   text-transform: uppercase;
 }
 
+.spray-shop-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 0 0 28px;
+  padding: 0 0 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.spray-shop-filters a {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: 160ms ease;
+}
+
+.spray-shop-filters a:hover,
+.spray-shop-filters a.active {
+  color: var(--white);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.spray-shop-filters span {
+  display: inline-grid;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  color: var(--ink);
+  background: var(--purple);
+  border-radius: 100px;
+  font-size: 11px;
+  place-items: center;
+}
+
 .woocommerce .woocommerce-result-count,
 .woocommerce .woocommerce-ordering {
   margin: 22px 0 38px;
@@ -1881,6 +1925,11 @@ footer {
   float: none;
   width: auto;
   margin: 0;
+  padding: 0;
+}
+
+.woocommerce ul.products li.product > a.woocommerce-LoopProduct-link {
+  display: block;
 }
 
 .woocommerce ul.products li.product a img {
@@ -1888,14 +1937,17 @@ footer {
   width: 100%;
   aspect-ratio: 1 / 1;
   margin: 0 0 18px;
-  padding: 11%;
-  background: #f0ede7;
+  padding: 7%;
+  background: var(--white);
+  border: 1px solid var(--line);
   object-fit: contain;
   transition: transform 220ms ease;
 }
 
 .woocommerce ul.products li.product:hover a img {
-  transform: translateY(-6px);
+  border-color: var(--ink);
+  box-shadow: 6px 6px 0 var(--purple-pale);
+  transform: translateY(-4px);
 }
 
 .woocommerce ul.products li.product .woocommerce-loop-product__title {
@@ -1907,7 +1959,8 @@ footer {
 
 .woocommerce ul.products li.product .price {
   color: var(--ink);
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .woocommerce span.onsale {
@@ -2565,6 +2618,25 @@ footer {
   .woocommerce .woocommerce-breadcrumb {
     margin-bottom: 24px;
     word-break: break-word;
+  }
+
+  .spray-shop-filters {
+    flex-wrap: nowrap;
+    margin-right: -14px;
+    margin-left: -14px;
+    padding-right: 14px;
+    padding-left: 14px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .spray-shop-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .spray-shop-filters a {
+    flex: 0 0 auto;
   }
 
   .woocommerce .woocommerce-result-count,
