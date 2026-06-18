@@ -2972,19 +2972,30 @@ footer {
 
   .woocommerce ul.products {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px 12px;
+    gap: 22px 12px;
   }
 
   .woocommerce ul.products li.product,
-  .woocommerce-page ul.products li.product {
+  .woocommerce-page ul.products li.product,
+  .woocommerce ul.products[class*="columns-"] li.product,
+  .woocommerce-page ul.products[class*="columns-"] li.product {
+    float: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .woocommerce ul.products li.product > a.woocommerce-LoopProduct-link {
+    display: block;
     width: 100%;
-    margin-bottom: 0;
   }
 
   .woocommerce ul.products li.product a img {
-    width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
     margin-bottom: 12px;
     padding: 9%;
+    box-sizing: border-box;
   }
 
   .woocommerce ul.products li.product .woocommerce-loop-product__title {
