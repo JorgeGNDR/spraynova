@@ -2029,68 +2029,6 @@ footer {
   background: var(--ink);
 }
 
-.spray-infinite-shop .woocommerce-pagination {
-  display: none;
-}
-
-.spray-infinite-failed .woocommerce-pagination {
-  display: block;
-  clear: both;
-}
-
-.spray-infinite-loader {
-  clear: both;
-  width: min(420px, 100%);
-  margin: 48px auto 0;
-  padding: 17px 20px;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  color: #514e49;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.spray-infinite-loader::before {
-  display: inline-block;
-  width: 9px;
-  height: 9px;
-  margin-right: 10px;
-  background: var(--purple-dark);
-  border-radius: 50%;
-  content: "";
-}
-
-.spray-infinite-loader.is-loading::before {
-  animation: spray-pulse 800ms ease-in-out infinite alternate;
-}
-
-.spray-infinite-loader.is-done {
-  color: var(--ink);
-  background: var(--purple-pale);
-  border-color: transparent;
-}
-
-.spray-infinite-loader.is-error {
-  color: #8a1f1f;
-  background: #fff7f3;
-  border-color: #d8b4a5;
-}
-
-@keyframes spray-pulse {
-  from {
-    opacity: 0.35;
-    transform: scale(0.8);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-}
-
 .woocommerce div.product {
   display: grid;
   grid-template-columns: minmax(280px, 420px) minmax(0, 660px);
