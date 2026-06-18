@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.3.7' );
+define( 'SPRAY_NOVA_VERSION', '1.3.8' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -40,7 +40,6 @@ function spray_nova_setup() {
 			'max_columns'     => 4,
 		),
 	) );
-	add_theme_support( 'wc-product-gallery-zoom' );
 	add_theme_support( 'wc-product-gallery-lightbox' );
 	add_theme_support( 'wc-product-gallery-slider' );
 

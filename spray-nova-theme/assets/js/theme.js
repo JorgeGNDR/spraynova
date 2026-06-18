@@ -211,6 +211,40 @@
     );
 
     forms.forEach((form) => {
+      const quantity = form.querySelector(".quantity");
+      const input = form.querySelector('input[name="quantity"]');
+
+      if (quantity && input && !quantity.querySelector(".spray-simple-qty-minus")) {
+        quantity.classList.add("spray-simple-qty");
+
+        const minus = document.createElement("button");
+        minus.type = "button";
+        minus.className = "spray-simple-qty-minus";
+        minus.textContent = "-";
+
+        const plus = document.createElement("button");
+        plus.type = "button";
+        plus.className = "spray-simple-qty-plus";
+        plus.textContent = "+";
+
+        quantity.prepend(minus);
+        quantity.append(plus);
+
+        const min = Number(input.getAttribute("min") || 1);
+        const max = input.getAttribute("max") ? Number(input.getAttribute("max")) : null;
+
+        function setSimpleQuantity(value) {
+          let nextValue = Math.max(min, Number(value || min));
+          if (max) nextValue = Math.min(max, nextValue);
+          input.value = nextValue;
+          input.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+
+        minus.addEventListener("click", () => setSimpleQuantity(Number(input.value || min) - 1));
+        plus.addEventListener("click", () => setSimpleQuantity(Number(input.value || min) + 1));
+        input.addEventListener("input", () => setSimpleQuantity(input.value));
+      }
+
       form.addEventListener("submit", (event) => {
         const submitButton = form.querySelector('[type="submit"][name="add-to-cart"]');
         const productId = Number(submitButton?.value || form.querySelector('[name="add-to-cart"]')?.value || 0);
