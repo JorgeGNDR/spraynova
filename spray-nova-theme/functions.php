@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.3.10' );
+define( 'SPRAY_NOVA_VERSION', '1.3.12' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -40,6 +40,7 @@ function spray_nova_setup() {
 			'max_columns'     => 4,
 		),
 	) );
+	add_theme_support( 'wc-product-gallery-zoom' );
 	add_theme_support( 'wc-product-gallery-lightbox' );
 	add_theme_support( 'wc-product-gallery-slider' );
 
@@ -358,6 +359,68 @@ function spray_nova_family_hex( $family ) {
 }
 
 /**
+ * Convert a hex color to HSL pieces for perceptual sorting.
+ *
+ * @param string $hex Hex color.
+ * @return array
+ */
+function spray_nova_hex_to_hsl( $hex ) {
+	$hex = ltrim( trim( $hex ), '#' );
+	if ( 6 !== strlen( $hex ) || ! ctype_xdigit( $hex ) ) {
+		return array( 'h' => 999, 's' => 0, 'l' => 0 );
+	}
+
+	$r   = hexdec( substr( $hex, 0, 2 ) ) / 255;
+	$g   = hexdec( substr( $hex, 2, 2 ) ) / 255;
+	$b   = hexdec( substr( $hex, 4, 2 ) ) / 255;
+	$max = max( $r, $g, $b );
+	$min = min( $r, $g, $b );
+	$l   = ( $max + $min ) / 2;
+	$h   = 0;
+	$s   = 0;
+
+	if ( $max !== $min ) {
+		$d = $max - $min;
+		$s = $l > 0.5 ? $d / ( 2 - $max - $min ) : $d / ( $max + $min );
+
+		if ( $max === $r ) {
+			$h = ( $g - $b ) / $d + ( $g < $b ? 6 : 0 );
+		} elseif ( $max === $g ) {
+			$h = ( $b - $r ) / $d + 2;
+		} else {
+			$h = ( $r - $g ) / $d + 4;
+		}
+
+		$h /= 6;
+	}
+
+	return array(
+		'h' => $h * 360,
+		's' => $s,
+		'l' => $l,
+	);
+}
+
+/**
+ * Remove repeated product code from the color display name.
+ *
+ * @param string $label Color label.
+ * @param string $code Color code.
+ * @return string
+ */
+function spray_nova_clean_color_label( $label, $code ) {
+	$label = trim( $label );
+	$code  = trim( $code );
+
+	if ( $code && 0 === stripos( $label, $code ) ) {
+		$label = trim( substr( $label, strlen( $code ) ) );
+		$label = ltrim( $label, " -–—·\t\n\r\0\x0B" );
+	}
+
+	return $label ? $label : $code;
+}
+
+/**
  * Render the spray color wall on variable spray products.
  */
 function spray_nova_spray_color_selector() {
@@ -393,18 +456,54 @@ function spray_nova_spray_color_selector() {
 		}
 
 		$families[ $family ] = $family;
+		$hsl                 = spray_nova_hex_to_hsl( $hex );
 		$colors[] = array(
 			'id'          => $variation_id,
 			'label'       => $label,
+			'display'     => spray_nova_clean_color_label( $label, $code ),
 			'code'        => $code,
 			'hex'         => $hex,
 			'family'      => $family,
+			'hue'         => $hsl['h'],
+			'saturation'  => $hsl['s'],
+			'lightness'   => $hsl['l'],
 			'price'       => (float) $variation->get_price(),
 			'price_html'  => $variation->get_price_html(),
 			'is_enabled'  => $variation->is_purchasable() && $variation->is_in_stock(),
 			'stock_label' => $variation->is_in_stock() ? __( 'Disponible', 'spray-nova' ) : __( 'Agotado', 'spray-nova' ),
 		);
 	}
+
+	usort( $colors, function( $a, $b ) {
+		$family_order = array(
+			'blancos'   => 0,
+			'amarillos' => 1,
+			'naranjas'  => 2,
+			'rojos'     => 3,
+			'rosas'     => 4,
+			'morados'   => 5,
+			'azules'    => 6,
+			'verdes'    => 7,
+			'marrones'  => 8,
+			'grises'    => 9,
+			'negros'    => 10,
+			'otros'     => 11,
+		);
+		$a_family     = isset( $family_order[ $a['family'] ] ) ? $family_order[ $a['family'] ] : 99;
+		$b_family     = isset( $family_order[ $b['family'] ] ) ? $family_order[ $b['family'] ] : 99;
+
+		if ( $a_family !== $b_family ) {
+			return $a_family - $b_family;
+		}
+		if ( abs( $a['hue'] - $b['hue'] ) > 0.01 ) {
+			return $a['hue'] <=> $b['hue'];
+		}
+		if ( abs( $a['lightness'] - $b['lightness'] ) > 0.01 ) {
+			return $b['lightness'] <=> $a['lightness'];
+		}
+
+		return strcmp( $a['code'], $b['code'] );
+	} );
 
 	if ( ! $colors ) {
 		echo '<div class="spray-color-selector spray-color-selector-empty"><p>' . esc_html__( 'Crea variaciones de color para mostrar la carta de sprays.', 'spray-nova' ) . '</p></div>';
@@ -475,8 +574,8 @@ function spray_nova_spray_color_selector() {
 						<span></span>
 					</button>
 					<div class="spray-color-info">
-						<strong><?php echo esc_html( $color['label'] ); ?></strong>
-						<small><?php echo esc_html( $color['code'] ); ?> · <?php echo wp_kses_post( $color['price_html'] ); ?></small>
+						<strong><?php echo esc_html( $color['display'] ); ?></strong>
+						<small><span><?php echo esc_html( $color['code'] ); ?></span><?php echo wp_kses_post( $color['price_html'] ); ?></small>
 					</div>
 					<div class="spray-qty" aria-label="<?php esc_attr_e( 'Cantidad', 'spray-nova' ); ?>">
 						<button type="button" class="spray-qty-minus" <?php disabled( ! $color['is_enabled'] ); ?>>−</button>

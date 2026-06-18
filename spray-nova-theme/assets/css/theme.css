@@ -2485,10 +2485,22 @@ footer {
 }
 
 .spray-color-info small {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   margin-top: 3px;
   color: #6c675f;
   font-size: 11px;
   line-height: 1.35;
+}
+
+.spray-color-info small span {
+  flex: 0 1 auto;
+  max-width: min(118px, 55%);
+  overflow: hidden;
+  color: #8d8780;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .spray-color-info em {
