@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.3.0' );
+define( 'SPRAY_NOVA_VERSION', '1.3.3' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -396,7 +396,6 @@ function spray_nova_spray_color_selector() {
 				<p class="eyebrow"><?php esc_html_e( 'Carta de colores', 'spray-nova' ); ?></p>
 				<h2><?php esc_html_e( 'ELIGE COLORES Y CANTIDADES', 'spray-nova' ); ?></h2>
 			</div>
-			<p><?php esc_html_e( 'Puedes combinar varios colores en un solo pedido. Si no llevas stock todavía, deja el stock sin gestionar y revisa el pedido antes de preparar el envío.', 'spray-nova' ); ?></p>
 		</div>
 
 		<?php if ( $specs ) : ?>
@@ -435,7 +434,6 @@ function spray_nova_spray_color_selector() {
 					<div class="spray-color-info">
 						<strong><?php echo esc_html( $color['label'] ); ?></strong>
 						<small><?php echo esc_html( $color['code'] ); ?> · <?php echo wp_kses_post( $color['price_html'] ); ?></small>
-						<em><?php echo esc_html( $color['stock_label'] ); ?></em>
 					</div>
 					<div class="spray-qty" aria-label="<?php esc_attr_e( 'Cantidad', 'spray-nova' ); ?>">
 						<button type="button" class="spray-qty-minus" <?php disabled( ! $color['is_enabled'] ); ?>>−</button>
