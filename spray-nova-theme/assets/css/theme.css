@@ -2970,6 +2970,32 @@ footer {
     padding-left: 16px;
   }
 
+  .woocommerce ul.products {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .woocommerce ul.products li.product,
+  .woocommerce-page ul.products li.product {
+    width: 100%;
+  }
+
+  .woocommerce ul.products li.product a img {
+    width: 100%;
+    margin-bottom: 16px;
+    padding: 10%;
+  }
+
+  .woocommerce ul.products li.product .woocommerce-loop-product__title {
+    max-width: 100%;
+    font-size: 18px;
+  }
+
+  .woocommerce ul.products li.product .spray-loop-product-link {
+    width: 100%;
+    max-width: none;
+  }
+
   .woocommerce div.product .product_title {
     font-size: clamp(40px, 14vw, 58px);
   }
