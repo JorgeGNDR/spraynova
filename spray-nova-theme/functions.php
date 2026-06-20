@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.3.18' );
+define( 'SPRAY_NOVA_VERSION', '1.3.19' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -60,6 +60,10 @@ function spray_nova_assets() {
 		wp_enqueue_script( 'wc-cart-fragments' );
 		$script_dependencies[] = 'wc-add-to-cart';
 		$script_dependencies[] = 'wc-cart-fragments';
+		if ( function_exists( 'is_product' ) && is_product() ) {
+			wp_enqueue_script( 'wc-add-to-cart-variation' );
+			$script_dependencies[] = 'wc-add-to-cart-variation';
+		}
 	}
 
 	wp_enqueue_style(
@@ -252,12 +256,32 @@ function spray_nova_body_classes( $classes ) {
 		$product = wc_get_product( get_the_ID() );
 		if ( spray_nova_is_spray_product( $product ) ) {
 			$classes[] = 'spray-nova-spray-product';
+		} elseif ( $product instanceof WC_Product && $product->is_type( 'variable' ) ) {
+			$classes[] = 'spray-nova-variable-product';
 		}
 	}
 
 	return $classes;
 }
 add_filter( 'body_class', 'spray_nova_body_classes' );
+
+/**
+ * Expose optional color metadata to the native WooCommerce variation form.
+ *
+ * @param array                $data      Variation data sent to the product page.
+ * @param WC_Product           $product   Parent product.
+ * @param WC_Product_Variation $variation Variation object.
+ * @return array
+ */
+function spray_nova_available_variation_color( $data, $product, $variation ) {
+	$hex = get_post_meta( $variation->get_id(), '_spray_nova_color_hex', true );
+	if ( $hex ) {
+		$data['spray_nova_color_hex'] = sanitize_hex_color( $hex );
+	}
+
+	return $data;
+}
+add_filter( 'woocommerce_available_variation', 'spray_nova_available_variation_color', 10, 3 );
 
 /**
  * Replace the default variation selector with the custom spray color wall.

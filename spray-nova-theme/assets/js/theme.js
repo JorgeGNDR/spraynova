@@ -205,9 +205,91 @@
     updateSummary();
   }
 
-  function initSimpleProductCart() {
+  function colorForLabel(label) {
+    const value = label.toLocaleLowerCase("es");
+    const colors = [
+      [["negro", "black"], "#171717"],
+      [["blanco", "white"], "#f8f6f0"],
+      [["gris", "grey", "gray"], "#969696"],
+      [["plata", "silver"], "#b7b9bc"],
+      [["oro", "gold"], "#c49a45"],
+      [["amarillo", "yellow"], "#f2cf35"],
+      [["naranja", "orange"], "#ef7d22"],
+      [["rojo", "red"], "#d33b35"],
+      [["rosa", "pink", "fucsia"], "#e977b3"],
+      [["morado", "purple", "violeta", "violet", "lila"], "#9f71c8"],
+      [["azul", "blue", "cyan"], "#3c7dcb"],
+      [["verde", "green", "lime", "oliva"], "#559b55"],
+      [["marron", "marrón", "brown", "beige", "arena"], "#956b49"],
+    ];
+    return colors.find(([names]) => names.some((name) => value.includes(name)))?.[1] || "#c6a0eb";
+  }
+
+  function variationHex(form, attributeName, value, label) {
+    const variations = $(form).data("product_variations") || [];
+    const match = variations.find((variation) => {
+      const attributes = variation.attributes || {};
+      return attributes[attributeName] === value || (!attributes[attributeName] && value);
+    });
+    return match?.spray_nova_color_hex || colorForLabel(label);
+  }
+
+  function initVariableProductSelectors() {
+    document.querySelectorAll("form.variations_form").forEach((form) => {
+      if (form.closest(".spray-color-selector") || form.dataset.sprayNovaReady) return;
+      form.dataset.sprayNovaReady = "true";
+
+      form.querySelectorAll("table.variations select").forEach((select) => {
+        const options = [...select.options].filter((option) => option.value);
+        if (!options.length) return;
+
+        const picker = document.createElement("div");
+        picker.className = "spray-variation-options";
+        picker.setAttribute("role", "listbox");
+        picker.setAttribute("aria-label", select.getAttribute("aria-label") || "Elige una opción");
+
+        options.forEach((option) => {
+          const button = document.createElement("button");
+          const attributeName = select.name;
+          button.type = "button";
+          button.className = "spray-variation-option";
+          button.dataset.value = option.value;
+          button.setAttribute("role", "option");
+          button.setAttribute("aria-selected", "false");
+          button.innerHTML = `<span style="--variation-color:${variationHex(form, attributeName, option.value, option.textContent)}"></span><strong></strong>`;
+          button.querySelector("strong").textContent = option.textContent;
+          button.addEventListener("click", () => {
+            select.value = option.value;
+            $(select).trigger("change");
+          });
+          picker.append(button);
+        });
+
+        select.insertAdjacentElement("afterend", picker);
+
+        const sync = () => {
+          picker.querySelectorAll(".spray-variation-option").forEach((button) => {
+            const selected = button.dataset.value === select.value;
+            button.classList.toggle("is-selected", selected);
+            button.setAttribute("aria-selected", String(selected));
+          });
+        };
+        select.addEventListener("change", sync);
+        sync();
+      });
+
+      $(form).on("reset_data", () => {
+        form.querySelectorAll(".spray-variation-option").forEach((button) => {
+          button.classList.remove("is-selected");
+          button.setAttribute("aria-selected", "false");
+        });
+      });
+    });
+  }
+
+  function initProductCart() {
     const forms = [...document.querySelectorAll("form.cart")].filter(
-      (form) => !form.classList.contains("variations_form") && !form.closest(".spray-color-selector"),
+      (form) => !form.closest(".spray-color-selector"),
     );
 
     forms.forEach((form) => {
@@ -244,6 +326,8 @@
         plus.addEventListener("click", () => setSimpleQuantity(Number(input.value || min) + 1));
         input.addEventListener("input", () => setSimpleQuantity(input.value));
       }
+
+      if (form.classList.contains("variations_form")) return;
 
       form.addEventListener("submit", (event) => {
         const submitButton = form.querySelector('[type="submit"][name="add-to-cart"]');
@@ -338,5 +422,6 @@
 
   if (productCards.length) setFilter("todos");
   initSpraySelector();
-  initSimpleProductCart();
+  initVariableProductSelectors();
+  initProductCart();
 })(jQuery);

@@ -2328,6 +2328,172 @@ footer {
   display: none !important;
 }
 
+.spray-nova-variable-product .woocommerce div.product form.variations_form.cart {
+  display: block;
+  width: 100%;
+  max-width: 650px;
+  margin-top: 26px;
+}
+
+.spray-nova-variable-product form.variations_form table.variations,
+.spray-nova-variable-product form.variations_form table.variations tbody,
+.spray-nova-variable-product form.variations_form table.variations tr,
+.spray-nova-variable-product form.variations_form table.variations th,
+.spray-nova-variable-product form.variations_form table.variations td {
+  display: block;
+  width: 100%;
+}
+
+.spray-nova-variable-product form.variations_form table.variations {
+  margin: 0 0 18px;
+  border: 0;
+}
+
+.spray-nova-variable-product form.variations_form table.variations tr {
+  margin-bottom: 18px;
+}
+
+.spray-nova-variable-product form.variations_form table.variations th.label {
+  margin-bottom: 9px;
+  padding: 0;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.spray-nova-variable-product form.variations_form table.variations td.value {
+  padding: 0;
+}
+
+.spray-nova-variable-product form.variations_form table.variations select {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.spray-variation-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.spray-variation-option {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 13px 7px 8px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition: 150ms ease;
+}
+
+.spray-variation-option > span {
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  background: var(--variation-color);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.22);
+}
+
+.spray-variation-option strong {
+  font-size: 12px;
+  line-height: 1.1;
+}
+
+.spray-variation-option:hover,
+.spray-variation-option.is-selected {
+  background: var(--purple-pale);
+  border-color: var(--ink);
+  box-shadow: 2px 2px 0 var(--purple);
+  transform: translateY(-1px);
+}
+
+.spray-nova-variable-product form.variations_form .reset_variations {
+  display: inline-block;
+  margin-top: 10px;
+  color: #77736d;
+  font-size: 11px;
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+.spray-nova-variable-product form.variations_form .single_variation_wrap {
+  margin-top: 10px;
+}
+
+.spray-nova-variable-product form.variations_form .woocommerce-variation-description:empty,
+.spray-nova-variable-product form.variations_form .woocommerce-variation-price:empty,
+.spray-nova-variable-product form.variations_form .woocommerce-variation-availability:empty {
+  display: none;
+}
+
+.spray-nova-variable-product form.variations_form .woocommerce-variation-add-to-cart {
+  display: grid;
+  grid-template-columns: 164px minmax(190px, 250px);
+  gap: 10px;
+  justify-content: start;
+  margin-top: 14px;
+}
+
+.spray-nova-variable-product form.variations_form .quantity {
+  grid-column: 1;
+  margin: 0;
+}
+
+.spray-nova-variable-product form.variations_form .spray-simple-qty {
+  display: grid;
+  grid-template-columns: 38px minmax(54px, 1fr) 38px;
+  overflow: hidden;
+  border: 1px solid var(--ink);
+}
+
+.spray-nova-variable-product form.variations_form .qty {
+  width: 100%;
+  min-height: 48px;
+  padding: 0;
+  background: var(--paper);
+  border: 0;
+  border-right: 1px solid var(--ink);
+  border-left: 1px solid var(--ink);
+  font-size: 17px;
+  font-weight: 900;
+  text-align: center;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.spray-nova-variable-product form.variations_form .single_add_to_cart_button {
+  grid-column: 2;
+  min-height: 50px;
+  padding: 0 18px;
+  color: var(--white);
+  background: var(--ink);
+  border-color: var(--ink);
+  box-shadow: 2px 2px 0 var(--purple);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.spray-nova-variable-product form.variations_form .single_add_to_cart_button:hover {
+  color: var(--ink);
+  background: var(--purple);
+  box-shadow: none;
+}
+
 .spray-color-selector {
   grid-column: 1 / -1;
   clear: both;
@@ -3039,6 +3205,38 @@ footer {
 
   .woocommerce div.product .product_title {
     font-size: clamp(40px, 14vw, 58px);
+  }
+
+  .spray-nova-variable-product .woocommerce div.product form.variations_form.cart {
+    max-width: none;
+  }
+
+  .spray-variation-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .spray-variation-option {
+    width: 100%;
+    min-width: 0;
+    padding-right: 8px;
+  }
+
+  .spray-variation-option strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .spray-nova-variable-product form.variations_form .woocommerce-variation-add-to-cart {
+    grid-template-columns: minmax(120px, 0.8fr) minmax(150px, 1.2fr);
+  }
+
+  .spray-nova-variable-product form.variations_form .single_add_to_cart_button {
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 10px;
   }
 
   .spray-selector-head h2 {
