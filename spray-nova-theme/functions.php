@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.3.21' );
+define( 'SPRAY_NOVA_VERSION', '1.3.22' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -909,13 +909,31 @@ function spray_nova_cart_drawer_inner() {
 					if ( ! $product || ! $product->exists() || $cart_item['quantity'] <= 0 ) {
 						continue;
 					}
+					$product_name      = $product->is_type( 'variation' ) ? get_the_title( $product->get_parent_id() ) : $product->get_name();
+					$variation_details = array();
+					if ( $product->is_type( 'variation' ) ) {
+						foreach ( $product->get_variation_attributes() as $attribute_name => $attribute_value ) {
+							$taxonomy = str_replace( 'attribute_', '', $attribute_name );
+							$value    = $attribute_value;
+							if ( taxonomy_exists( $taxonomy ) ) {
+								$term = get_term_by( 'slug', $attribute_value, $taxonomy );
+								if ( $term && ! is_wp_error( $term ) ) {
+									$value = $term->name;
+								}
+							}
+							$variation_details[] = wc_attribute_label( $taxonomy ) . ': ' . $value;
+						}
+					}
 					?>
 					<div class="cart-line">
 						<a class="cart-thumb" href="<?php echo esc_url( $product->get_permalink( $cart_item ) ); ?>">
 							<?php echo wp_kses_post( $product->get_image( 'woocommerce_thumbnail' ) ); ?>
 						</a>
 						<div>
-							<h3><a href="<?php echo esc_url( $product->get_permalink( $cart_item ) ); ?>"><?php echo esc_html( $product->get_name() ); ?></a></h3>
+							<h3><a href="<?php echo esc_url( $product->get_permalink( $cart_item ) ); ?>"><?php echo esc_html( $product_name ); ?></a></h3>
+							<?php if ( $variation_details ) : ?>
+								<p class="cart-variation"><?php echo esc_html( implode( ' · ', $variation_details ) ); ?></p>
+							<?php endif; ?>
 							<p><?php echo esc_html( $cart_item['quantity'] ); ?> × <?php echo wp_kses_post( WC()->cart->get_product_price( $product ) ); ?></p>
 						</div>
 						<a class="remove-item remove_from_cart_button" href="<?php echo esc_url( wc_get_cart_remove_url( $cart_item_key ) ); ?>" data-cart_item_key="<?php echo esc_attr( $cart_item_key ); ?>" aria-label="<?php esc_attr_e( 'Eliminar producto', 'spray-nova' ); ?>">×</a>
