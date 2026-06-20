@@ -380,8 +380,38 @@
 
     let cleanupScheduled = false;
 
+    function decoratePacklinkMethods() {
+      document.querySelectorAll('input[value^="packlink_shipping_method:"]').forEach((input) => {
+        const option = input.closest(".wc-block-components-radio-control__option");
+        const label = option?.querySelector(".wc-block-components-radio-control__label");
+        if (!option || !label) return;
+
+        option.classList.add("spray-packlink-option");
+        if (!label.dataset.packlinkOriginalLabel) {
+          label.dataset.packlinkOriginalLabel = label.textContent.trim();
+        }
+
+        const original = label.dataset.packlinkOriginalLabel;
+        const dayMatch = original.match(/(\d+)\s*DAYS?/i);
+        const days = dayMatch ? Number(dayMatch[1]) : 0;
+        const isPickup = /pick\s*up|recogida/i.test(original);
+        let cleanLabel = original;
+
+        if (isPickup) {
+          cleanLabel = "Recogida en punto Correos";
+        } else if (/delivery|entrega/i.test(original) && days) {
+          const deliveryTime = days === 1 ? "24 h" : days === 2 ? "48 h" : `${days} días`;
+          cleanLabel = `Correos · Entrega ${deliveryTime}`;
+        }
+
+        if (label.textContent.trim() !== cleanLabel) label.textContent = cleanLabel;
+        option.classList.toggle("spray-packlink-pickup", isPickup);
+      });
+    }
+
     function cleanDuplicateDropOffs() {
       cleanupScheduled = false;
+      decoratePacklinkMethods();
       const containers = [...document.querySelectorAll('[id="packlink-drop-off"]')];
       if (containers.length < 2) return;
 

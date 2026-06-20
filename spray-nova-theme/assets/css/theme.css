@@ -2928,19 +2928,92 @@ footer {
   display: none !important;
 }
 
-.woocommerce-checkout #packlink-drop-off {
-  flex: 0 0 auto;
-  margin-left: auto;
+.woocommerce-checkout .spray-packlink-option {
+  min-height: 72px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+.woocommerce-checkout .spray-packlink-option:hover {
+  background: var(--paper);
+}
+
+.woocommerce-checkout .spray-packlink-option.wc-block-components-radio-control__option-checked {
+  background: var(--purple-pale);
+  border-color: var(--ink);
+}
+
+.woocommerce-checkout .spray-packlink-option .wc-block-components-radio-control__label-group {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr) auto;
+  grid-template-areas: "logo title price";
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+
+.woocommerce-checkout .spray-packlink-option .pl-image-wrapper {
+  grid-area: logo;
+  display: grid;
+  width: 54px;
+  height: 40px;
+  margin: 0;
+  padding: 7px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  place-items: center;
+}
+
+.woocommerce-checkout .spray-packlink-option .pl-checkout-carrier-image {
+  width: 100%;
+  max-width: 40px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.woocommerce-checkout .spray-packlink-option .wc-block-components-radio-control__label {
+  grid-area: title;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.woocommerce-checkout .spray-packlink-option .wc-block-components-radio-control__secondary-label {
+  grid-area: price;
+  min-width: max-content;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 900;
+  text-align: right;
+}
+
+.woocommerce-checkout .spray-packlink-pickup .wc-block-components-radio-control__label-group {
+  grid-template-areas:
+    "logo title price"
+    "logo pickup price";
+  align-items: start;
+}
+
+.woocommerce-checkout .spray-packlink-pickup #packlink-drop-off {
+  grid-area: pickup;
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
 }
 
 .woocommerce-checkout #packlink-drop-off-picker.button {
-  min-height: 44px;
-  margin: 0 12px;
-  padding: 8px 16px;
+  min-height: 38px;
+  margin: 0;
+  padding: 8px 14px;
   color: var(--white);
   background: var(--ink);
   border: 1px solid var(--ink);
-  box-shadow: 2px 2px 0 var(--purple);
+  box-shadow: 2px 2px 0 var(--purple-dark);
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -2953,6 +3026,26 @@ footer {
   color: var(--ink);
   background: var(--purple);
   box-shadow: none;
+}
+
+.woocommerce-checkout .spray-packlink-pickup .woocommerce-shipping-destination {
+  max-width: 480px !important;
+  margin: 0;
+  padding: 10px 12px;
+  color: #514e49;
+  background: var(--white);
+  border-left: 3px solid var(--purple-dark);
+  font-size: 12px !important;
+  line-height: 1.55;
+}
+
+.woocommerce-checkout .spray-packlink-pickup .woocommerce-shipping-destination strong {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--ink);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .woocommerce-account .woocommerce-MyAccount-navigation ul {
@@ -3271,13 +3364,33 @@ footer {
     font-size: 10px;
   }
 
-  .woocommerce-checkout #packlink-drop-off {
-    width: 100%;
-    margin: 10px 0 0;
+  .woocommerce-checkout .spray-packlink-option {
+    padding-left: 42px;
+  }
+
+  .woocommerce-checkout .spray-packlink-option .wc-block-components-radio-control__label-group {
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+    gap: 9px;
+  }
+
+  .woocommerce-checkout .spray-packlink-option .pl-image-wrapper {
+    width: 42px;
+    height: 36px;
+    padding: 5px;
+  }
+
+  .woocommerce-checkout .spray-packlink-option .wc-block-components-radio-control__label,
+  .woocommerce-checkout .spray-packlink-option .wc-block-components-radio-control__secondary-label {
+    font-size: 12px;
+  }
+
+  .woocommerce-checkout .spray-packlink-pickup #packlink-drop-off {
+    width: auto;
+    margin: 2px 0 0;
   }
 
   .woocommerce-checkout #packlink-drop-off-picker.button {
-    width: 100%;
+    width: auto;
     margin: 0;
   }
 
