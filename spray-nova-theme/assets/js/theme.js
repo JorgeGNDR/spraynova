@@ -374,6 +374,48 @@
     });
   }
 
+  function initPacklinkCheckoutFix() {
+    const checkout = document.querySelector(".wc-block-checkout");
+    if (!checkout) return;
+
+    let cleanupScheduled = false;
+
+    function cleanDuplicateDropOffs() {
+      cleanupScheduled = false;
+      const containers = [...document.querySelectorAll('[id="packlink-drop-off"]')];
+      if (containers.length < 2) return;
+
+      const checkedPickup = [...document.querySelectorAll('.wc-block-components-radio-control__option')].find(
+        (option) =>
+          option.querySelector('input[type="radio"]:checked') &&
+          /pick\s*up|recogida/i.test(option.textContent || ""),
+      );
+      const selectedContainers = checkedPickup
+        ? [...checkedPickup.querySelectorAll('[id="packlink-drop-off"]')]
+        : [];
+      const keeper =
+        containers.find((container) => container.querySelector("#packlink-drop-off-picker")) ||
+        selectedContainers[selectedContainers.length - 1] ||
+        null;
+
+      containers.forEach((container) => {
+        if (container !== keeper && !container.children.length) container.remove();
+      });
+    }
+
+    function scheduleCleanup() {
+      if (cleanupScheduled) return;
+      cleanupScheduled = true;
+      window.requestAnimationFrame(cleanDuplicateDropOffs);
+    }
+
+    cleanDuplicateDropOffs();
+    new MutationObserver(scheduleCleanup).observe(checkout, {
+      childList: true,
+      subtree: true,
+    });
+  }
+
   document.addEventListener("click", (event) => {
     if (event.target.closest(".cart-toggle")) openCart();
     if (event.target.closest(".cart-close") || event.target === backdrop) closeCart();
@@ -424,4 +466,5 @@
   initSpraySelector();
   initVariableProductSelectors();
   initProductCart();
+  initPacklinkCheckoutFix();
 })(jQuery);

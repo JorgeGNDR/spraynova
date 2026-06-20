@@ -2923,6 +2923,38 @@ footer {
   color: var(--purple-dark);
 }
 
+/* Packlink can append repeated empty pickup targets on block-checkout updates. */
+.woocommerce-checkout [id="packlink-drop-off"]:empty {
+  display: none !important;
+}
+
+.woocommerce-checkout #packlink-drop-off {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+.woocommerce-checkout #packlink-drop-off-picker.button {
+  min-height: 44px;
+  margin: 0 12px;
+  padding: 8px 16px;
+  color: var(--white);
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--purple);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.woocommerce-checkout #packlink-drop-off-picker.button:hover {
+  color: var(--ink);
+  background: var(--purple);
+  box-shadow: none;
+}
+
 .woocommerce-account .woocommerce-MyAccount-navigation ul {
   margin: 0;
   padding: 0;
@@ -3237,6 +3269,16 @@ footer {
     padding-right: 10px;
     padding-left: 10px;
     font-size: 10px;
+  }
+
+  .woocommerce-checkout #packlink-drop-off {
+    width: 100%;
+    margin: 10px 0 0;
+  }
+
+  .woocommerce-checkout #packlink-drop-off-picker.button {
+    width: 100%;
+    margin: 0;
   }
 
   .spray-selector-head h2 {
