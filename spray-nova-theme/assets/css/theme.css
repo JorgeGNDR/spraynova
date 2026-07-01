@@ -3264,6 +3264,8 @@ footer {
 
   .spray-color-selector {
     box-sizing: border-box;
+    width: auto;
+    max-width: none;
     margin-right: -16px;
     margin-left: -16px;
     margin-top: 0;
@@ -3475,11 +3477,16 @@ footer {
   }
 
   .spray-color-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
   }
 
   .spray-color-card {
+    flex: 0 0 calc(50% - 5px);
+    width: calc(50% - 5px);
+    min-width: 0;
+    box-sizing: border-box;
     grid-template-columns: 34px minmax(0, 1fr);
     gap: 8px;
     min-height: 102px;
