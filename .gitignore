@@ -1,2 +1,6 @@
 .vercel
-spray-nova-theme.zip
+*.zip
+data/
+tools/
+PRODUCTOS-SPRAYS.md
+spray-nova-catalogo-productos.xlsx
