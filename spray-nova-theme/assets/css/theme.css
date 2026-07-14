@@ -2634,7 +2634,23 @@ footer {
   display: flex;
   gap: 7px;
   overflow-x: auto;
-  padding-bottom: 2px;
+  padding-bottom: 12px;
+  scrollbar-color: #8c8881 transparent;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.spray-family-filters::-webkit-scrollbar {
+  height: 6px;
+}
+
+.spray-family-filters::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.spray-family-filters::-webkit-scrollbar-thumb {
+  background: #8c8881;
+  border-radius: 100px;
 }
 
 .spray-family-filters button {
