@@ -197,7 +197,6 @@ function spray_nova_shop_category_filters() {
 			?>
 			<a class="<?php echo $is_active ? 'active' : ''; ?>" href="<?php echo esc_url( $link ); ?>">
 				<?php echo esc_html( $term->name ); ?>
-				<span><?php echo esc_html( $term->count ); ?></span>
 			</a>
 		<?php endforeach; ?>
 	</nav>
