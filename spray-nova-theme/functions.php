@@ -9,7 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SPRAY_NOVA_VERSION', '1.3.22' );
+$spray_nova_theme_version = wp_get_theme()->get( 'Version' );
+define( 'SPRAY_NOVA_VERSION', $spray_nova_theme_version ?: '1.0.0' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
