@@ -29,7 +29,6 @@
 	<div class="footer-bottom">
 		<p><span aria-hidden="true">&copy;</span> <?php echo esc_html( wp_date( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?></p>
 		<nav class="footer-legal" aria-label="<?php esc_attr_e( 'Información legal', 'spray-nova' ); ?>">
-			<a href="<?php echo esc_url( home_url( '/contacto/' ) ); ?>"><?php esc_html_e( 'Contacto', 'spray-nova' ); ?></a>
 			<a href="<?php echo esc_url( home_url( '/aviso-legal/' ) ); ?>"><?php esc_html_e( 'Aviso legal', 'spray-nova' ); ?></a>
 			<a href="<?php echo esc_url( home_url( '/condiciones-de-compra/' ) ); ?>"><?php esc_html_e( 'Compra y devoluciones', 'spray-nova' ); ?></a>
 			<a href="<?php echo esc_url( get_privacy_policy_url() ?: home_url( '/politica-de-privacidad/' ) ); ?>"><?php esc_html_e( 'Privacidad', 'spray-nova' ); ?></a>
