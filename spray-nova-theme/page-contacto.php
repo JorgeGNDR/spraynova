@@ -48,7 +48,7 @@ $privacy_url = get_privacy_policy_url() ?: home_url( '/politica-de-privacidad/' 
 
 				<label class="contact-field" for="contact-message">
 					<span><?php esc_html_e( 'Mensaje', 'spray-nova' ); ?></span>
-					<textarea id="contact-message" name="mensaje" rows="7" maxlength="3000" required></textarea>
+					<textarea id="contact-message" name="mensaje" rows="5" maxlength="3000" required></textarea>
 				</label>
 
 				<label class="contact-consent">
