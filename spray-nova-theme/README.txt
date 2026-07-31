@@ -29,6 +29,8 @@ En Apariencia > Menús asigna:
 
 Si no asignas menús, el tema muestra enlaces predeterminados.
 
+Para una navegación mínima se recomienda usar solo Tienda, Categorías y Contacto. Elimina cualquier enlace anterior a Nosotros de los menús que ya estuvieran creados.
+
 == Personalización ==
 
 En Apariencia > Personalizar > Spray Nova puedes editar:
@@ -36,7 +38,6 @@ En Apariencia > Personalizar > Spray Nova puedes editar:
 * Barra superior de envío.
 * Textos de portada.
 * Imágenes de las categorías de portada.
-* Historia de marca.
 * Enlaces de Instagram y TikTok.
 
 Las imágenes de categorías se pueden configurar de dos maneras:
@@ -47,6 +48,21 @@ Las imágenes de categorías se pueden configurar de dos maneras:
 Si ninguna de las dos está configurada, se conserva la ilustración original del tema.
 
 En Apariencia > Personalizar > Identidad del sitio puedes sustituir el isotipo por otro logo.
+
+== Contacto ==
+
+Al entrar por primera vez al administrador tras actualizar el tema, se crea la página Contacto con su plantilla. El formulario envía los mensajes al correo configurado en Ajustes > Generales > Dirección de correo electrónico de administración. El servidor debe tener correctamente configurado el envío de correo de WordPress; en producción se recomienda usar SMTP.
+
+== Páginas legales mínimas ==
+
+Antes de abrir la tienda crea, completa y publica estas páginas:
+
+* Aviso legal: titular, NIF/CIF, domicilio, correo, datos registrales si proceden y condiciones de uso.
+* Política de privacidad: responsable, finalidades, base jurídica, conservación, destinatarios y ejercicio de derechos.
+* Compra y devoluciones: precios e impuestos, pagos, entrega, gastos, desistimiento, devoluciones, garantías y reclamaciones.
+* Política de cookies: cookies realmente utilizadas y gestión del consentimiento cuando existan cookies no esenciales.
+
+No publiques textos con datos ficticios. En Ajustes > Privacidad selecciona la página de política de privacidad para que WordPress y el formulario utilicen su URL.
 
 == Imágenes de producto ==
 
@@ -85,4 +101,4 @@ Si todavía no controlas stock, no actives "Gestionar inventario" en las variaci
 
 Si más adelante quieres controlar stock, activa "Gestionar inventario" por variación. Cada color descontará sus unidades de forma independiente.
 
-Version: 1.1.0
+Version: 1.3.31

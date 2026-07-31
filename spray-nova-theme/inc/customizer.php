@@ -101,29 +101,6 @@ function spray_nova_customize_register( $wp_customize ) {
 			'label'   => __( 'Título de productos', 'spray-nova' ),
 			'default' => 'PRODUCTOS DESTACADOS',
 		),
-		'show_story' => array(
-			'label'   => __( 'Mostrar sección nosotros', 'spray-nova' ),
-			'default' => true,
-			'type'    => 'checkbox',
-		),
-		'story_kicker' => array(
-			'label'   => __( 'Antetítulo de historia', 'spray-nova' ),
-			'default' => 'Spray Nova Graffiti Shop',
-		),
-		'story_title' => array(
-			'label'   => __( 'Título de historia', 'spray-nova' ),
-			'default' => 'HECHO PARA QUIENES NO DEJAN EL MURO EN BLANCO.',
-			'type'    => 'textarea',
-		),
-		'story_text' => array(
-			'label'   => __( 'Texto de historia', 'spray-nova' ),
-			'default' => 'Material fiable, colores que responden y atención cercana. Seleccionamos cada producto pensando en escritores, ilustradores y gente que crea a su manera.',
-			'type'    => 'textarea',
-		),
-		'story_button' => array(
-			'label'   => __( 'Botón de historia', 'spray-nova' ),
-			'default' => 'Conócenos',
-		),
 		'show_newsletter' => array(
 			'label'   => __( 'Mostrar newsletter', 'spray-nova' ),
 			'default' => true,

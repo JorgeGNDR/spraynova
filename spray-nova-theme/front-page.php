@@ -10,7 +10,6 @@ get_header();
 $shop_url = spray_nova_shop_url();
 $show_categories = get_theme_mod( 'spray_nova_show_categories', true );
 $show_products   = get_theme_mod( 'spray_nova_show_products', true );
-$show_story      = get_theme_mod( 'spray_nova_show_story', true );
 $show_newsletter = get_theme_mod( 'spray_nova_show_newsletter', true );
 $hero_secondary_target = $show_categories ? '#categorias' : ( $show_products ? '#catalogo' : $shop_url );
 
@@ -162,18 +161,6 @@ if ( ! $ticker_items ) {
 				?>
 			</div>
 			<p class="empty-results"><?php esc_html_e( 'No hemos encontrado productos en esta categoría.', 'spray-nova' ); ?></p>
-		</section>
-	<?php endif; ?>
-
-	<?php if ( $show_story ) : ?>
-		<section class="brand-story section" id="nosotros">
-			<div class="story-logo"><img src="<?php echo esc_url( spray_nova_image( 'logo-redondo.jpg' ) ); ?>" alt="<?php esc_attr_e( 'Spray Nova Graffiti Shop', 'spray-nova' ); ?>"></div>
-			<div class="story-copy">
-				<p class="eyebrow"><?php echo esc_html( get_theme_mod( 'spray_nova_story_kicker', 'Spray Nova Graffiti Shop' ) ); ?></p>
-				<h2><?php echo esc_html( get_theme_mod( 'spray_nova_story_title', 'HECHO PARA QUIENES NO DEJAN EL MURO EN BLANCO.' ) ); ?></h2>
-				<p><?php echo esc_html( get_theme_mod( 'spray_nova_story_text', 'Material fiable, colores que responden y atención cercana. Seleccionamos cada producto pensando en escritores, ilustradores y gente que crea a su manera.' ) ); ?></p>
-				<a class="button button-outline" href="<?php echo esc_url( home_url( '/nosotros/' ) ); ?>"><?php echo esc_html( get_theme_mod( 'spray_nova_story_button', 'Conócenos' ) ); ?></a>
-			</div>
 		</section>
 	<?php endif; ?>
 

@@ -154,8 +154,7 @@ function spray_nova_primary_menu_fallback() {
 	$links = array(
 		__( 'Tienda', 'spray-nova' )     => spray_nova_shop_url(),
 		__( 'Categorías', 'spray-nova' ) => home_url( '/#categorias' ),
-		__( 'Novedades', 'spray-nova' )  => home_url( '/#novedades' ),
-		__( 'Nosotros', 'spray-nova' )   => home_url( '/#nosotros' ),
+		__( 'Contacto', 'spray-nova' )   => home_url( '/contacto/' ),
 	);
 
 	echo '<ul class="menu">';
@@ -164,6 +163,104 @@ function spray_nova_primary_menu_fallback() {
 	}
 	echo '</ul>';
 }
+
+/**
+ * Hide retired About links from menus that were configured before this
+ * simplified version of the theme.
+ *
+ * @param array $items Menu items.
+ * @return array
+ */
+function spray_nova_remove_about_menu_items( $items ) {
+	foreach ( $items as $key => $item ) {
+		$is_about_page = 'page' === $item->object && 'nosotros' === get_post_field( 'post_name', $item->object_id );
+		$is_about_url  = false !== strpos( $item->url, '/nosotros' ) || false !== strpos( $item->url, '#nosotros' );
+
+		if ( $is_about_page || $is_about_url ) {
+			unset( $items[ $key ] );
+		}
+	}
+
+	return array_values( $items );
+}
+add_filter( 'wp_nav_menu_objects', 'spray_nova_remove_about_menu_items' );
+
+/**
+ * Create the contact page once after the theme update, without overwriting an
+ * existing page or its content.
+ */
+function spray_nova_ensure_contact_page() {
+	if ( ! current_user_can( 'edit_pages' ) || get_option( 'spray_nova_contact_page_created' ) ) {
+		return;
+	}
+
+	$page  = get_page_by_path( 'contacto', OBJECT, 'page' );
+	$ready = false;
+	if ( ! $page ) {
+		$page_id = wp_insert_post( array(
+			'post_title'  => __( 'Contacto', 'spray-nova' ),
+			'post_name'   => 'contacto',
+			'post_status' => 'publish',
+			'post_type'   => 'page',
+		), true );
+
+		if ( ! is_wp_error( $page_id ) ) {
+			update_post_meta( $page_id, '_wp_page_template', 'page-contacto.php' );
+			$ready = true;
+		}
+	} elseif ( 'default' === get_page_template_slug( $page->ID ) ) {
+		update_post_meta( $page->ID, '_wp_page_template', 'page-contacto.php' );
+		$ready = true;
+	} else {
+		$ready = true;
+	}
+
+	if ( $ready ) {
+		update_option( 'spray_nova_contact_page_created', 1, false );
+	}
+}
+add_action( 'admin_init', 'spray_nova_ensure_contact_page' );
+
+/**
+ * Process the simple contact form and send it to the WordPress admin email.
+ */
+function spray_nova_handle_contact_form() {
+	$redirect_url = home_url( '/contacto/' );
+	$nonce        = isset( $_POST['spray_nova_contact_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['spray_nova_contact_nonce'] ) ) : '';
+
+	if ( ! wp_verify_nonce( $nonce, 'spray_nova_contact' ) ) {
+		wp_safe_redirect( add_query_arg( 'estado', 'error', $redirect_url ) . '#formulario-contacto' );
+		exit;
+	}
+
+	// A filled honeypot is treated as a successful submission to discourage bots.
+	if ( ! empty( $_POST['website'] ) ) {
+		wp_safe_redirect( add_query_arg( 'estado', 'enviado', $redirect_url ) . '#formulario-contacto' );
+		exit;
+	}
+
+	$name    = isset( $_POST['nombre'] ) ? sanitize_text_field( wp_unslash( $_POST['nombre'] ) ) : '';
+	$email   = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+	$message = isset( $_POST['mensaje'] ) ? sanitize_textarea_field( wp_unslash( $_POST['mensaje'] ) ) : '';
+	$privacy = ! empty( $_POST['privacidad'] );
+
+	if ( ! $name || ! is_email( $email ) || ! $message || ! $privacy ) {
+		wp_safe_redirect( add_query_arg( 'estado', 'incompleto', $redirect_url ) . '#formulario-contacto' );
+		exit;
+	}
+
+	$recipient   = sanitize_email( get_option( 'admin_email' ) );
+	$subject     = sprintf( __( '[%s] Nuevo mensaje de contacto', 'spray-nova' ), wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ) );
+	$mail_body   = sprintf( "Nombre: %1\$s\nCorreo: %2\$s\n\nMensaje:\n%3\$s", $name, $email, $message );
+	$header_name = str_replace( array( '<', '>' ), '', $name );
+	$headers     = array( 'Content-Type: text/plain; charset=UTF-8', 'Reply-To: ' . $header_name . ' <' . $email . '>' );
+	$sent        = $recipient && wp_mail( $recipient, $subject, $mail_body, $headers );
+
+	wp_safe_redirect( add_query_arg( 'estado', $sent ? 'enviado' : 'error', $redirect_url ) . '#formulario-contacto' );
+	exit;
+}
+add_action( 'admin_post_spray_nova_contact', 'spray_nova_handle_contact_form' );
+add_action( 'admin_post_nopriv_spray_nova_contact', 'spray_nova_handle_contact_form' );
 
 /**
  * Replace WooCommerce wrappers with the theme layout.
