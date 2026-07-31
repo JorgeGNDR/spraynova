@@ -117,6 +117,37 @@ function spray_nova_shop_url() {
 }
 
 /**
+ * Resolve the image used by a category card on the home page.
+ *
+ * A Customizer image takes priority. When it is not set, use the native
+ * WooCommerce product category thumbnail.
+ *
+ * @param string $category_slug Product category slug.
+ * @param string $theme_mod      Customizer setting name.
+ * @return int Attachment ID, or 0 when no image is available.
+ */
+function spray_nova_category_image_id( $category_slug, $theme_mod ) {
+	$image_id = absint( get_theme_mod( $theme_mod, 0 ) );
+
+	if ( $image_id && wp_attachment_is_image( $image_id ) ) {
+		return $image_id;
+	}
+
+	if ( ! taxonomy_exists( 'product_cat' ) ) {
+		return 0;
+	}
+
+	$term = get_term_by( 'slug', $category_slug, 'product_cat' );
+	if ( ! $term || is_wp_error( $term ) ) {
+		return 0;
+	}
+
+	$image_id = absint( get_term_meta( $term->term_id, 'thumbnail_id', true ) );
+
+	return $image_id && wp_attachment_is_image( $image_id ) ? $image_id : 0;
+}
+
+/**
  * Header menu fallback.
  */
 function spray_nova_primary_menu_fallback() {

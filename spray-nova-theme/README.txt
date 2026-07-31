@@ -35,8 +35,16 @@ En Apariencia > Personalizar > Spray Nova puedes editar:
 
 * Barra superior de envío.
 * Textos de portada.
+* Imágenes de las categorías de portada.
 * Historia de marca.
 * Enlaces de Instagram y TikTok.
+
+Las imágenes de categorías se pueden configurar de dos maneras:
+
+1. En Apariencia > Personalizar > Spray Nova selecciona una imagen para Sprays, Rotuladores o Ceras.
+2. Como alternativa, asigna la miniatura nativa en Productos > Categorías. La portada la utilizará cuando no exista una imagen específica en el personalizador.
+
+Si ninguna de las dos está configurada, se conserva la ilustración original del tema.
 
 En Apariencia > Personalizar > Identidad del sitio puedes sustituir el isotipo por otro logo.
 

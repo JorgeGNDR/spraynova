@@ -71,20 +71,27 @@ if ( ! $ticker_items ) {
 			<div class="category-grid">
 				<?php
 				$categories = array(
-					array( 'slug' => 'sprays', 'name' => get_theme_mod( 'spray_nova_category_sprays_label', 'SPRAYS' ), 'number' => '01', 'class' => 'category-sprays', 'visual' => '<i class="mini-can one"></i><i class="mini-can two"></i><i class="mini-can three"></i>' ),
-					array( 'slug' => 'rotuladores', 'name' => get_theme_mod( 'spray_nova_category_markers_label', 'ROTULADORES' ), 'number' => '02', 'class' => 'category-markers', 'visual' => '<i class="marker one"></i><i class="marker two"></i><i class="marker three"></i>' ),
-					array( 'slug' => 'ceras', 'name' => get_theme_mod( 'spray_nova_category_wax_label', 'CERAS' ), 'number' => '03', 'class' => 'category-wax', 'visual' => '<i class="wax one"></i><i class="wax two"></i><i class="wax three"></i>' ),
+					array( 'slug' => 'sprays', 'name' => get_theme_mod( 'spray_nova_category_sprays_label', 'SPRAYS' ), 'number' => '01', 'class' => 'category-sprays', 'image_mod' => 'spray_nova_category_sprays_image', 'visual' => '<i class="mini-can one"></i><i class="mini-can two"></i><i class="mini-can three"></i>' ),
+					array( 'slug' => 'rotuladores', 'name' => get_theme_mod( 'spray_nova_category_markers_label', 'ROTULADORES' ), 'number' => '02', 'class' => 'category-markers', 'image_mod' => 'spray_nova_category_markers_image', 'visual' => '<i class="marker one"></i><i class="marker two"></i><i class="marker three"></i>' ),
+					array( 'slug' => 'ceras', 'name' => get_theme_mod( 'spray_nova_category_wax_label', 'CERAS' ), 'number' => '03', 'class' => 'category-wax', 'image_mod' => 'spray_nova_category_wax_image', 'visual' => '<i class="wax one"></i><i class="wax two"></i><i class="wax three"></i>' ),
 				);
 				foreach ( $categories as $category ) :
-					$term = term_exists( $category['slug'], 'product_cat' );
-					$url  = $term ? get_term_link( (int) $term['term_id'], 'product_cat' ) : add_query_arg( 'product_cat', $category['slug'], $shop_url );
+					$term     = term_exists( $category['slug'], 'product_cat' );
+					$url      = $term ? get_term_link( (int) $term['term_id'], 'product_cat' ) : add_query_arg( 'product_cat', $category['slug'], $shop_url );
+					$image_id = spray_nova_category_image_id( $category['slug'], $category['image_mod'] );
 					if ( is_wp_error( $url ) ) {
 						$url = $shop_url;
 					}
 					?>
 					<a class="category-card <?php echo esc_attr( $category['class'] ); ?>" href="<?php echo esc_url( $url ); ?>">
 						<span class="category-number"><?php echo esc_html( $category['number'] ); ?></span>
-						<span class="category-visual"><?php echo wp_kses_post( $category['visual'] ); ?></span>
+						<span class="category-visual<?php echo $image_id ? ' has-image' : ''; ?>">
+							<?php if ( $image_id ) : ?>
+								<?php echo wp_get_attachment_image( $image_id, 'large', false, array( 'class' => 'category-image', 'alt' => '', 'sizes' => '(max-width: 700px) 100vw, 33vw' ) ); ?>
+							<?php else : ?>
+								<?php echo wp_kses_post( $category['visual'] ); ?>
+							<?php endif; ?>
+						</span>
 						<span class="category-name"><?php echo esc_html( $category['name'] ); ?></span>
 						<span class="category-arrow"></span>
 					</a>

@@ -180,5 +180,26 @@ function spray_nova_customize_register( $wp_customize ) {
 			'type'        => isset( $field['type'] ) ? $field['type'] : 'text',
 		) );
 	}
+
+	$category_images = array(
+		'category_sprays_image'  => __( 'Imagen de categoría: Sprays', 'spray-nova' ),
+		'category_markers_image' => __( 'Imagen de categoría: Rotuladores', 'spray-nova' ),
+		'category_wax_image'     => __( 'Imagen de categoría: Ceras', 'spray-nova' ),
+	);
+
+	foreach ( $category_images as $key => $label ) {
+		$setting = 'spray_nova_' . $key;
+
+		$wp_customize->add_setting( $setting, array(
+			'default'           => 0,
+			'sanitize_callback' => 'absint',
+		) );
+		$wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, $setting, array(
+			'section'     => 'spray_nova_store',
+			'label'       => $label,
+			'description' => __( 'Si no eliges una imagen, se usará la miniatura de la categoría de WooCommerce.', 'spray-nova' ),
+			'mime_type'   => 'image',
+		) ) );
+	}
 }
 add_action( 'customize_register', 'spray_nova_customize_register' );

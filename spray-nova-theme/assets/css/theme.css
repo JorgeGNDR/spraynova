@@ -576,12 +576,15 @@ img {
 }
 
 .category-number {
+  position: relative;
+  z-index: 2;
   font-size: 11px;
   font-weight: 700;
 }
 
 .category-name {
   position: absolute;
+  z-index: 2;
   bottom: 24px;
   left: 25px;
   font-family: var(--font-display);
@@ -591,6 +594,7 @@ img {
 
 .category-arrow {
   position: absolute;
+  z-index: 2;
   right: 24px;
   bottom: 26px;
   font-size: 24px;
@@ -602,6 +606,34 @@ img {
   right: 0;
   bottom: 23%;
   left: 0;
+}
+
+.category-card .category-visual.has-image {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 1;
+  transform: none;
+}
+
+.category-visual.has-image::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(247, 244, 237, 0.2) 10%, rgba(247, 244, 237, 0.08) 45%, rgba(247, 244, 237, 0.88) 100%);
+  content: "";
+  pointer-events: none;
+}
+
+.category-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 300ms ease;
+}
+
+.category-card:hover .category-image {
+  transform: scale(1.035);
 }
 
 .mini-can {
