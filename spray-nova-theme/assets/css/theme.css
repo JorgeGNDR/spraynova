@@ -2119,6 +2119,10 @@ img {
   text-transform: uppercase;
 }
 
+.woocommerce .woocommerce-products-header {
+  margin-bottom: 30px;
+}
+
 .spray-shop-filters {
   display: flex;
   flex-wrap: wrap;
