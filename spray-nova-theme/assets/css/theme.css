@@ -2350,10 +2350,9 @@ img {
 
 .woocommerce div.product {
   display: grid;
-  grid-template-columns: minmax(280px, 420px) minmax(0, 660px);
+  grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
   gap: 34px clamp(34px, 5vw, 74px);
   align-items: start;
-  justify-content: start;
 }
 
 .woocommerce div.product div.images,
