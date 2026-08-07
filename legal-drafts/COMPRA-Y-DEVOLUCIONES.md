@@ -38,7 +38,7 @@ El cliente soportará el coste directo de la devolución cuando el desistimiento
 1. Organizar el envío mediante un servicio autorizado y con embalaje adecuado.
 2. Solicitar que Spray Nova gestione la recogida, descontándose del reembolso el coste directo comunicado previamente.
 
-Para productos que no puedan devolverse normalmente por correo, el coste máximo estimado de la recogida será **[PENDIENTE: ESTIMACIÓN DEL TRANSPORTE]**.
+Para productos que no puedan devolverse normalmente por correo, el coste máximo estimado de la recogida será de **15 €**.
 
 Spray Nova reembolsará el importe pagado y el coste de la modalidad ordinaria de entrega, mediante el mismo medio de pago salvo acuerdo distinto. El reembolso se realizará dentro de los 14 días siguientes a la comunicación, aunque podrá retenerse hasta recibir los productos o una prueba de su devolución.
 

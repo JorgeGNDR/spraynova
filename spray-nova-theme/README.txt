@@ -53,16 +53,11 @@ En Apariencia > Personalizar > Identidad del sitio puedes sustituir el isotipo p
 
 Al entrar por primera vez al administrador tras actualizar el tema, se crea la página Contacto con su plantilla. El formulario envía los mensajes al correo configurado en Ajustes > Generales > Dirección de correo electrónico de administración. El servidor debe tener correctamente configurado el envío de correo de WordPress; en producción se recomienda usar SMTP.
 
-== Páginas legales mínimas ==
+== Páginas legales ==
 
-Antes de abrir la tienda crea, completa y publica estas páginas:
+Al entrar en el administrador después de actualizar el tema, WordPress crea y publica las páginas Aviso legal, Condiciones de compra, Política de privacidad y Política de cookies. También selecciona automáticamente la página de privacidad en Ajustes > Privacidad.
 
-* Aviso legal: titular, NIF/CIF, domicilio, correo, datos registrales si proceden y condiciones de uso.
-* Política de privacidad: responsable, finalidades, base jurídica, conservación, destinatarios y ejercicio de derechos.
-* Compra y devoluciones: precios e impuestos, pagos, entrega, gastos, desistimiento, devoluciones, garantías y reclamaciones.
-* Política de cookies: cookies realmente utilizadas y gestión del consentimiento cuando existan cookies no esenciales.
-
-No publiques textos con datos ficticios. En Ajustes > Privacidad selecciona la página de política de privacidad para que WordPress y el formulario utilicen su URL.
+La instalación del contenido se ejecuta una sola vez. Después, las páginas se pueden editar normalmente desde Páginas sin que las actualizaciones ordinarias del tema sobrescriban los cambios.
 
 == Imágenes de producto ==
 
