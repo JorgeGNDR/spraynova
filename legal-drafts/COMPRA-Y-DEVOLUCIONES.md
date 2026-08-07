@@ -2,8 +2,7 @@
 
 ## Vendedor
 
-- Vendedor: **Roberto Jara Plumed — Spray Nova**
-- NIF: **45910330F**
+- Vendedor: **Spray Nova**
 - Domicilio: **Calle Almudafer, 20, bajo izquierda, 46520 Puerto de Sagunto (Valencia)**
 - Correo electrónico: **spraynova26@gmail.com**
 - Teléfono: **+34 634 787 788**
@@ -31,7 +30,7 @@ El consumidor puede desistir de la compra durante los **14 días naturales** sig
 
 Después deberá devolver el producto, en un máximo de 14 días desde la comunicación, a:
 
-**Roberto Jara Plumed — Calle Almudafer, 20, bajo izquierda, 46520 Puerto de Sagunto (Valencia)**
+**Spray Nova — Calle Almudafer, 20, bajo izquierda, 46520 Puerto de Sagunto (Valencia)**
 
 El cliente soportará el coste directo de la devolución cuando el desistimiento no se deba a un defecto o error de Spray Nova. Podrá:
 
@@ -52,7 +51,7 @@ Los bienes nuevos tienen una garantía legal de conformidad de **tres años desd
 
 ## Formulario de desistimiento
 
-> A la atención de **Roberto Jara Plumed, Calle Almudafer, 20, bajo izquierda, 46520 Puerto de Sagunto (Valencia)** — correo: **spraynova26@gmail.com**<br>
+> A la atención de **Spray Nova, Calle Almudafer, 20, bajo izquierda, 46520 Puerto de Sagunto (Valencia)** — correo: **spraynova26@gmail.com**<br>
 > Comunico que desisto de la compra del siguiente producto: **[PRODUCTO]**<br>
 > Número de pedido: **[NÚMERO]**<br>
 > Pedido el / recibido el: **[FECHA]**<br>

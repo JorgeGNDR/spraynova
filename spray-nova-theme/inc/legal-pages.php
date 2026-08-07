@@ -25,8 +25,7 @@ function spray_nova_legal_page_definitions() {
 			'content' => <<<'HTML'
 <h2>Titular</h2>
 <ul>
-<li><strong>Titular:</strong> Roberto Jara Plumed</li>
-<li><strong>NIF:</strong> 45910330F</li>
+<li><strong>Titular:</strong> Spray Nova</li>
 <li><strong>Domicilio:</strong> Calle Almudafer, 20, bajo izquierda, 46520 Puerto de Sagunto (Valencia)</li>
 <li><strong>Correo electrónico:</strong> <a href="mailto:spraynova26@gmail.com">spraynova26@gmail.com</a></li>
 <li><strong>Sitio web:</strong> <a href="https://spraynova.es">https://spraynova.es</a></li>
@@ -42,8 +41,7 @@ HTML,
 			'content' => <<<'HTML'
 <h2>Vendedor</h2>
 <ul>
-<li><strong>Vendedor:</strong> Roberto Jara Plumed — Spray Nova</li>
-<li><strong>NIF:</strong> 45910330F</li>
+<li><strong>Vendedor:</strong> Spray Nova</li>
 <li><strong>Domicilio:</strong> Calle Almudafer, 20, bajo izquierda, 46520 Puerto de Sagunto (Valencia)</li>
 <li><strong>Correo electrónico:</strong> <a href="mailto:spraynova26@gmail.com">spraynova26@gmail.com</a></li>
 <li><strong>Teléfono:</strong> <a href="tel:+34634787788">+34 634 787 788</a></li>
@@ -64,7 +62,7 @@ HTML,
 <h2>Desistimiento</h2>
 <p>El consumidor puede desistir de la compra durante los <strong>14 días naturales</strong> siguientes a la recepción, comunicándolo a <a href="mailto:spraynova26@gmail.com">spraynova26@gmail.com</a> mediante una declaración inequívoca o el formulario incluido al final.</p>
 <p>Después deberá devolver el producto, en un máximo de 14 días desde la comunicación, a:</p>
-<p><strong>Roberto Jara Plumed — Calle Almudafer, 20, bajo izquierda, 46520 Puerto de Sagunto (Valencia)</strong></p>
+<p><strong>Spray Nova — Calle Almudafer, 20, bajo izquierda, 46520 Puerto de Sagunto (Valencia)</strong></p>
 <p>El cliente soportará el coste directo de la devolución cuando el desistimiento no se deba a un defecto o error de Spray Nova. Podrá:</p>
 <ol>
 <li>Organizar el envío mediante un servicio autorizado y con embalaje adecuado.</li>
@@ -77,7 +75,7 @@ HTML,
 <h2>Productos defectuosos o incorrectos</h2>
 <p>Los bienes nuevos tienen una garantía legal de conformidad de <strong>tres años desde su entrega</strong>. Si un producto es defectuoso, llega dañado o no corresponde con lo pedido, el cliente debe escribir a <a href="mailto:spraynova26@gmail.com">spraynova26@gmail.com</a> indicando el número de pedido. Spray Nova asumirá el transporte y aplicará la solución que corresponda legalmente.</p>
 <h2>Formulario de desistimiento</h2>
-<p>A la atención de <strong>Roberto Jara Plumed, Calle Almudafer, 20, bajo izquierda, 46520 Puerto de Sagunto (Valencia)</strong> — correo: <a href="mailto:spraynova26@gmail.com">spraynova26@gmail.com</a></p>
+<p>A la atención de <strong>Spray Nova, Calle Almudafer, 20, bajo izquierda, 46520 Puerto de Sagunto (Valencia)</strong> — correo: <a href="mailto:spraynova26@gmail.com">spraynova26@gmail.com</a></p>
 <p>Comunico que desisto de la compra del siguiente producto: <strong>[PRODUCTO]</strong><br>
 Número de pedido: <strong>[NÚMERO]</strong><br>
 Pedido el / recibido el: <strong>[FECHA]</strong><br>
@@ -92,8 +90,7 @@ HTML,
 			'content' => <<<'HTML'
 <h2>Responsable</h2>
 <ul>
-<li><strong>Responsable:</strong> Roberto Jara Plumed</li>
-<li><strong>NIF:</strong> 45910330F</li>
+<li><strong>Responsable:</strong> Spray Nova</li>
 <li><strong>Domicilio:</strong> Calle Almudafer, 20, bajo izquierda, 46520 Puerto de Sagunto (Valencia)</li>
 <li><strong>Correo electrónico:</strong> <a href="mailto:spraynova26@gmail.com">spraynova26@gmail.com</a></li>
 </ul>
@@ -154,7 +151,7 @@ HTML,
  * Publish the legal pages once and select the WordPress privacy page.
  */
 function spray_nova_ensure_legal_pages() {
-	$content_version = '2026-08-07';
+	$content_version = '2026-08-07-2';
 
 	if ( ! current_user_can( 'edit_pages' ) || $content_version === get_option( 'spray_nova_legal_pages_version' ) ) {
 		return;

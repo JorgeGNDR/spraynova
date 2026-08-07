@@ -2,8 +2,7 @@
 
 ## Responsable
 
-- Responsable: **Roberto Jara Plumed**
-- NIF: **45910330F**
+- Responsable: **Spray Nova**
 - Domicilio: **Calle Almudafer, 20, bajo izquierda, 46520 Puerto de Sagunto (Valencia)**
 - Correo electrónico: **spraynova26@gmail.com**
 
