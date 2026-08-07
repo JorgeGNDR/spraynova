@@ -1,47 +1,56 @@
-# Datos necesarios para cerrar los textos legales
+# Datos necesarios para cerrar y publicar las páginas legales
 
-Responde a estos puntos. No hace falta redactar: basta con copiar la lista y completar cada línea.
+**Fecha de revisión: 7 de agosto de 2026**
 
-## Titular
+Las cuatro páginas ya están redactadas. Para sustituir los campos entre corchetes necesito:
 
-1. Nombre y apellidos o razón social:
-2. Nombre comercial, si es distinto de Spray Nova:
-3. NIF/CIF:
-4. Domicilio fiscal completo:
-5. Correo público de contacto:
-6. Correo para privacidad y ejercicio de derechos:
-7. Teléfono que quieras publicar, o «no publicar»:
-8. Datos del Registro Mercantil, si es una sociedad:
+## Identidad y contacto
 
-## Venta, envío y devoluciones legales
+1. Nombre y apellidos del titular o razón social.
+2. NIF o CIF.
+3. Domicilio completo que figurará públicamente.
+4. Correo público de atención al cliente.
+5. Correo para privacidad y devoluciones, si será distinto.
+6. Teléfono, solo si quieres publicarlo.
+7. Datos del Registro Mercantil, únicamente si procede.
+8. Localidad para la cláusula de jurisdicción de clientes profesionales.
 
-9. ¿Vendes a particulares, empresas o ambos?:
-10. Zonas de envío:
-11. Empresa o empresas de transporte:
-12. Plazo de preparación:
-13. Plazo habitual de entrega:
-14. Tarifas y umbral de envío gratuito:
-15. Dirección donde se recibirán desistimientos y productos defectuosos:
-16. Correo para incidencias y desistimientos:
-17. ¿Pagará el cliente el transporte de vuelta cuando desista?:
-18. Medios de pago activos:
-19. ¿Vendes algún producto personalizado o fabricado por encargo?:
-20. ¿Estás adherido al Sistema Arbitral de Consumo?:
+## Ventas y envíos
 
-## Privacidad, cookies y proveedores
+9. Zonas a las que venderás: Península, Baleares, Canarias, Ceuta, Melilla u otros países.
+10. Tiempo habitual de preparación y entrega.
+11. Coste del envío y, si existe, importe a partir del cual es gratuito.
+12. Empresa o empresas de transporte.
+13. Dirección a la que deben enviarse las devoluciones.
+14. Estimación del coste de devolver un pedido con aerosoles mediante un transporte autorizado.
+15. Métodos activados en Stripe: tarjeta, Apple Pay, Google Pay u otros.
+16. Si venderás también a empresas o solo a consumidores.
+17. Si habrá productos realmente hechos a medida; elegir un color normal del catálogo no cuenta como personalización legal.
+18. Si estás adherido al Sistema Arbitral de Consumo; normalmente será “no” si no lo has solicitado.
 
-21. Empresa de hosting:
-22. Proveedor de correo o SMTP:
-23. Pasarelas de pago activas:
-24. Transportistas que reciben datos del cliente:
-25. Herramienta de facturación o gestoría con acceso a datos:
-26. ¿Usas Google Analytics, Search Console, Meta Pixel, TikTok Pixel u otra analítica?:
-27. ¿Hay vídeos de YouTube, mapas, chat, reCAPTCHA u otros contenidos externos?:
-28. ¿Se activará la newsletter? Si sí, ¿con qué proveedor?:
-29. Lista de plugins activos de WordPress, si puedes copiarla:
+## Proveedores y datos
 
-## Decisiones pendientes
+19. Empresa de transporte definitiva.
+20. Gestoría, software de facturación u otro proveedor que acceda a datos de clientes, si existe.
+21. Confirmación de que no has añadido Google Analytics, Meta Pixel, TikTok Pixel, vídeos incrustados, mapas, chat o reCAPTCHA.
+22. Confirmación de que el bloque de newsletter sigue sin enviar ni guardar correos. Si no se va a activar, conviene ocultarlo para no crear una expectativa falsa.
 
-30. Fecha prevista de apertura de la tienda:
-31. ¿Quieres combinar Aviso legal y Privacidad en una sola página o mantenerlas separadas?:
-32. Cualquier condición especial que quieras aplicar, además de no ofrecer devoluciones voluntarias fuera de los derechos legales:
+## Ya confirmado en la web
+
+- Alojamiento: Hostinger.
+- Tienda: WooCommerce.
+- Pagos: Stripe.
+- Correo transaccional: Brevo mediante FluentSMTP.
+- Seguridad: Wordfence.
+- Caché: LiteSpeed Cache.
+- Formulario de contacto propio con casilla de aceptación de privacidad.
+- Sin herramienta de analítica o publicidad conocida en la configuración actual.
+
+## Páginas mínimas que se publicarán
+
+1. Aviso legal.
+2. Política de privacidad.
+3. Condiciones de compra, envíos, desistimiento y garantías.
+4. Política de cookies.
+
+No hace falta una página separada de devoluciones: está incluida en las condiciones de compra. Tampoco debe indicarse que “no se aceptan devoluciones” sin matices; la tienda puede excluir devoluciones comerciales voluntarias, pero debe respetar el desistimiento y la garantía legal cuando correspondan.

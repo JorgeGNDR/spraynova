@@ -1,69 +1,104 @@
 # Política de privacidad
 
-Última actualización: [FECHA]
+**Última actualización: 7 de agosto de 2026**
+
+> Borrador pendiente de completar. Sustituye todos los textos entre corchetes antes de publicarlo.
 
 ## 1. Responsable del tratamiento
 
-- Responsable: [NOMBRE LEGAL COMPLETO]
-- NIF/CIF: [NIF/CIF]
-- Domicilio: [DOMICILIO COMPLETO]
-- Correo para privacidad: [EMAIL DE PRIVACIDAD]
-- Delegado de protección de datos: [NO APLICA / DATOS DEL DPD]
+- Responsable: **[NOMBRE COMPLETO O RAZÓN SOCIAL]**
+- NIF/CIF: **[NIF/CIF]**
+- Domicilio: **[DOMICILIO COMPLETO]**
+- Correo para privacidad: **[CORREO DE PRIVACIDAD]**
+- Sitio web: **https://spraynova.es**
 
-## 2. Datos tratados, finalidad y base jurídica
+## 2. Qué datos tratamos y para qué
 
-### Consultas y contacto
+### Consultas y formulario de contacto
 
-Se tratan el nombre, correo electrónico y contenido del mensaje para responder consultas. La base jurídica es el consentimiento prestado al enviar el formulario y, cuando la consulta se refiera a una compra, la aplicación de medidas precontractuales o la ejecución del contrato.
+Tratamos el nombre, correo electrónico, contenido del mensaje y los datos técnicos necesarios para evitar abusos y responder a la consulta.
 
-### Pedidos y cuenta de cliente
+- Finalidad: atender preguntas sobre productos, pedidos o la tienda.
+- Base jurídica: consentimiento cuando se envía una consulta general; medidas precontractuales o ejecución del contrato cuando la consulta se refiere a una compra.
+- Conservación: durante el tiempo necesario para responder y, después, mientras puedan existir responsabilidades derivadas de la consulta.
 
-Se tratan datos identificativos, de contacto, facturación, entrega, pedidos y pago para gestionar compras, cobros, entregas, devoluciones legales, garantías, atención posventa y la cuenta de cliente. La base jurídica es la ejecución del contrato y el cumplimiento de obligaciones legales fiscales, contables y de consumo.
+### Compras y pedidos
 
-Los datos completos de tarjeta no son tratados directamente por Spray Nova cuando el pago se realiza mediante una pasarela externa. La pasarela utilizada tratará los datos conforme a su propia política.
+Tratamos los datos identificativos, de contacto, facturación, envío, productos adquiridos, importe, estado del pago, incidencias y comunicaciones asociadas al pedido.
+
+- Finalidad: tramitar la compra, cobrar, preparar y entregar el pedido, emitir facturas, atender incidencias y cumplir las obligaciones contables y fiscales.
+- Base jurídica: ejecución del contrato y cumplimiento de obligaciones legales.
+- Conservación: durante la relación contractual y los plazos exigidos por la normativa fiscal, contable, mercantil y de defensa de reclamaciones.
+
+Spray Nova no recibe ni almacena los datos completos de la tarjeta. El pago es procesado por Stripe conforme a sus propias condiciones y política de privacidad.
+
+### Cuenta de cliente
+
+Si el usuario crea una cuenta, se tratan sus datos de acceso, contacto, direcciones e historial de pedidos para permitirle gestionar sus compras.
+
+- Base jurídica: ejecución del servicio solicitado.
+- Conservación: mientras la cuenta permanezca activa, salvo los datos de pedidos que deban conservarse por obligación legal.
 
 ### Seguridad y prevención del fraude
 
-Pueden tratarse datos técnicos, registros e información de pedidos para proteger la tienda, prevenir abusos y detectar operaciones fraudulentas. La base jurídica es el interés legítimo en mantener la seguridad del servicio, sin perjuicio de los derechos de las personas interesadas.
+Se pueden tratar direcciones IP, registros técnicos, intentos de acceso y señales de riesgo para proteger la tienda, los pagos y a sus usuarios.
+
+- Base jurídica: interés legítimo en mantener el sitio seguro y prevenir el fraude, y cumplimiento de obligaciones legales cuando proceda.
+- Conservación: durante el periodo limitado configurado en los sistemas de seguridad o mientras sea necesario para investigar una incidencia.
 
 ### Comunicaciones comerciales
 
-Solo se enviarán comunicaciones comerciales cuando exista consentimiento válido o resulte aplicable otra base permitida por la ley. La persona interesada podrá darse de baja en cualquier momento. [INDICAR PROVEEDOR DE NEWSLETTER CUANDO SE ACTIVE].
+Actualmente Spray Nova **no mantiene un boletín de noticias activo**. No se enviará publicidad por correo sin consentimiento previo. Si se habilita en el futuro, esta política y el formulario correspondiente deberán actualizarse antes de recoger suscripciones.
 
 ## 3. Datos obligatorios
 
-Los campos marcados como obligatorios son necesarios para responder una consulta o tramitar una compra. Si no se facilitan, puede no ser posible prestar el servicio solicitado.
+Los campos marcados como obligatorios son necesarios para responder a una consulta o tramitar un pedido. Si no se facilitan, es posible que no podamos prestar el servicio solicitado.
 
-## 4. Conservación
+El usuario garantiza que los datos aportados son exactos y que, si facilita datos de otra persona, está autorizado para hacerlo.
 
-Los datos de contacto se conservarán durante el tiempo necesario para responder y atender posibles responsabilidades. Los datos de pedidos, facturación y contabilidad se conservarán durante los plazos exigidos por la normativa aplicable. Los datos basados en consentimiento se tratarán hasta que este se retire, sin afectar a la licitud del tratamiento anterior.
+## 4. Destinatarios y proveedores
 
-## 5. Destinatarios y proveedores
+Los datos podrán ser comunicados o resultar accesibles a los siguientes proveedores, únicamente cuando sea necesario:
 
-Los datos podrán comunicarse o facilitarse, cuando sea necesario, a:
+- **Hostinger**, como proveedor de alojamiento e infraestructura web.
+- **Stripe**, como proveedor de pago y prevención del fraude.
+- **Brevo**, utilizado para el envío de correos transaccionales mediante FluentSMTP.
+- **La empresa de transporte [INDICAR EMPRESA]**, para entregar los pedidos.
+- **Wordfence/Defiant**, como servicio de seguridad del sitio.
+- **[GESTORÍA O PROVEEDOR DE FACTURACIÓN, SI EXISTE]**, para obligaciones fiscales y contables.
+- Administraciones públicas, jueces y tribunales cuando exista una obligación legal.
 
-- Proveedores de alojamiento web, mantenimiento, correo y copias de seguridad: [PROVEEDORES].
-- Pasarelas y entidades de pago: [PROVEEDORES DE PAGO].
-- Empresas de transporte y logística: [TRANSPORTISTAS].
-- Asesoría fiscal, contable o jurídica: [PROVEEDOR O «NO SE PUBLICA»].
-- Administraciones públicas, juzgados y autoridades cuando exista obligación legal.
+WooCommerce gestiona la tienda dentro del alojamiento de Spray Nova. Algunas extensiones o servicios conectados pueden tratar datos según su configuración; se revisará esta política antes de activar nuevas integraciones.
 
-Los proveedores que actúen por cuenta de Spray Nova estarán sujetos a las obligaciones contractuales correspondientes en materia de protección de datos.
+No se venden datos personales a terceros.
 
-## 6. Transferencias internacionales
+## 5. Transferencias internacionales
 
-[INDICAR SI ALGÚN PROVEEDOR TRATA DATOS FUERA DEL ESPACIO ECONÓMICO EUROPEO Y LAS GARANTÍAS UTILIZADAS. SI NO EXISTEN, INDICARLO].
+Algunos proveedores tecnológicos pueden tratar datos fuera del Espacio Económico Europeo. Cuando ocurra, el tratamiento estará amparado por una decisión de adecuación, cláusulas contractuales tipo de la Comisión Europea u otra garantía válida conforme al Reglamento General de Protección de Datos. Puede solicitar información sobre las garantías aplicables escribiendo a **[CORREO DE PRIVACIDAD]**.
 
-## 7. Derechos
+## 6. Derechos
 
-La persona interesada puede solicitar el acceso, rectificación, supresión, oposición, limitación y, cuando proceda, portabilidad de sus datos. También puede retirar el consentimiento en cualquier momento.
+El interesado puede solicitar:
 
-Para ejercerlos debe escribir a [EMAIL DE PRIVACIDAD], identificando la solicitud y aportando únicamente la información necesaria para verificar su identidad. Si considera que sus derechos no han sido atendidos, puede reclamar ante la Agencia Española de Protección de Datos: https://www.aepd.es/.
+- Acceso a sus datos.
+- Rectificación de datos inexactos.
+- Supresión cuando proceda.
+- Limitación u oposición al tratamiento.
+- Portabilidad de los datos cuando sea aplicable.
+- Retirada del consentimiento en cualquier momento, sin afectar a la licitud del tratamiento anterior.
 
-## 8. Menores
+Para ejercerlos, puede escribir a **[CORREO DE PRIVACIDAD]** e indicar el derecho que desea ejercer. Solo se solicitará documentación identificativa cuando sea necesaria para verificar la identidad.
 
-La tienda no está dirigida a menores que no tengan capacidad legal para contratar. Las compras realizadas por menores deberán efectuarse con autorización de sus representantes legales.
+Si considera que sus derechos no han sido respetados, puede presentar una reclamación ante la [Agencia Española de Protección de Datos](https://www.aepd.es/).
 
-## 9. Seguridad y cambios
+## 7. Menores
 
-Se aplican medidas razonables para proteger los datos frente a accesos, pérdidas o alteraciones no autorizadas. Esta política podrá actualizarse cuando cambien los tratamientos, proveedores o requisitos legales; la fecha de la última revisión aparecerá al inicio.
+La tienda no está dirigida específicamente a menores. Las compras deben realizarlas personas con capacidad legal para contratar o con la intervención de sus representantes legales.
+
+## 8. Decisiones automatizadas
+
+Stripe y otros sistemas de pago o seguridad pueden aplicar controles automatizados para detectar fraude. Spray Nova no utiliza los datos recibidos para crear perfiles comerciales ni adoptar otras decisiones automatizadas con efectos jurídicos sobre el usuario.
+
+## 9. Cambios en esta política
+
+Esta política podrá actualizarse cuando cambien la normativa, los proveedores o los tratamientos realizados. La versión vigente y su fecha estarán siempre disponibles en esta página.

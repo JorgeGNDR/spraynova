@@ -1,47 +1,52 @@
 # Aviso legal
 
-Última actualización: [FECHA]
+**Última actualización: 7 de agosto de 2026**
 
-## 1. Identificación del titular
+> Borrador pendiente de completar. Sustituye todos los textos entre corchetes antes de publicarlo.
 
-En cumplimiento de la Ley 34/2002, de servicios de la sociedad de la información y de comercio electrónico, se informa de que este sitio web es titularidad de:
+## 1. Titular del sitio web
 
-- Titular o razón social: [NOMBRE LEGAL COMPLETO]
-- Nombre comercial: Spray Nova
-- NIF/CIF: [NIF/CIF]
-- Domicilio: [DOMICILIO COMPLETO]
-- Correo electrónico: [EMAIL DE CONTACTO]
-- Teléfono: [TELÉFONO, SI SE PUBLICA]
-- Datos registrales: [REGISTRO, TOMO, FOLIO, HOJA E INSCRIPCIÓN, SI PROCEDE]
+En cumplimiento de la Ley 34/2002, de servicios de la sociedad de la información y de comercio electrónico, se informa de que el sitio web **spraynova.es** es titularidad de:
+
+- Titular o razón social: **[NOMBRE COMPLETO O EMPRESA]**
+- NIF/CIF: **[NIF/CIF]**
+- Domicilio: **[DOMICILIO COMPLETO]**
+- Correo electrónico: **[CORREO DE CONTACTO]**
+- Teléfono: **[TELÉFONO, SI SE PUBLICA]**
+- Datos registrales: **[REGISTRO, TOMO, FOLIO Y HOJA, SOLO SI PROCEDE]**
+
+En adelante, el titular será denominado **Spray Nova**.
 
 ## 2. Objeto
 
-Este sitio web ofrece información y venta online de sprays, rotuladores, ceras y otros materiales relacionados con el arte urbano y la creación gráfica.
+Este sitio web ofrece información y venta en línea de sprays, ceras, rotuladores y otros productos relacionados con el graffiti y la pintura.
 
-El acceso y uso del sitio atribuye la condición de persona usuaria e implica la aceptación de este aviso legal. Las condiciones aplicables a cada compra se recogen además en la página «Compra y devoluciones».
+El acceso y uso del sitio atribuye la condición de usuario e implica la aceptación de este aviso legal. La compra de productos se regula además por las Condiciones de compra.
 
-## 3. Uso correcto del sitio
+## 3. Uso del sitio web
 
-La persona usuaria se compromete a utilizar el sitio de forma lícita, a no dañar su funcionamiento y a no intentar acceder sin autorización a sistemas, cuentas o información de terceros.
+El usuario se compromete a utilizar el sitio y sus contenidos de forma lícita, diligente y respetuosa con los derechos de terceros. No está permitido utilizarlo para introducir software malicioso, intentar acceder a áreas restringidas, alterar su funcionamiento o realizar actividades fraudulentas.
 
-Spray Nova podrá limitar o bloquear el acceso cuando detecte usos fraudulentos, ataques, automatizaciones abusivas o actuaciones que comprometan la seguridad del sitio.
+Spray Nova podrá suspender o limitar el acceso cuando detecte un uso abusivo, ilícito o que comprometa la seguridad del sitio.
 
 ## 4. Propiedad intelectual e industrial
 
-Los textos, diseños, fotografías, marcas, logotipos, código y demás contenidos del sitio pertenecen a sus respectivos titulares o se utilizan con autorización. No se permite su reproducción, distribución, transformación o explotación comercial sin autorización previa, salvo en los casos permitidos por la ley.
+Los textos, fotografías, diseños, logotipos, código y demás contenidos del sitio pertenecen a Spray Nova o se utilizan con la autorización correspondiente. Las marcas y materiales de terceros pertenecen a sus respectivos titulares.
 
-Las marcas y materiales de fabricantes o distribuidores pertenecen a sus respectivos propietarios.
+No se permite reproducir, distribuir, modificar o explotar estos contenidos sin autorización, salvo en los casos permitidos por la ley.
 
 ## 5. Responsabilidad
 
-Se procura mantener la información actualizada y el sitio disponible, pero no puede garantizarse la ausencia absoluta de errores técnicos, interrupciones o contenidos maliciosos introducidos por terceros. Esta limitación no afecta a los derechos legalmente reconocidos a consumidores y usuarios.
+Spray Nova procura mantener la información actualizada y el sitio disponible y seguro, pero no puede garantizar la ausencia absoluta de errores, interrupciones o incidencias ajenas a su control.
 
-Los enlaces externos se facilitan como referencia. Spray Nova no controla sus contenidos ni sus políticas, salvo que se indique expresamente lo contrario.
+Las fotografías intentan representar fielmente los productos. No obstante, el color puede variar ligeramente según la pantalla, la iluminación o el lote de fabricación. Esta diferencia no limita los derechos legales del consumidor cuando el producto no sea conforme con lo contratado.
 
-## 6. Legislación aplicable
+Spray Nova no responde del contenido o disponibilidad de páginas externas enlazadas, salvo cuando tenga conocimiento efectivo de que son ilícitas y no actúe para retirar el enlace.
 
-Este sitio se rige por la legislación española. Cuando la persona compradora tenga la condición de consumidora, cualquier controversia se someterá a los juzgados y tribunales que correspondan conforme a la normativa de protección de consumidores, sin imponerle un fuero distinto del legalmente aplicable.
+## 6. Protección de datos y cookies
 
-## 7. Contacto
+El tratamiento de datos personales se explica en la **Política de privacidad**. El uso de cookies y tecnologías similares se describe en la **Política de cookies**.
 
-Para cualquier consulta relacionada con el sitio puede utilizarse la página de Contacto o escribir a [EMAIL DE CONTACTO].
+## 7. Legislación aplicable
+
+Este aviso se rige por la legislación española. Cuando el usuario sea consumidor, cualquier controversia se someterá a los juzgados que correspondan conforme a la normativa de protección de consumidores. En los demás casos, y siempre que la ley lo permita, las partes se someten a los juzgados de **[LOCALIDAD]**.
