@@ -406,6 +406,9 @@ img {
   right: 6%;
   bottom: 4%;
   width: 35%;
+  height: auto !important;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
   border-radius: 50%;
   mix-blend-mode: multiply;
   transform: rotate(7deg);
