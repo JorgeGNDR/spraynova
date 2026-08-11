@@ -46,7 +46,7 @@ function spray_nova_customize_register( $wp_customize ) {
 		),
 		'hero_text' => array(
 			'label'   => __( 'Texto de portada', 'spray-nova' ),
-			'default' => 'Sprays, rotuladores y ceras seleccionados para que tu idea llegue del boceto al muro.',
+			'default' => 'Sprays, markers y material para graffiti.',
 			'type'    => 'textarea',
 		),
 		'hero_primary_button' => array(

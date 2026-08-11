@@ -33,7 +33,7 @@ if ( ! $ticker_items ) {
 					<?php echo 1 === $index ? '<span>' . esc_html( $line ) . '</span>' : esc_html( $line ); ?><?php echo $index < count( $hero_title_lines ) - 1 ? '<br>' : ''; ?>
 				<?php endforeach; ?>
 			</h1>
-			<p class="hero-description"><?php echo esc_html( get_theme_mod( 'spray_nova_hero_text', 'Sprays, rotuladores y ceras seleccionados para que tu idea llegue del boceto al muro.' ) ); ?></p>
+			<p class="hero-description"><?php echo esc_html( get_theme_mod( 'spray_nova_hero_text', 'Sprays, markers y material para graffiti.' ) ); ?></p>
 			<div class="hero-actions">
 				<a class="button button-dark" href="<?php echo esc_url( $shop_url ); ?>"><?php echo esc_html( get_theme_mod( 'spray_nova_hero_primary_button', 'Ver productos' ) ); ?></a>
 				<a class="text-link" href="<?php echo esc_url( $hero_secondary_target ); ?>"><?php echo esc_html( get_theme_mod( 'spray_nova_hero_secondary_button', 'Explorar categorías' ) ); ?></a>
@@ -44,7 +44,7 @@ if ( ! $ticker_items ) {
 			<p class="outline-word">NOVA</p>
 			<div class="spray-can spray-purple"><span class="can-cap"></span><span class="can-label">SN</span><small>400 ML</small></div>
 			<div class="spray-can spray-black"><span class="can-cap"></span><span class="can-label">SN</span><small>400 ML</small></div>
-			<img src="<?php echo esc_url( spray_nova_image( 'isotipo.jpg' ) ); ?>" alt="">
+			<img src="<?php echo esc_url( spray_nova_image( 'isotipo.jpg' ) ); ?>" alt="" width="1280" height="1280" loading="eager" decoding="async">
 		</div>
 	</section>
 
@@ -86,7 +86,7 @@ if ( ! $ticker_items ) {
 						<span class="category-number"><?php echo esc_html( $category['number'] ); ?></span>
 						<span class="category-visual<?php echo $image_id ? ' has-image' : ''; ?>">
 							<?php if ( $image_id ) : ?>
-								<?php echo wp_get_attachment_image( $image_id, 'large', false, array( 'class' => 'category-image', 'alt' => '', 'sizes' => '(max-width: 700px) 100vw, 33vw' ) ); ?>
+								<?php echo wp_get_attachment_image( $image_id, 'large', false, array( 'class' => 'category-image', 'sizes' => '(max-width: 700px) 100vw, 33vw', 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
 							<?php else : ?>
 								<?php echo wp_kses_post( $category['visual'] ); ?>
 							<?php endif; ?>

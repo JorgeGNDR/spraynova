@@ -22,7 +22,7 @@
 		<?php if ( has_custom_logo() ) : ?>
 			<?php echo wp_kses_post( wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full', false, array( 'class' => 'custom-logo' ) ) ); ?>
 		<?php else : ?>
-			<img src="<?php echo esc_url( spray_nova_image( 'isotipo.jpg' ) ); ?>" alt="">
+			<img src="<?php echo esc_url( spray_nova_image( 'isotipo.jpg' ) ); ?>" alt="" width="1280" height="1280" decoding="async">
 		<?php endif; ?>
 		<span><?php bloginfo( 'name' ); ?></span>
 	</a>

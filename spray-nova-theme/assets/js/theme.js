@@ -303,11 +303,13 @@
         minus.type = "button";
         minus.className = "spray-simple-qty-minus";
         minus.textContent = "-";
+        minus.setAttribute("aria-label", "Reducir cantidad");
 
         const plus = document.createElement("button");
         plus.type = "button";
         plus.className = "spray-simple-qty-plus";
         plus.textContent = "+";
+        plus.setAttribute("aria-label", "Aumentar cantidad");
 
         quantity.prepend(minus);
         quantity.append(plus);
