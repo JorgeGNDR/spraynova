@@ -97,6 +97,28 @@ function spray_nova_assets() {
 add_action( 'wp_enqueue_scripts', 'spray_nova_assets' );
 
 /**
+ * Use the dog logo from the site header as a favicon until a Site Icon is
+ * selected in WordPress. A configured Site Icon always takes priority.
+ */
+function spray_nova_favicon() {
+	if ( has_site_icon() ) {
+		return;
+	}
+
+	$custom_logo_id = absint( get_theme_mod( 'custom_logo', 0 ) );
+	$favicon_url    = $custom_logo_id ? wp_get_attachment_image_url( $custom_logo_id, 'full' ) : '';
+
+	if ( ! $favicon_url ) {
+		$favicon_url = spray_nova_image( 'isotipo.jpg' );
+	}
+	?>
+	<link rel="icon" href="<?php echo esc_url( $favicon_url ); ?>">
+	<link rel="apple-touch-icon" href="<?php echo esc_url( $favicon_url ); ?>">
+	<?php
+}
+add_action( 'wp_head', 'spray_nova_favicon', 2 );
+
+/**
  * Return a bundled image URL.
  *
  * @param string $filename Image filename.

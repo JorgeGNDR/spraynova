@@ -1545,7 +1545,7 @@ img {
   }
 
   .category-card {
-    min-height: 190px;
+    min-height: clamp(270px, 82vw, 360px);
     padding: 20px;
     border-right: 0;
     border-bottom: 1px solid var(--ink);
@@ -1591,6 +1591,10 @@ img {
   .category-wax .category-visual,
   .category-sprays .category-visual {
     bottom: 52px;
+  }
+
+  .category-card .category-image {
+    object-position: center;
   }
 
   .product-filters {
@@ -1713,10 +1717,6 @@ img {
 
   .ticker {
     font-size: 38px;
-  }
-
-  .category-card {
-    min-height: 178px;
   }
 
   .product-card-visual {
