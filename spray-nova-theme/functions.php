@@ -266,6 +266,36 @@ function spray_nova_ensure_contact_page() {
 add_action( 'admin_init', 'spray_nova_ensure_contact_page' );
 
 /**
+ * Seed useful category copy once while keeping WooCommerce as the source of
+ * truth. Existing descriptions are never overwritten and the generated copy
+ * remains fully editable from Products > Categories.
+ */
+function spray_nova_seed_product_category_descriptions() {
+	$seed_option = 'spray_nova_category_descriptions_seeded_1_3_40';
+	if ( ! current_user_can( 'manage_woocommerce' ) || get_option( $seed_option ) || ! taxonomy_exists( 'product_cat' ) ) {
+		return;
+	}
+
+	$descriptions = array(
+		'sprays'      => 'Sprays para graffiti en distintos formatos, presiones, acabados y colores. Elige la lata que mejor se adapte a trazos rápidos, rellenos, detalles y trabajos sobre diferentes superficies.',
+		'rotuladores' => 'Markers y rotuladores para graffiti pensados para tags, contornos y detalles. Consulta las características de cada modelo para elegir el formato adecuado a tu forma de pintar.',
+		'ceras'       => 'Ceras y pintura sólida para marcar sobre superficies donde un rotulador convencional puede no ser suficiente. Una opción compacta y resistente para realizar trazos directos.',
+	);
+
+	foreach ( $descriptions as $slug => $description ) {
+		$term = get_term_by( 'slug', $slug, 'product_cat' );
+		if ( ! $term || is_wp_error( $term ) || '' !== trim( (string) $term->description ) ) {
+			continue;
+		}
+
+		wp_update_term( $term->term_id, 'product_cat', array( 'description' => $description ) );
+	}
+
+	update_option( $seed_option, 1, false );
+}
+add_action( 'admin_init', 'spray_nova_seed_product_category_descriptions' );
+
+/**
  * Process the simple contact form and send it to the WordPress admin email.
  */
 function spray_nova_handle_contact_form() {
@@ -359,7 +389,12 @@ function spray_nova_shop_intro() {
 		return;
 	}
 
-	echo '<p class="spray-shop-intro">' . esc_html__( 'Sprays, markers, ceras y material seleccionado para graffiti.', 'spray-nova' ) . '</p>';
+	$description = get_theme_mod(
+		'spray_nova_shop_description',
+		'Sprays, markers, ceras y material seleccionado para graffiti. Compara formatos, presiones y acabados para encontrar la herramienta adecuada para cada trabajo.'
+	);
+
+	echo '<p class="spray-shop-intro">' . esc_html( $description ) . '</p>';
 }
 
 /**

@@ -64,6 +64,7 @@ if ( ! $ticker_items ) {
 				<div>
 					<p class="eyebrow"><?php echo esc_html( get_theme_mod( 'spray_nova_categories_kicker', 'Encuentra tu herramienta' ) ); ?></p>
 					<h2><?php echo esc_html( get_theme_mod( 'spray_nova_categories_title', 'COMPRA POR CATEGORÍA' ) ); ?></h2>
+					<p class="section-description"><?php echo esc_html( get_theme_mod( 'spray_nova_categories_description', 'Explora sprays, rotuladores y ceras para distintas superficies, estilos y formas de trabajar.' ) ); ?></p>
 				</div>
 				<a class="text-link" href="<?php echo esc_url( $shop_url ); ?>"><?php esc_html_e( 'Ver todo', 'spray-nova' ); ?></a>
 			</div>
@@ -105,6 +106,7 @@ if ( ! $ticker_items ) {
 				<div>
 					<p class="eyebrow" id="novedades"><?php echo esc_html( get_theme_mod( 'spray_nova_products_kicker', 'Lo último en llegar' ) ); ?></p>
 					<h2><?php echo esc_html( get_theme_mod( 'spray_nova_products_title', 'PRODUCTOS DESTACADOS' ) ); ?></h2>
+					<p class="section-description"><?php echo esc_html( get_theme_mod( 'spray_nova_products_description', 'Una selección de material para graffiti con formatos, acabados y colores para cada proyecto.' ) ); ?></p>
 				</div>
 				<div class="product-filters" aria-label="<?php esc_attr_e( 'Filtrar productos', 'spray-nova' ); ?>">
 					<button class="active" type="button" data-filter="todos"><?php esc_html_e( 'Todos', 'spray-nova' ); ?></button>

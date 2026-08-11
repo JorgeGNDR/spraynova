@@ -76,6 +76,11 @@ function spray_nova_customize_register( $wp_customize ) {
 			'label'   => __( 'Título de categorías', 'spray-nova' ),
 			'default' => 'COMPRA POR CATEGORÍA',
 		),
+		'categories_description' => array(
+			'label'   => __( 'Descripción breve de categorías', 'spray-nova' ),
+			'default' => 'Explora sprays, rotuladores y ceras para distintas superficies, estilos y formas de trabajar.',
+			'type'    => 'textarea',
+		),
 		'category_sprays_label' => array(
 			'label'   => __( 'Nombre categoría Sprays', 'spray-nova' ),
 			'default' => 'SPRAYS',
@@ -100,6 +105,16 @@ function spray_nova_customize_register( $wp_customize ) {
 		'products_title' => array(
 			'label'   => __( 'Título de productos', 'spray-nova' ),
 			'default' => 'PRODUCTOS DESTACADOS',
+		),
+		'products_description' => array(
+			'label'   => __( 'Descripción breve de productos destacados', 'spray-nova' ),
+			'default' => 'Una selección de material para graffiti con formatos, acabados y colores para cada proyecto.',
+			'type'    => 'textarea',
+		),
+		'shop_description' => array(
+			'label'   => __( 'Descripción breve de la tienda', 'spray-nova' ),
+			'default' => 'Sprays, markers, ceras y material seleccionado para graffiti. Compara formatos, presiones y acabados para encontrar la herramienta adecuada para cada trabajo.',
+			'type'    => 'textarea',
 		),
 		'show_newsletter' => array(
 			'label'   => __( 'Mostrar newsletter', 'spray-nova' ),
