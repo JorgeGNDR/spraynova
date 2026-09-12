@@ -572,11 +572,11 @@ function spray_nova_infer_color_family( $label, $hex = '' ) {
 		'grises'    => array( 'grey', 'gray', 'gris', 'plata', 'silver', 'chrome', 'cromo' ),
 		'rojos'     => array( 'red', 'rojo', 'burdeos', 'granate', 'magenta' ),
 		'naranjas'  => array( 'orange', 'naranja', 'mandarina' ),
-		'amarillos' => array( 'yellow', 'amarillo', 'ocre' ),
+		'amarillos' => array( 'yellow', 'amarillo', 'ocre', 'oro', 'gold' ),
 		'verdes'    => array( 'green', 'verde', 'oliva', 'lime' ),
 		'azules'    => array( 'blue', 'azul', 'cyan', 'cian' ),
 		'morados'   => array( 'purple', 'violet', 'violeta', 'morado', 'lila' ),
-		'marrones'  => array( 'brown', 'marron', 'marrón', 'siena', 'tierra' ),
+		'marrones'  => array( 'brown', 'marron', 'marrón', 'siena', 'tierra', 'cobre', 'copper' ),
 		'rosas'     => array( 'pink', 'rosa', 'fucsia' ),
 	);
 
@@ -614,6 +614,25 @@ function spray_nova_family_hex( $family ) {
 	);
 
 	return isset( $colors[ $family ] ) ? $colors[ $family ] : $colors['otros'];
+}
+
+/**
+ * Return exact fallback colors for named metallic finishes.
+ *
+ * @param string $label Variation color label.
+ * @return string
+ */
+function spray_nova_named_color_hex( $label ) {
+	$text = strtolower( remove_accents( $label ) );
+
+	if ( false !== strpos( $text, 'cobre' ) || false !== strpos( $text, 'copper' ) ) {
+		return '#b87333';
+	}
+	if ( false !== strpos( $text, 'oro' ) || false !== strpos( $text, 'gold' ) ) {
+		return '#d4af37';
+	}
+
+	return '';
 }
 
 /**
@@ -783,6 +802,9 @@ function spray_nova_spray_color_selector() {
 
 		if ( ! $code ) {
 			$code = $variation->get_sku() ? $variation->get_sku() : $label;
+		}
+		if ( ! $hex ) {
+			$hex = spray_nova_named_color_hex( $label );
 		}
 		if ( ! $family ) {
 			$family = spray_nova_infer_color_family( $label, $hex );

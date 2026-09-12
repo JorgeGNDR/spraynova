@@ -2747,11 +2747,17 @@ img {
   line-height: 1.1;
 }
 
-.spray-variation-option:hover,
-.spray-variation-option.is-selected {
+.spray-variation-option:hover {
   background: var(--purple-pale);
   border-color: var(--ink);
   box-shadow: 2px 2px 0 var(--purple);
+  transform: translateY(-1px);
+}
+
+.spray-variation-option.is-selected {
+  background: var(--purple);
+  border-color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
   transform: translateY(-1px);
 }
 
@@ -2981,10 +2987,16 @@ img {
   transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
-.spray-color-card:hover,
-.spray-color-card.is-selected {
+.spray-color-card:hover {
   border-color: var(--ink);
   box-shadow: 5px 6px 0 rgba(17, 17, 17, 0.08);
+  transform: translateY(-2px);
+}
+
+.spray-color-card.is-selected {
+  background: var(--purple);
+  border-color: var(--ink);
+  box-shadow: 5px 6px 0 var(--ink);
   transform: translateY(-2px);
 }
 
