@@ -39,12 +39,19 @@ if ( ! $ticker_items ) {
 				<a class="text-link" href="<?php echo esc_url( $hero_secondary_target ); ?>"><?php echo esc_html( get_theme_mod( 'spray_nova_hero_secondary_button', 'Explorar categorías' ) ); ?></a>
 			</div>
 		</div>
-		<div class="hero-art" aria-hidden="true">
-			<div class="paint-blob"></div>
-			<p class="outline-word">NOVA</p>
-			<div class="spray-can spray-purple"><span class="can-cap"></span><span class="can-label">SN</span><small>400 ML</small></div>
-			<div class="spray-can spray-black"><span class="can-cap"></span><span class="can-label">SN</span><small>400 ML</small></div>
-			<img src="<?php echo esc_url( spray_nova_image( 'isotipo.jpg' ) ); ?>" alt="" width="1280" height="1280" loading="eager" decoding="async">
+		<div class="hero-art hero-art-video" aria-hidden="true">
+			<video
+				class="hero-video"
+				autoplay
+				muted
+				loop
+				playsinline
+				preload="metadata"
+				poster="<?php echo esc_url( spray_nova_image( 'hero-nbq-poster.jpg' ) ); ?>"
+				tabindex="-1"
+			>
+				<source src="<?php echo esc_url( get_template_directory_uri() . '/assets/video/hero-nbq.mp4' ); ?>" type="video/mp4">
+			</video>
 		</div>
 	</section>
 

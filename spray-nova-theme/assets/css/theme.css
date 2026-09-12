@@ -364,6 +364,22 @@ img {
   background: var(--purple);
 }
 
+.hero-art-video {
+  overflow: hidden;
+  background: #111;
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
 .paint-blob {
   position: absolute;
   top: -9%;
