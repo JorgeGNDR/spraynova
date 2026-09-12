@@ -3873,3 +3873,13 @@ img {
   .home .product-filters button { padding: 8px 12px; font-size: 11px; }
   .home .category-card { min-height: 260px; }
 }
+
+/* Keep the heading inside its column even with a wider custom video. */
+.home .hero-copy { container-type: inline-size; padding-left: clamp(20px,4vw,64px); padding-right: clamp(20px,3vw,48px); }
+.home .hero h1 { font-size: clamp(32px,15cqi,114px); overflow-wrap: anywhere; }
+.home .hero-actions { flex-wrap: wrap; gap: 16px; }
+form.variations_form .spray-variation-option[aria-selected="true"] {
+  background: #c5a1e8; color: #111; border: 2px solid #111; box-shadow: 3px 3px 0 #111;
+}
+form.variations_form .spray-variation-option[aria-selected="true"] strong::after { content: " ✓"; }
+.spray-selected-color-label { margin: 16px 0 0; font-size: 15px; font-weight: 700; color: #111; }

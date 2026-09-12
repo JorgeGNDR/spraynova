@@ -260,15 +260,23 @@
           button.innerHTML = `<span style="--variation-color:${variationHex(form, attributeName, option.value, option.textContent)}"></span><strong></strong>`;
           button.querySelector("strong").textContent = option.textContent;
           button.addEventListener("click", () => {
-            select.value = option.value;
+            select.value = button.dataset.value;
             $(select).trigger("change");
+            sync();
           });
           picker.append(button);
         });
 
         select.insertAdjacentElement("afterend", picker);
 
+        const selectionLabel = document.createElement("p");
+        selectionLabel.className = "spray-selected-color-label";
+        selectionLabel.setAttribute("aria-live", "polite");
+        picker.after(selectionLabel);
+
         const sync = () => {
+          const currentOption = select.options[select.selectedIndex];
+          selectionLabel.textContent = select.value && currentOption ? `Seleccionado: ${currentOption.textContent}` : "Elige un color";
           picker.querySelectorAll(".spray-variation-option").forEach((button) => {
             const selected = button.dataset.value === select.value;
             button.classList.toggle("is-selected", selected);
