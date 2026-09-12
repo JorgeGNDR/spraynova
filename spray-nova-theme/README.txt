@@ -18,7 +18,7 @@ Crea estas categorías de producto con estos slugs exactos:
 * Rotuladores: rotuladores
 * Ceras: ceras
 
-Los filtros de la portada utilizan esos slugs. Marca productos como "Destacados" para controlar los que aparecen en la sección Productos destacados. Si no hay destacados, se muestran los productos más recientes.
+Los filtros de la portada utilizan esos slugs. Marca productos como "Destacados" para controlar los que aparecen en la sección Productos destacados. También puedes elegir productos concretos por ID desde el Personalizador.
 
 == Menús ==
 
@@ -33,16 +33,19 @@ Para una navegación mínima se recomienda usar solo Tienda, Categorías y Conta
 
 == Personalización ==
 
-En Apariencia > Personalizar > Spray Nova puedes editar:
+En Apariencia > Personalizar > Portada Spray Nova puedes editar:
 
 * Barra superior de envío.
-* Textos de portada.
-* Imágenes de las categorías de portada.
+* Orden de productos y categorías, espaciado y tamaño de títulos.
+* Vídeo de portada, imagen previa, encuadre, posición y alturas.
+* Textos y botones de portada.
+* Fuente, cantidad, columnas, proporción y selección manual de productos.
+* Nombre, slug, número, orden, tamaño e imágenes de las categorías.
 * Enlaces de Instagram y TikTok.
 
 Las imágenes de categorías se pueden configurar de dos maneras:
 
-1. En Apariencia > Personalizar > Spray Nova selecciona una imagen para Sprays, Rotuladores o Ceras.
+1. En Apariencia > Personalizar > Portada Spray Nova > Categorías selecciona una imagen para Sprays, Rotuladores o Ceras.
 2. Como alternativa, asigna la miniatura nativa en Productos > Categorías. La portada la utilizará cuando no exista una imagen específica en el personalizador.
 
 Si ninguna de las dos está configurada, se conserva la ilustración original del tema.
@@ -96,4 +99,4 @@ Si todavía no controlas stock, no actives "Gestionar inventario" en las variaci
 
 Si más adelante quieres controlar stock, activa "Gestionar inventario" por variación. Cada color descontará sus unidades de forma independiente.
 
-Version: 1.3.35
+Version: 1.3.44

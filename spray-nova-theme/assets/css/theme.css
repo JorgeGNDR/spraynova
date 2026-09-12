@@ -821,6 +821,15 @@ img {
   gap: 20px;
 }
 
+.home-products-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 32px;
+  border: 1px solid var(--line);
+  color: #514e49;
+  text-align: center;
+}
+
 .product-card.hidden {
   display: none;
 }
