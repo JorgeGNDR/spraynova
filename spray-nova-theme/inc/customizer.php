@@ -330,7 +330,7 @@ function spray_nova_customize_register( $wp_customize ) {
 		'spray_nova_hero_media_width'      => array( 'section' => 'spray_nova_hero', 'label' => __( 'Anchura del vídeo en escritorio (%)', 'spray-nova' ), 'default' => 55, 'min' => 40, 'max' => 70, 'step' => 1 ),
 		'spray_nova_hero_min_height'       => array( 'section' => 'spray_nova_hero', 'label' => __( 'Altura de portada en escritorio (px)', 'spray-nova' ), 'default' => 680, 'min' => 480, 'max' => 960, 'step' => 10 ),
 		'spray_nova_hero_mobile_height'    => array( 'section' => 'spray_nova_hero', 'label' => __( 'Altura del vídeo en móvil (px)', 'spray-nova' ), 'default' => 360, 'min' => 240, 'max' => 700, 'step' => 10 ),
-		'spray_nova_products_count'        => array( 'section' => 'spray_nova_products', 'label' => __( 'Número de productos', 'spray-nova' ), 'default' => 8, 'min' => 1, 'max' => 12, 'step' => 1 ),
+		'spray_nova_products_count'        => array( 'section' => 'spray_nova_products', 'label' => __( 'Número de productos', 'spray-nova' ), 'default' => 4, 'min' => 1, 'max' => 12, 'step' => 1 ),
 		'spray_nova_products_columns'      => array( 'section' => 'spray_nova_products', 'label' => __( 'Columnas de productos en escritorio', 'spray-nova' ), 'default' => 4, 'min' => 2, 'max' => 4, 'step' => 1 ),
 		'spray_nova_category_card_height'  => array( 'section' => 'spray_nova_categories', 'label' => __( 'Altura de tarjetas de categoría (px)', 'spray-nova' ), 'default' => 430, 'min' => 280, 'max' => 700, 'step' => 10 ),
 	);

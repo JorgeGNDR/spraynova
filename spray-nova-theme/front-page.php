@@ -159,7 +159,7 @@ if ( ! $ticker_items ) {
 			<div class="product-grid">
 				<?php
 				$products      = array();
-				$product_count = $clamp_theme_mod( 'spray_nova_products_count', 8, 1, 12 );
+				$product_count = $clamp_theme_mod( 'spray_nova_products_count', 4, 1, 12 );
 				if ( class_exists( 'WooCommerce' ) ) {
 					$manual_ids = array_filter( array_map( 'absint', explode( ',', get_theme_mod( 'spray_nova_products_ids', '' ) ) ) );
 
