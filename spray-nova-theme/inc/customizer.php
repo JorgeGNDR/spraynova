@@ -58,6 +58,7 @@ function spray_nova_customize_register( $wp_customize ) {
 	}
 
 	$fields = array(
+		'show_announcement' => array( 'label' => __( 'Mostrar barra de anuncios', 'spray-nova' ), 'default' => true, 'type' => 'checkbox' ),
 		'announcement' => array(
 			'label'   => __( 'Barra de anuncio', 'spray-nova' ),
 			'default' => 'Envío gratis desde 60 € · Entrega 24/48 h en península',
@@ -325,7 +326,7 @@ function spray_nova_customize_register( $wp_customize ) {
 	}
 
 	$range_controls = array(
-		'spray_nova_section_padding'       => array( 'section' => 'spray_nova_general', 'label' => __( 'Espaciado vertical de las secciones (px)', 'spray-nova' ), 'default' => 110, 'min' => 50, 'max' => 180, 'step' => 5 ),
+		'spray_nova_section_padding'       => array( 'section' => 'spray_nova_general', 'label' => __( 'Espaciado vertical de las secciones (px)', 'spray-nova' ), 'default' => 56, 'min' => 20, 'max' => 180, 'step' => 5 ),
 		'spray_nova_section_title_size'    => array( 'section' => 'spray_nova_general', 'label' => __( 'Tamaño máximo de títulos (px)', 'spray-nova' ), 'default' => 70, 'min' => 42, 'max' => 100, 'step' => 2 ),
 		'spray_nova_hero_media_width'      => array( 'section' => 'spray_nova_hero', 'label' => __( 'Anchura del vídeo en escritorio (%)', 'spray-nova' ), 'default' => 55, 'min' => 40, 'max' => 70, 'step' => 1 ),
 		'spray_nova_hero_min_height'       => array( 'section' => 'spray_nova_hero', 'label' => __( 'Altura de portada en escritorio (px)', 'spray-nova' ), 'default' => 680, 'min' => 480, 'max' => 960, 'step' => 10 ),

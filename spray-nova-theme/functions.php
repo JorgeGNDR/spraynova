@@ -83,7 +83,7 @@ function spray_nova_assets() {
 		$clamp = static function ( $value, $minimum, $maximum ) {
 			return max( $minimum, min( $maximum, absint( $value ) ) );
 		};
-		$section_padding = $clamp( get_theme_mod( 'spray_nova_section_padding', 110 ), 50, 180 );
+		$section_padding = $clamp( get_theme_mod( 'spray_nova_section_padding', 56 ), 20, 180 );
 		$title_size      = $clamp( get_theme_mod( 'spray_nova_section_title_size', 70 ), 42, 100 );
 		$video_width     = $clamp( get_theme_mod( 'spray_nova_hero_media_width', 55 ), 40, 70 );
 		$hero_height     = $clamp( get_theme_mod( 'spray_nova_hero_min_height', 680 ), 480, 960 );
@@ -100,7 +100,7 @@ function spray_nova_assets() {
 		$copy_width      = 100 - $video_width;
 
 		$custom_css = sprintf(
-			'.home .hero{grid-template-columns:%1$dfr %2$dfr;min-height:%3$dpx}.home .hero-art{min-height:%3$dpx}.home .hero-video{object-fit:%4$s;object-position:%5$s}.home .category-image{object-fit:%6$s;object-position:%7$s}.home .product-image{aspect-ratio:%8$s}.home .section h2,.home .newsletter h2{font-size:clamp(38px,4.8vw,%9$dpx)}@media(min-width:1101px){.home .product-grid{grid-template-columns:repeat(%10$d,minmax(0,1fr))}}@media(min-width:701px){.home .section{padding-top:%11$dpx;padding-bottom:%11$dpx}.home .category-card{min-height:%12$dpx}}@media(max-width:700px){.home .hero-art{min-height:%13$dpx}}',
+			'@media(min-width:721px){.home .hero{grid-template-columns:minmax(0,%1$dfr) minmax(0,%2$dfr);min-height:%3$dpx}.home .hero-art{min-height:%3$dpx}}.home .hero-video{object-fit:%4$s;object-position:%5$s}.home .category-image{object-fit:%6$s;object-position:%7$s}.home .product-image{aspect-ratio:%8$s}.home .section h2,.home .newsletter h2{font-size:clamp(38px,4.8vw,%9$dpx)}@media(min-width:1001px){.home .product-grid{grid-template-columns:repeat(%10$d,minmax(0,1fr))}}@media(min-width:721px){.home .section{padding-top:%11$dpx;padding-bottom:%11$dpx}.home .category-card{min-height:%12$dpx}}@media(max-width:720px){.home .hero{min-height:0}.home .hero-art{min-height:%13$dpx}.home .section h2,.home .newsletter h2{font-size:clamp(28px,8vw,40px)}}',
 			$copy_width,
 			$video_width,
 			$hero_height,
