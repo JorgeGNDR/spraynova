@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { readFile } from "node:fs/promises";
+import { request as httpsRequest } from "node:https";
 import { basename, extname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -46,8 +47,30 @@ function basicAuth(user, password) {
 }
 
 async function apiRequest(url, options = {}) {
-  const response = await fetch(url, options);
-  const text = await response.text();
+  const originIp = process.env.SPRAYNOVA_ORIGIN_IP?.trim();
+  const response = await new Promise((resolveRequest, rejectRequest) => {
+    const request = httpsRequest(url, {
+      method: options.method || "GET",
+      headers: options.headers,
+      lookup: originIp
+        ? (_hostname, lookupOptions, callback) => {
+            if (lookupOptions?.all) callback(null, [{ address: originIp, family: 4 }]);
+            else callback(null, originIp, 4);
+          }
+        : undefined,
+    }, (incoming) => {
+      const chunks = [];
+      incoming.on("data", (chunk) => chunks.push(chunk));
+      incoming.on("end", () => resolveRequest({
+        ok: incoming.statusCode >= 200 && incoming.statusCode < 300,
+        status: incoming.statusCode,
+        text: Buffer.concat(chunks).toString("utf8"),
+      }));
+    });
+    request.on("error", rejectRequest);
+    request.end(options.body);
+  });
+  const text = response.text;
   let body = null;
   if (text) {
     try {
