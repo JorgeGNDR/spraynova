@@ -275,16 +275,12 @@
             button.setAttribute("aria-selected", String(selected));
           });
         };
-        select.addEventListener("change", sync);
+        $(select).on("change", sync);
+        $(form).on("woocommerce_update_variation_values found_variation reset_data", sync);
         sync();
       });
 
-      $(form).on("reset_data", () => {
-        form.querySelectorAll(".spray-variation-option").forEach((button) => {
-          button.classList.remove("is-selected");
-          button.setAttribute("aria-selected", "false");
-        });
-      });
+
     });
   }
 
