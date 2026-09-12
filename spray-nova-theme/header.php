@@ -13,9 +13,12 @@
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
+<?php $announcement = trim( (string) get_theme_mod( 'spray_nova_announcement', '' ) ); ?>
+<?php if ( get_theme_mod( 'spray_nova_show_announcement', true ) && '' !== $announcement ) : ?>
 <div class="announcement">
-	<p><?php echo esc_html( get_theme_mod( 'spray_nova_announcement', 'Envío gratis desde 60 € · Entrega 24/48 h en península' ) ); ?></p>
+	<p><?php echo esc_html( $announcement ); ?></p>
 </div>
+<?php endif; ?>
 
 <header class="site-header">
 	<a class="brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php esc_attr_e( 'Spray Nova, inicio', 'spray-nova' ); ?>">
