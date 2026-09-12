@@ -41,9 +41,9 @@
       button.classList.toggle("active", button.dataset.filter === filter);
     });
 
-    productCards.forEach((card, index) => {
+    productCards.forEach((card) => {
       const categories = (card.dataset.categories || "").split(" ");
-      const visible = filter === "todos" ? index < 4 : categories.includes(filter);
+      const visible = filter === "todos" || categories.includes(filter);
       card.classList.toggle("hidden", !visible);
       if (visible) visibleProducts += 1;
     });
@@ -212,7 +212,8 @@
       [["blanco", "white"], "#f8f6f0"],
       [["gris", "grey", "gray"], "#969696"],
       [["plata", "silver"], "#b7b9bc"],
-      [["oro", "gold"], "#c49a45"],
+      [["oro", "gold"], "#d4af37"],
+      [["cobre", "copper"], "#b87333"],
       [["amarillo", "yellow"], "#f2cf35"],
       [["naranja", "orange"], "#ef7d22"],
       [["rojo", "red"], "#d33b35"],
