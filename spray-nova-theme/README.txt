@@ -99,4 +99,6 @@ Si todavía no controlas stock, no actives "Gestionar inventario" en las variaci
 
 Si más adelante quieres controlar stock, activa "Gestionar inventario" por variación. Cada color descontará sus unidades de forma independiente.
 
-Version: 1.3.44
+Version: 1.4.0
+
+La newsletter solo se muestra al configurar el shortcode de un formulario de suscripción conectado.

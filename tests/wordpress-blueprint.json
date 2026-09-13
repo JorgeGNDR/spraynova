@@ -1,0 +1,17 @@
+{
+  "steps": [
+    { "step": "activateTheme", "themeFolderName": "spray-nova-theme" },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "woocommerce"
+      },
+      "options": { "activate": true }
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php\nrequire '/wordpress/wp-load.php';\nupdate_option('woocommerce_store_address','Test');\nupdate_option('woocommerce_default_country','ES');\nupdate_option('woocommerce_currency','EUR');\nupdate_option('woocommerce_coming_soon','no');\nWC_Install::create_pages();\n$product = new WC_Product_Variable();\n$product->set_name('Dripper de prueba');\n$product->set_slug('dripper-prueba');\n$product->set_status('publish');\n$product->set_featured(true);\n$product->set_description('Producto de prueba local.');\n$attribute = new WC_Product_Attribute();\n$attribute->set_name('Color');\n$attribute->set_options(array('Negro','Rojo','Azul','Verde','Rosa','Violeta'));\n$attribute->set_visible(true); $attribute->set_variation(true);\n$product->set_attributes(array($attribute));\n$product->save();\nforeach(array('Negro'=>'#000000','Rojo'=>'#982626','Azul'=>'#1d3153','Verde'=>'#244130','Rosa'=>'#791442','Violeta'=>'#452463') as $name=>$hex){\n$v=new WC_Product_Variation(); $v->set_parent_id($product->get_id()); $v->set_attributes(array('color'=>$name)); $v->set_regular_price('6.50'); $v->set_status('publish'); $v->update_meta_data('_spray_nova_color_hex',$hex); $v->save();\n}\nWC_Product_Variable::sync($product->get_id());\nupdate_option('permalink_structure','/%postname%/'); flush_rewrite_rules();\n"
+    }
+  ]
+}

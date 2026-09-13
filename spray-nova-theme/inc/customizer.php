@@ -164,9 +164,10 @@ function spray_nova_customize_register( $wp_customize ) {
 		),
 		'show_newsletter' => array(
 			'label'   => __( 'Mostrar newsletter', 'spray-nova' ),
-			'default' => true,
+			'default' => false,
 			'type'    => 'checkbox',
 		),
+		'newsletter_shortcode' => array( 'label' => __( 'Shortcode del formulario de suscripción', 'spray-nova' ), 'default' => '', 'description' => __( 'La sección solo aparece con un formulario conectado.', 'spray-nova' ) ),
 		'newsletter_kicker' => array(
 			'label'   => __( 'Antetítulo newsletter', 'spray-nova' ),
 			'default' => 'Sin spam. Solo color.',
@@ -174,14 +175,6 @@ function spray_nova_customize_register( $wp_customize ) {
 		'newsletter_title' => array(
 			'label'   => __( 'Título newsletter', 'spray-nova' ),
 			'default' => 'NOVEDADES EN TU BANDEJA',
-		),
-		'newsletter_placeholder' => array(
-			'label'   => __( 'Placeholder email newsletter', 'spray-nova' ),
-			'default' => 'Tu email',
-		),
-		'newsletter_button' => array(
-			'label'   => __( 'Botón newsletter', 'spray-nova' ),
-			'default' => 'Suscribirme',
 		),
 		'instagram_url' => array(
 			'label'   => __( 'URL de Instagram', 'spray-nova' ),
